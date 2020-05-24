@@ -1,0 +1,43 @@
+{
+  "activeColor": "#09bb07",
+  "inActiveColor": "#666666",
+  "selectTab": 0,
+  "tabs": [
+    {
+      "size": 24,
+      "enable": true,
+      "index": 0,
+      "pageUrl": "main/tabs/home",
+      "title": "首页"
+    },
+    {
+      "size": 24,
+      "enable": true,
+      "index": 1,
+      "pageUrl": "main/tabs/knowledge",
+      "title": "知识体系"
+    },
+    {
+      "size": 40,
+      "enable": true,
+      "index": 2,
+      "tintColor": "#ff678f",
+      "pageUrl": "main/tabs/project",
+      "title": "项目"
+    },
+    {
+      "size": 24,
+      "enable": true,
+      "index": 3,
+      "pageUrl": "main/tabs/nav",
+      "title": "导航"
+    },
+    {
+      "size": 24,
+      "enable": true,
+      "index": 4,
+      "pageUrl": "main/tabs/person",
+      "title": "我的"
+    }
+  ]
+}

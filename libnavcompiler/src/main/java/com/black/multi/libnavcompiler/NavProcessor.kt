@@ -168,7 +168,7 @@ class NavProcessor : AbstractProcessor() {
             jsonObject.addProperty("pageUrl", pageUrl)
             jsonObject.addProperty("clazzName", clazzName)
             jsonObject.addProperty("isFragment", isFragment)
-            destMap[clazzName] = jsonObject
+            destMap[pageUrl] = jsonObject
         }
 
     }

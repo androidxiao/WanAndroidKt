@@ -11,7 +11,7 @@ import com.black.multi.videosample.ui.base.ui.BaseFragment
  * Date: 2020/5/18 下午10:49
  * Description:
  */
-@FragmentDestination(pageUrl = "main/tab/project",asStartPage = false)
+@FragmentDestination(pageUrl = "main/tab/nav",asStartPage = false)
 class NavFragment : BaseFragment<FragmentNavBinding>() {
 
     override fun beforeInitView(savedInstanceState: Bundle?) {

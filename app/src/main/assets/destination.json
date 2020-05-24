@@ -1,1 +1,18 @@
-{"com.black.multi.videosample.fragment.HomeFragment":{"id":1323214861,"needLogin":false,"asStartPage":false,"pageUrl":"main/tab/home","clazzName":"com.black.multi.videosample.fragment.HomeFragment","isFragment":true},"com.black.multi.videosample.fragment.PersonFragment":{"id":40685417,"needLogin":false,"asStartPage":true,"pageUrl":"main/tab/person","clazzName":"com.black.multi.videosample.fragment.PersonFragment","isFragment":true}}
+{
+  "com.black.multi.videosample.fragment.HomeFragment": {
+    "id": 1323214861,
+    "needLogin": false,
+    "asStartPage": false,
+    "pageUrl": "main/tab/home",
+    "clazzName": "com.black.multi.videosample.fragment.HomeFragment",
+    "isFragment": true
+  },
+  "com.black.multi.videosample.fragment.PersonFragment": {
+    "id": 40685417,
+    "needLogin": false,
+    "asStartPage": true,
+    "pageUrl": "main/tab/person",
+    "clazzName": "com.black.multi.videosample.fragment.PersonFragment",
+    "isFragment": true
+  }
+}
