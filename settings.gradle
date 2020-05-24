@@ -1,0 +1,4 @@
+rootProject.name='VideoSample'
+include ':app'
+include ':libnavannotation'
+include ':libnavcompiler'
