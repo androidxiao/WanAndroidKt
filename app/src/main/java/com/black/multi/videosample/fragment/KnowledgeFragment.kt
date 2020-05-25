@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.black.multi.libnavannotation.FragmentDestination
 import com.black.multi.videosample.R
 import com.black.multi.videosample.databinding.FragmentKnowledgeBinding
-import com.black.multi.videosample.ui.base.ui.BaseFragment
+import com.black.multi.videosample.base.ui.BaseFragment
 
 /**
  * Created by wei.

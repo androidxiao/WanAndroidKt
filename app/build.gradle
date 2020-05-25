@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.black.multi.videosample"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -21,6 +21,30 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "params"
+
+    applicationVariants.all { variant ->
+
+        variant.outputs.all {
+            def fileName = outputFileName.replace(".apk",
+                    "-V${defaultConfig.versionName}.apk")
+
+            outputFileName = fileName
+        }
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
         }
     }
     

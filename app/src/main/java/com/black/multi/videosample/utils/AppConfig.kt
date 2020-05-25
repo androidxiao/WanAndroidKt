@@ -23,7 +23,7 @@ object AppConfig {
     fun getDestConfig(): HashMap<String, Destination>? {
         if (sDestConfig == null) {
             val content = parseFile("destination.json")
-            sDestConfig =getGson().fromJson<HashMap<String,Destination>>(content,object :TypeToken<HashMap<String,Destination>>(){}.type)
+            sDestConfig = getGson().fromJson<HashMap<String, Destination>>(content, object : TypeToken<HashMap<String, Destination>>() {}.type)
         }
         return sDestConfig
     }
@@ -31,35 +31,18 @@ object AppConfig {
     fun getBottomBarConfig(): BottomBar? {
         if (sBottomBar == null) {
             val content = parseFile("main_tabs_config.json")
-            sBottomBar = JSON.parseObject(content, BottomBar::class.java)
+            sBottomBar = getGson().fromJson<BottomBar>(content, object : TypeToken<BottomBar>() {}.type)
         }
         return sBottomBar
     }
 
-    fun getSofaTabConfig(): SofaTab? {
-        if (sSofaTab == null) {
-            val content = parseFile("sofa_tabs_config.json")
-            sSofaTab = JSON.parseObject(content, SofaTab::class.java)
-            Collections.sort(
-                sSofaTab.tabs,
-                Comparator<Any> { o1, o2 -> if (o1.index < o2.index) -1 else 1 })
-        }
-        return sSofaTab
+    fun getBottomBarFirstTitle():String{
+        return sBottomBar!!.tabs[0].title
     }
 
-    fun getFindTabConfig(): SofaTab? {
-        if (sFindTabConfig == null) {
-            val content = parseFile("find_tabs_config.json")
-            sFindTabConfig = JSON.parseObject(content, SofaTab::class.java)
-            Collections.sort(
-                sFindTabConfig.tabs,
-                Comparator<Any> { o1, o2 -> if (o1.index < o2.index) -1 else 1 })
-        }
-        return sFindTabConfig
-    }
 
     private fun parseFile(fileName: String): String {
-        val assets: AssetManager = AppGlobals.getApplication().getAssets()
+        val assets: AssetManager = AppGlobals.getApplication()!!.assets
         var `is`: InputStream? = null
         var br: BufferedReader? = null
         val builder = StringBuilder()

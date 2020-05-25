@@ -7,36 +7,36 @@
       "size": 24,
       "enable": true,
       "index": 0,
-      "pageUrl": "main/tabs/home",
+      "pageUrl": "main/tab/home",
       "title": "首页"
     },
     {
       "size": 24,
       "enable": true,
       "index": 1,
-      "pageUrl": "main/tabs/knowledge",
+      "pageUrl": "main/tab/knowledge",
       "title": "知识体系"
     },
     {
       "size": 40,
       "enable": true,
       "index": 2,
-      "tintColor": "#ff678f",
-      "pageUrl": "main/tabs/project",
-      "title": "项目"
+      "tintColor": "#09bb07",
+      "pageUrl": "main/tab/project",
+      "title": ""
     },
     {
       "size": 24,
       "enable": true,
       "index": 3,
-      "pageUrl": "main/tabs/nav",
+      "pageUrl": "main/tab/nav",
       "title": "导航"
     },
     {
       "size": 24,
       "enable": true,
       "index": 4,
-      "pageUrl": "main/tabs/person",
+      "pageUrl": "main/tab/person",
       "title": "我的"
     }
   ]

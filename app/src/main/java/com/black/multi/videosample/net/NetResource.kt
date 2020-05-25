@@ -12,7 +12,7 @@ import retrofit2.Response
 /**
  * Created by wei.
  * Date: 2020/5/23 下午12:38
- * Description:
+ * Description: 请求类
  */
 abstract class NetResource<T> {
 
@@ -29,10 +29,10 @@ abstract class NetResource<T> {
                     val errorBody = response.errorBody()?.string()
                     val code = response.code()
                     val message = response.message()
-                    emit(Resource.error(ExceptionHandle.handleException(code, message)))
+                    emit(Resource.error(ExceptionHandle.handleException(code, message),null))
                 }
             } catch (e: Exception) {
-                emit(Resource.error(ExceptionHandle.handleException(e)))
+                emit(Resource.error(ExceptionHandle.handleException(e),null))
             }
         }
     }

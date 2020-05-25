@@ -1,4 +1,4 @@
-package com.black.multi.videosample.ui.base.ui
+package com.black.multi.videosample.base.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

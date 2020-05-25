@@ -1,5 +1,9 @@
 package com.black.multi.videosample.api
 
+import com.black.multi.videosample.model.Banner
+import retrofit2.Response
+import retrofit2.http.GET
+
 
 /**
  * Created by wei.
@@ -8,5 +12,6 @@ package com.black.multi.videosample.api
  */
 interface IService {
 
-
+    @GET("banner/json")
+    suspend fun getBanner(): Response<ServiceResponse<List<Banner>>>
 }

@@ -1,8 +1,8 @@
 package com.black.multi.videosample.ui
 
 import androidx.lifecycle.LifecycleOwner
-import com.black.multi.videosample.ui.base.baseadapter.IRecycleViewCallback
-import com.black.multi.videosample.ui.base.baseadapter.SimpleBaseAdapter
+import com.black.multi.videosample.base.baseadapter.IRecycleViewCallback
+import com.black.multi.videosample.base.baseadapter.SimpleBaseAdapter
 
 /**
  * Created by wei.

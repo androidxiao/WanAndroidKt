@@ -1,4 +1,4 @@
-package com.black.multi.videosample.ui.base.ui
+package com.black.multi.videosample.base.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +25,7 @@ abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
 
     abstract fun getLayoutId():Int
 
-    fun initView(savedInstanceState: Bundle?){
+    open fun initView(savedInstanceState: Bundle?){
         performDataBinding()
     }
 

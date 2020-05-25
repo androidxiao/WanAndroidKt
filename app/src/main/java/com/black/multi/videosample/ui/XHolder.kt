@@ -2,9 +2,9 @@ package com.black.multi.videosample.ui
 
 import androidx.lifecycle.LifecycleOwner
 import com.black.multi.videosample.databinding.ItemRvBinding
-import com.black.multi.videosample.ui.base.baseadapter.BaseAdapter
-import com.black.multi.videosample.ui.base.baseadapter.IRecycleViewCallback
-import com.black.multi.videosample.ui.base.baseadapter.XViewHolder
+import com.black.multi.videosample.base.baseadapter.BaseAdapter
+import com.black.multi.videosample.base.baseadapter.IRecycleViewCallback
+import com.black.multi.videosample.base.baseadapter.XViewHolder
 
 /**
  * Created by wei.

@@ -15,7 +15,7 @@ import java.util.*
  * Description:
  */
 object GsonUtils {
-    private lateinit var gsonBuilder: GsonBuilder
+    private  var gsonBuilder: GsonBuilder?=null
     fun getGson(): Gson {
         val gsonBuilder = getGsonBuilder()
         return gsonBuilder.create()
@@ -50,6 +50,6 @@ object GsonUtils {
         if (gsonBuilder == null) {
             gsonBuilder = GsonBuilder()
         }
-        return gsonBuilder
+        return gsonBuilder!!
     }
 }

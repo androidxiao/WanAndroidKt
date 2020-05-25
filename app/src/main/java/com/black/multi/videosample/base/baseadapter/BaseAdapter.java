@@ -1,4 +1,4 @@
-package com.black.multi.videosample.ui.base.baseadapter;
+package com.black.multi.videosample.base.baseadapter;
 
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;

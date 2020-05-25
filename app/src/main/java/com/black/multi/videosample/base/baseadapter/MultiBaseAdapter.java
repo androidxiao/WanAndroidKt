@@ -1,4 +1,4 @@
-package com.black.multi.videosample.ui.base.baseadapter;
+package com.black.multi.videosample.base.baseadapter;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
