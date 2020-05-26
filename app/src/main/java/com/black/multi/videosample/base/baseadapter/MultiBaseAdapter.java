@@ -20,34 +20,34 @@ public abstract class MultiBaseAdapter<Data> extends BaseAdapter<XViewHolder, Da
 
     public MultiBaseAdapter(LifecycleOwner owner, IRecycleViewCallback<Data> callback) {
         super(owner, callback);
-        this.initViewHolderClazz();
+        initViewHolderClazz();
     }
 
     public MultiBaseAdapter(IRecycleViewCallback<Data> callback) {
         super(callback);
-        this.initViewHolderClazz();
+        initViewHolderClazz();
     }
 
     protected void addViewHolders(int viewtype, Class<? extends XViewHolder> viewholderclazz, Class<? extends ViewDataBinding> dbdclazz) {
-        this.viewholders.put(viewtype, viewholderclazz);
-        this.viewholdersdatabindings.put(viewtype, dbdclazz);
+        viewholders.put(viewtype, viewholderclazz);
+        viewholdersdatabindings.put(viewtype, dbdclazz);
     }
 
     protected abstract void initViewHolderClazz();
 
     public XViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        Class<? extends XViewHolder> clazz = (Class)this.viewholders.get(viewType);
-        Class<? extends ViewDataBinding> dbclazz = (Class)this.viewholdersdatabindings.get(viewType);
-        return clazz == null ? null : XViewHolder.create(LayoutInflater.from(viewGroup.getContext()), viewGroup, this.owner, this, clazz, dbclazz, this.callback);
+        Class<? extends XViewHolder> clazz = viewholders.get(viewType);
+        Class<? extends ViewDataBinding> dbclazz = viewholdersdatabindings.get(viewType);
+        return clazz == null ? null : XViewHolder.create(LayoutInflater.from(viewGroup.getContext()), viewGroup, owner, this, clazz, dbclazz, callback);
     }
 
     public void onBindViewHolder(XViewHolder holder, int position) {
-        Iterator var3 = this.viewholders.values().iterator();
+        Iterator var3 = viewholders.values().iterator();
 
         while(var3.hasNext()) {
             Class<? extends XViewHolder> clazz = (Class)var3.next();
             if (holder.getClass() == clazz) {
-                holder.onBind(this.getDatas().get(position));
+                holder.onBind(getDatas().get(position));
             }
         }
 

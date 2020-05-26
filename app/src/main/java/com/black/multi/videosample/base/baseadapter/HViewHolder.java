@@ -20,11 +20,10 @@ public abstract class HViewHolder<B extends ViewDataBinding, T> extends Recycler
         this.adapter = null;
         this.adapter = adapter;
         this.binding = binding;
-        this.setIsRecyclable(false);
     }
 
     public HViewHolder(@NonNull View itemView, B binding) {
-        this(itemView, (BaseAdapter)null, binding);
+        this(itemView, null, binding);
     }
 
     public abstract void onBind(T var1);

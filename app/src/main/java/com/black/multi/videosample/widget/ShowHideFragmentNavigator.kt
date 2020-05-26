@@ -10,6 +10,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
 import androidx.navigation.fragment.FragmentNavigator
+import com.black.xcommon.utils.EzLog
 import java.util.*
 
 /**
@@ -65,7 +66,7 @@ class ShowHideFragmentNavigator(context: Context, manager: FragmentManager, cont
         } else {
             frag = instantiateFragment(mContext, mManager, className, args)
             frag.arguments = args
-            ft.add(mContainerId, frag)
+            ft.add(mContainerId, frag,tag)
         }
 //        ft.replace(mContainerId, frag)
         ft.setPrimaryNavigationFragment(frag)
@@ -80,24 +81,28 @@ class ShowHideFragmentNavigator(context: Context, manager: FragmentManager, cont
                 && navOptions.shouldLaunchSingleTop()
                 && mBackStack.peekLast() == destId)
         val isAdded: Boolean
-        isAdded = if (initialNavigation) {
-            true
-        } else if (isSingleTopReplacement) {
-            // Single Top means we only want one instance on the back stack
-            if (mBackStack.size > 1) {
-                // If the Fragment to be replaced is on the FragmentManager's
-                // back stack, a simple replace() isn't enough so we
-                // remove it from the back stack and put our replacement
-                // on the back stack in its place
-                mManager.popBackStack(
-                        generateBackStackName(mBackStack.size, mBackStack.peekLast()),
-                        FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                ft.addToBackStack(generateBackStackName(mBackStack.size, destId))
+        isAdded = when {
+            initialNavigation -> {
+                true
             }
-            false
-        } else {
-            ft.addToBackStack(generateBackStackName(mBackStack.size + 1, destId))
-            true
+            isSingleTopReplacement -> {
+                // Single Top means we only want one instance on the back stack
+                if (mBackStack.size > 1) {
+                    // If the Fragment to be replaced is on the FragmentManager's
+                    // back stack, a simple replace() isn't enough so we
+                    // remove it from the back stack and put our replacement
+                    // on the back stack in its place
+                    mManager.popBackStack(
+                            generateBackStackName(mBackStack.size, mBackStack.peekLast()),
+                            FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    ft.addToBackStack(generateBackStackName(mBackStack.size, destId))
+                }
+                false
+            }
+            else -> {
+                ft.addToBackStack(generateBackStackName(mBackStack.size + 1, destId))
+                true
+            }
         }
         if (navigatorExtras is Extras) {
             for ((key, value) in navigatorExtras.sharedElements) {

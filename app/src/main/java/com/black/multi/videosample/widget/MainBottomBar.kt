@@ -32,6 +32,7 @@ class MainBottomBar : BottomNavigationView {
     private var config: BottomBar? = null
 
     constructor(context: Context) : super(context)
+
     @SuppressLint("RestrictedApi")
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs){
         config = AppConfig.getBottomBarConfig()

@@ -1,7 +1,7 @@
-package com.black.multi.videosample.net
+package com.black.multi.videosample.api.net
 
 import android.net.ParseException
-import com.black.multi.videosample.net.ExceptionHandle.ERROR.HTTP_ERROR
+import com.black.multi.videosample.api.net.ExceptionHandle.ERROR.HTTP_ERROR
 import com.google.gson.JsonParseException
 import org.apache.http.conn.ConnectTimeoutException
 import org.json.JSONException

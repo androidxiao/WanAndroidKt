@@ -1,4 +1,4 @@
-package com.black.multi.videosample.net
+package com.black.multi.videosample.api.net
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData

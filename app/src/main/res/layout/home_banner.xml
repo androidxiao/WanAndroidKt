@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:cardCornerRadius="@dimen/dp6">
+
+        <cn.bingoogolapple.bgabanner.BGABanner
+            android:id="@+id/bannerView"
+            style="@style/BannerDefaultStyle"
+            app:banner_indicatorGravity="bottom|right"
+            app:banner_transitionEffect="accordion" />
+    </androidx.cardview.widget.CardView>
+</layout>

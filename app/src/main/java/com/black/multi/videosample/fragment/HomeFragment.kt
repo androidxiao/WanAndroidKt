@@ -1,19 +1,28 @@
 package com.black.multi.videosample.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
+import androidx.navigation.Navigator
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.black.multi.libnavannotation.FragmentDestination
 import com.black.multi.videosample.R
-import com.black.multi.videosample.databinding.FragmentHomeBinding
+import com.black.multi.videosample.api.net.Status
+import com.black.multi.videosample.base.baseadapter.IRecycleViewCallback
 import com.black.multi.videosample.base.ui.BaseFragment
-import com.black.multi.videosample.model.Banner
-import com.black.multi.videosample.net.Resource
-import com.black.multi.videosample.net.Status
-import com.black.multi.videosample.utils.GsonUtils
+import com.black.multi.videosample.databinding.FragmentHomeBinding
+import com.black.multi.videosample.model.DataX
+import com.black.multi.videosample.ui.adapter.HomeAdapter
+import com.black.multi.videosample.utils.AppConfig
+import com.black.multi.videosample.utils.ConfigNavRoute
 import com.black.multi.videosample.viewmodel.HomeVm
-import io.reactivex.Observable
+import com.black.xcommon.utils.EzLog
+import com.scwang.smartrefresh.layout.api.RefreshLayout
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
+
 
 /**
  * Created by wei.
@@ -21,35 +30,92 @@ import io.reactivex.Observable
  * Description:
  */
 @FragmentDestination(pageUrl = "main/tab/home", asStartPage = true)
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnRefreshLoadMoreListener {
 
-    companion object{
+    private var page = 0
+    private lateinit var mAdapter: HomeAdapter
+
+    companion object {
         val instance = HomeFragment()
     }
 
     private val vm: HomeVm by viewModels()
 
     override fun beforeInitView(savedInstanceState: Bundle?) {
+
     }
 
     override fun initView(savedInstanceState: Bundle?) {
+        binding.refreshLayout.setEnableLoadMore(true)
+        binding.refreshLayout.setOnRefreshLoadMoreListener(this)
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_home
 
     override fun afterInitView(savedInstanceState: Bundle?) {
-        vm.loadData().observe(this, Observer {
+        fillData()
+        fetchData()
+    }
+
+    @SuppressLint("ResourceType")
+    private fun fillData() {
+        binding.bannerView.initView(this)
+        mAdapter = HomeAdapter(this, IRecycleViewCallback<DataX> { bean, itemView ->
+            run {
+//            findNavController(this).navigate(R.id.navigation_dashboard)
+                val destination = AppConfig.getDestConfig()!![HomeDetailFragment::class.java.canonicalName]
+                findNavController(this).navigate(destination!!.id)
+                EzLog.d("${bean.title}${destination?.id}")
+            }
+        })
+        (binding.recycleView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        mAdapter.setHasStableIds(true)
+        binding.recycleView.adapter = mAdapter
+    }
+
+
+
+    private fun fetchData() {
+        vm.getHomeData(page).observe(this, Observer {
             when (it.status) {
                 Status.LOADING -> {
                 }
                 Status.SUCCESS -> {
-                    Log.d("ez","--->"+GsonUtils.getGson().toJson(it.data))
+                    if (page == 0) {
+                        binding.refreshLayout.finishRefresh()
+                        mAdapter.setData(it.data?.datas)
+                    } else {
+                        binding.refreshLayout.finishLoadMore()
+                        mAdapter.addData(it.data?.datas)
+                    }
+
                 }
                 Status.ERROR -> {
-                    Log.d("ez","--->"+it.msg)
+                    EzLog.d("HomeFg--->" + it.msg)
                 }
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.bannerView.startAnimation()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.bannerView.stopAnimation()
+    }
+
+    override fun onRefresh(refreshLayout: RefreshLayout) {
+        page = 0
+        fetchData()
+    }
+
+
+    override fun onLoadMore(refreshLayout: RefreshLayout) {
+        page++
+        fetchData()
     }
 
 

@@ -23,16 +23,21 @@ public abstract class BaseAdapter<Type extends HViewHolder, Data> extends Recycl
     }
 
     public BaseAdapter(IRecycleViewCallback<Data> callback) {
-        this((LifecycleOwner)null, callback);
+        this(null, callback);
     }
 
     public void setData(List<Data> data) {
         this.datas = data;
-        this.notifyDataSetChanged();
+        notifyDataSetChanged();
+    }
+
+    public void addData(List<Data> data) {
+        datas.addAll(data);
+        notifyDataSetChanged();
     }
 
     public List<Data> getDatas() {
-        return this.datas;
+        return datas;
     }
 
     public void remove(Data data) {
@@ -44,7 +49,7 @@ public abstract class BaseAdapter<Type extends HViewHolder, Data> extends Recycl
     }
 
     public int getItemCount() {
-        return this.datas == null ? 0 : this.datas.size();
+        return datas == null ? 0 : datas.size();
     }
 }
 

@@ -71,7 +71,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), BottomNavigationView.O
     }
 
     override fun onBackPressed() {
-//        super.onBackPressed()
+        super.onBackPressed()
         val curPageId = navController.currentDestination?.id
         //APP 页面路由导航图，获取首页的 destinationId
         val startDestinationId = navController.graph.startDestination

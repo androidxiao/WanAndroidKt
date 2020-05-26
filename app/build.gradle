@@ -2,20 +2,23 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: "kotlin-kapt"
-
+def ext = rootProject.ext
+def dep = rootProject.dep
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion ext.compileSdkVersion
+    buildToolsVersion ext.buildToolsVersion
+
 
     defaultConfig {
-        applicationId "com.black.multi.videosample"
-        minSdkVersion 21
-        targetSdkVersion 29
+        applicationId ext.applicationId
+        minSdkVersion ext.minSdkVersion
+        targetSdkVersion ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
     }
+
 
     buildTypes {
         release {
@@ -46,6 +49,7 @@ android {
         main {
             jniLibs.srcDirs = ['libs']
         }
+        main { assets.srcDirs = ['src/main/assets/'] }
     }
     
      compileOptions{
@@ -57,51 +61,29 @@ android {
         enabled true
     }
 
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation dep.appcompat
+    implementation dep.constrainlayout
+    implementation project(":xcommon")
     implementation project(":libnavannotation")
     kapt project(":libnavcompiler")
-    implementation 'com.squareup.okhttp3:okhttp:4.2.2'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
-    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
-//    implementation 'com.squareup.retrofit2:converter-scalars:2.6.2'
-    implementation 'com.google.code.gson:gson:2.8.6'
-    //livedata，lifecycle 声明周期
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0'
-    implementation 'androidx.fragment:fragment-ktx:1.1.0'
-    implementation "androidx.activity:activity-ktx:1.0.0"
-//    implementation "io.reactivex.rxjava2:rxjava:2.2.8"
-//    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:2.6.2"
-    //navigation导航
-    implementation 'androidx.navigation:navigation-fragment:2.1.0'
-    implementation 'androidx.navigation:navigation-ui:2.1.0'
-    //图片加载
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    implementation 'jp.wasabeef:glide-transformations:4.0.0'
-    kapt 'com.github.bumptech.glide:compiler:4.9.0'
-    //viewpager2 可以禁止预加载
-    implementation "androidx.viewpager2:viewpager2:1.0.0-beta04"
-    //material组件
-    implementation 'com.google.android.material:material:1.1.0-alpha10'
-    //圆形组件
-    implementation 'cn.round.widget:roundwidget:1.0.30'
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
-    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
-    implementation 'com.just.agentweb:agentweb:4.1.2'
-    implementation 'com.jeremyliao:live-event-bus-x:1.5.7'
-    implementation 'cn.yc:YCBannerLib:1.4.0'
+    implementation  dep.fg_ktx
+    implementation  dep.ac_ktx
+    implementation  dep.nav_fg
+    implementation  dep.nav_ui
+    implementation  dep.viewpager2
+    implementation  dep.material
+    implementation  dep.roundwidget
+    implementation  dep.smart_refresh_layout
+    implementation  dep.smart_refresh_header
+    implementation  dep.agent_web
+    implementation  dep.live_event_bus
+    implementation  dep.banner
 }

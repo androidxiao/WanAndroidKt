@@ -1,1 +1,50 @@
-{"main/tab/home":{"id":1323214861,"needLogin":false,"asStartPage":true,"pageUrl":"main/tab/home","clazzName":"com.black.multi.videosample.fragment.HomeFragment","isFragment":true},"main/tab/person":{"id":40685417,"needLogin":false,"asStartPage":false,"pageUrl":"main/tab/person","clazzName":"com.black.multi.videosample.fragment.PersonFragment","isFragment":true},"main/tab/project":{"id":1528452507,"needLogin":false,"asStartPage":false,"pageUrl":"main/tab/project","clazzName":"com.black.multi.videosample.fragment.ProjectFragment","isFragment":true},"main/tab/knowledge":{"id":633304118,"needLogin":false,"asStartPage":false,"pageUrl":"main/tab/knowledge","clazzName":"com.black.multi.videosample.fragment.KnowledgeFragment","isFragment":true},"main/tab/nav":{"id":2113360785,"needLogin":false,"asStartPage":false,"pageUrl":"main/tab/nav","clazzName":"com.black.multi.videosample.fragment.NavFragment","isFragment":true}}
+{
+  "com.black.multi.videosample.fragment.ProjectFragment": {
+    "id": 1528452507,
+    "needLogin": false,
+    "asStartPage": false,
+    "pageUrl": "main/tab/project",
+    "clazzName": "com.black.multi.videosample.fragment.ProjectFragment",
+    "isFragment": true
+  },
+  "com.black.multi.videosample.fragment.HomeFragment": {
+    "id": 1323214861,
+    "needLogin": false,
+    "asStartPage": true,
+    "pageUrl": "main/tab/home",
+    "clazzName": "com.black.multi.videosample.fragment.HomeFragment",
+    "isFragment": true
+  },
+  "com.black.multi.videosample.fragment.HomeDetailFragment": {
+    "id": 2136937180,
+    "needLogin": false,
+    "asStartPage": false,
+    "pageUrl": "main/tab/home/homedetail",
+    "clazzName": "com.black.multi.videosample.fragment.HomeDetailFragment",
+    "isFragment": true
+  },
+  "com.black.multi.videosample.fragment.PersonFragment": {
+    "id": 40685417,
+    "needLogin": false,
+    "asStartPage": false,
+    "pageUrl": "main/tab/person",
+    "clazzName": "com.black.multi.videosample.fragment.PersonFragment",
+    "isFragment": true
+  },
+  "com.black.multi.videosample.fragment.NavFragment": {
+    "id": 2113360785,
+    "needLogin": false,
+    "asStartPage": false,
+    "pageUrl": "main/tab/nav",
+    "clazzName": "com.black.multi.videosample.fragment.NavFragment",
+    "isFragment": true
+  },
+  "com.black.multi.videosample.fragment.KnowledgeFragment": {
+    "id": 633304118,
+    "needLogin": false,
+    "asStartPage": false,
+    "pageUrl": "main/tab/knowledge",
+    "clazzName": "com.black.multi.videosample.fragment.KnowledgeFragment",
+    "isFragment": true
+  }
+}

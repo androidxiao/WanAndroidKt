@@ -20,11 +20,11 @@ public abstract class XViewHolder<B extends ViewDataBinding, T> extends HViewHol
     public XViewHolder(LifecycleOwner owner, BaseAdapter adapter, B binding, IRecycleViewCallback<T> callback) {
         super(binding.getRoot(), adapter, binding);
         this.owner = owner;
-        binding.getRoot().setOnClickListener(view -> callback.onModelClicked(this.getCurrentT(), binding.getRoot()));
-        binding.getRoot().setOnLongClickListener((view) -> callback.onModelLongClicked(this.getCurrentT(), view));
+        binding.getRoot().setOnClickListener(view -> callback.onModelClicked(getCurrentT(), binding.getRoot()));
+        binding.getRoot().setOnLongClickListener((view) -> callback.onModelLongClicked(getCurrentT(), view));
     }
 
-    public abstract void onBind(T var1);
+    public abstract void onBind(T bean);
 
     public static <B extends ViewDataBinding, T> XViewHolder create(LayoutInflater inflater, ViewGroup viewGroup, LifecycleOwner owner, BaseAdapter adapter, Class xViewHolderClazz, Class databindingClazz, IRecycleViewCallback<T> callback) {
         try {

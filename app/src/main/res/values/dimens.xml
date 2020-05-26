@@ -4,4 +4,18 @@
     <dimen name="dp24">24dp</dimen>
     <dimen name="dp10">10dp</dimen>
     <dimen name="dp16">16dp</dimen>
+
+
+    <dimen name="sp18">18sp</dimen>
+    <dimen name="dp12">12dp</dimen>
+    <dimen name="dp6">6dp</dimen>
+    <dimen name="dp8">8dp</dimen>
+    <dimen name="dp4">4dp</dimen>
+    <dimen name="font_24px">12sp</dimen>
+    <dimen name="font_26px">13sp</dimen>
+    <dimen name="font_28px">14sp</dimen>
+    <dimen name="font_30px">15sp</dimen>
+    <dimen name="font_32px">16sp</dimen>
+    <dimen name="font_36px">18sp</dimen>
+    <dimen name="dp20">20dp</dimen>
 </resources>

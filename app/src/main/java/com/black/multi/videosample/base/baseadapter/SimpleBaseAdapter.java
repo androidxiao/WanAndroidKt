@@ -39,7 +39,7 @@ public abstract class SimpleBaseAdapter<V extends XViewHolder, Data> extends Bas
             ParameterizedType theTypeviewHolderOfT = (ParameterizedType)viewHolderOfT;
             Type[] actualTypeArgumentsV = theTypeviewHolderOfT.getActualTypeArguments();
             Class dataclazz = (Class)actualTypeArgumentsV[0];
-            return (V) XViewHolder.create(LayoutInflater.from(viewGroup.getContext()), viewGroup, this.owner, this, viewholderclazz, dataclazz, this.callback);
+            return (V) XViewHolder.create(LayoutInflater.from(viewGroup.getContext()), viewGroup, owner, this, viewholderclazz, dataclazz, callback);
         } catch (Exception var11) {
             return null;
         }

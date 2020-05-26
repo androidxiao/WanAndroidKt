@@ -1,0 +1,49 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: "kotlin-kapt"
+def ext = rootProject.ext
+def dep = rootProject.dep
+android {
+    compileSdkVersion ext.compileSdkVersion
+    buildToolsVersion ext.buildToolsVersion
+
+
+    defaultConfig {
+        minSdkVersion ext.minSdkVersion
+        targetSdkVersion ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api  dep.okhttp3
+    api  dep.ktx
+    api  dep.okhttp3log
+    api  dep.retrofit2
+    api  dep.retrofit2Gson
+    api  dep.retrofit_adapter
+    api  dep.gson
+    api  dep.lifecycle_extendsion
+    api  dep.lifecycle_livedata_ktx
+    api  dep.lifecycle_viewmodel_ktx
+    api  dep.lifecycle_runtime_ktx
+    //图片加载
+    api dep.glide
+//    api 'jp.wasabeef:glide-transformations:4.0.0'
+    kapt dep.glide_compiler
+}
