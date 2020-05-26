@@ -24,7 +24,7 @@ class ShowHideFragmentNavigator(context: Context, manager: FragmentManager, cont
     private var mContext: Context = context
     private var mManager: FragmentManager = manager
     private var mContainerId: Int = containerId
-
+    private var mBackStack=ArrayDeque<Int>()
 
     @SuppressLint("LongLogTag")
     override fun navigate(destination: Destination, args: Bundle?,
@@ -71,7 +71,7 @@ class ShowHideFragmentNavigator(context: Context, manager: FragmentManager, cont
 //        ft.replace(mContainerId, frag)
         ft.setPrimaryNavigationFragment(frag)
         @IdRes val destId = destination.id
-        var mBackStack: ArrayDeque<Int>? = null
+
         val field = FragmentNavigator::class.java.getDeclaredField("mBackStack")
         field.isAccessible = true
         mBackStack = field[this] as ArrayDeque<Int>
@@ -111,6 +111,7 @@ class ShowHideFragmentNavigator(context: Context, manager: FragmentManager, cont
         }
         ft.setReorderingAllowed(true)
         ft.commit()
+        EzLog.d("mBackStack--->${mBackStack.size}")
         // The commit succeeded, update our view of the world
         return if (isAdded) {
             mBackStack.add(destId)

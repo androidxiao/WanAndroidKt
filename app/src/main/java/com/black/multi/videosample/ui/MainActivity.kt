@@ -6,8 +6,8 @@ import android.view.MenuItem
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.black.multi.videosample.R
-import com.black.multi.videosample.databinding.ActivityMainBinding
 import com.black.multi.videosample.base.ui.BaseActivity
+import com.black.multi.videosample.databinding.ActivityMainBinding
 import com.black.multi.videosample.utils.AppConfig
 import com.black.multi.videosample.utils.NavGraphBuilder
 import com.black.multi.videosample.utils.UserManager
@@ -41,6 +41,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), BottomNavigationView.O
         navHostFg?.let { navController = NavHostFragment.findNavController(it) }
         NavGraphBuilder.build(this, navController, navHostFg!!.id)
         mBinding.mainBottomBar.setOnNavigationItemSelectedListener(this)
+        navController
     }
 
     override fun afterInitView(savedInstanceState: Bundle?) {

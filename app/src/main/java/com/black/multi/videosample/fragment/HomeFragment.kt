@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
-import androidx.navigation.Navigator
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.black.multi.libnavannotation.FragmentDestination
@@ -17,11 +15,11 @@ import com.black.multi.videosample.databinding.FragmentHomeBinding
 import com.black.multi.videosample.model.DataX
 import com.black.multi.videosample.ui.adapter.HomeAdapter
 import com.black.multi.videosample.utils.AppConfig
-import com.black.multi.videosample.utils.ConfigNavRoute
+import com.black.multi.videosample.utils.HOME_DETAIL_PAGE
 import com.black.multi.videosample.viewmodel.HomeVm
-import com.black.xcommon.utils.EzLog
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
+import kotyoxutils.EzLog
 
 
 /**
@@ -63,8 +61,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnRefreshLoadMoreListe
         mAdapter = HomeAdapter(this, IRecycleViewCallback<DataX> { bean, itemView ->
             run {
 //            findNavController(this).navigate(R.id.navigation_dashboard)
-                val destination = AppConfig.getDestConfig()!![HomeDetailFragment::class.java.canonicalName]
-                findNavController(this).navigate(destination!!.id)
+                val destination = AppConfig.getDestConfig()!![HOME_DETAIL_PAGE]
+                val bundle = Bundle()
+                bundle.putString("url",bean.link)
+                findNavController(this).navigate(destination!!.id,bundle)
                 EzLog.d("${bean.title}${destination?.id}")
             }
         })
@@ -72,8 +72,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnRefreshLoadMoreListe
         mAdapter.setHasStableIds(true)
         binding.recycleView.adapter = mAdapter
     }
-
-
 
     private fun fetchData() {
         vm.getHomeData(page).observe(this, Observer {
@@ -97,13 +95,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnRefreshLoadMoreListe
         })
     }
 
+
+
     override fun onResume() {
         super.onResume()
+        EzLog.d("HomeFragment onResume")
         binding.bannerView.startAnimation()
     }
 
     override fun onPause() {
         super.onPause()
+        EzLog.d("HomeFragment onPause")
         binding.bannerView.stopAnimation()
     }
 
