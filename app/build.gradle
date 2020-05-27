@@ -74,6 +74,7 @@ dependencies {
     implementation project(":xcommon")
     implementation project(":libnavannotation")
     kapt project(":libnavcompiler")
+    implementation  dep.rxAndroid
     implementation  dep.fg_ktx
     implementation  dep.ac_ktx
     implementation  dep.nav_fg
@@ -86,4 +87,5 @@ dependencies {
     implementation  dep.agent_web
     implementation  dep.live_event_bus
     implementation  dep.banner
+    implementation  dep.flexbox
 }

@@ -16,6 +16,7 @@ import com.black.multi.videosample.model.DataX
 import com.black.multi.videosample.ui.adapter.HomeAdapter
 import com.black.multi.videosample.utils.AppConfig
 import com.black.multi.videosample.utils.HOME_DETAIL_PAGE
+import com.black.multi.videosample.utils.HOME_PAGE
 import com.black.multi.videosample.viewmodel.HomeVm
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
@@ -27,7 +28,7 @@ import kotyoxutils.EzLog
  * Date: 2020/5/18 下午10:49
  * Description:
  */
-@FragmentDestination(pageUrl = "main/tab/home", asStartPage = true)
+@FragmentDestination(pageUrl = HOME_PAGE, asStartPage = true)
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnRefreshLoadMoreListener {
 
     private var page = 0

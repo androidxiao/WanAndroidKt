@@ -10,6 +10,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
 import androidx.navigation.fragment.FragmentNavigator
+import com.black.multi.videosample.fragment.HomeFragment
 import com.black.xcommon.utils.EzLog
 import java.util.*
 
@@ -61,6 +62,11 @@ class ShowHideFragmentNavigator(context: Context, manager: FragmentManager, cont
 
         val tag = destination.id.toString()
         var frag = mManager.findFragmentByTag(tag)
+
+        if(frag is HomeFragment){
+            EzLog.d("aaaa")
+        }
+
         if (frag != null) {
             ft.show(frag)
         } else {
@@ -111,7 +117,6 @@ class ShowHideFragmentNavigator(context: Context, manager: FragmentManager, cont
         }
         ft.setReorderingAllowed(true)
         ft.commit()
-        EzLog.d("mBackStack--->${mBackStack.size}")
         // The commit succeeded, update our view of the world
         return if (isAdded) {
             mBackStack.add(destId)

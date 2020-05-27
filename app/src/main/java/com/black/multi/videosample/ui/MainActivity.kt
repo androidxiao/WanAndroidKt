@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.MenuItem
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import com.black.multi.videosample.R
 import com.black.multi.videosample.base.ui.BaseActivity
 import com.black.multi.videosample.databinding.ActivityMainBinding
 import com.black.multi.videosample.utils.AppConfig
 import com.black.multi.videosample.utils.NavGraphBuilder
+import com.black.multi.videosample.utils.ShowHideBottomBar
 import com.black.multi.videosample.utils.UserManager
+import com.black.xcommon.utils.EzLog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -41,7 +44,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), BottomNavigationView.O
         navHostFg?.let { navController = NavHostFragment.findNavController(it) }
         NavGraphBuilder.build(this, navController, navHostFg!!.id)
         mBinding.mainBottomBar.setOnNavigationItemSelectedListener(this)
-        navController
+
+        ShowHideBottomBar.instance.showHideBottomBar(navController,mBinding.includeToolbar.toolbar,mBinding.mainBottomBar)
     }
 
     override fun afterInitView(savedInstanceState: Bundle?) {
