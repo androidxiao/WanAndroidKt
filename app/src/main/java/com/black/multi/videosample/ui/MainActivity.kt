@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.MenuItem
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import com.black.multi.videosample.R
 import com.black.multi.videosample.base.ui.BaseActivity
@@ -13,7 +12,6 @@ import com.black.multi.videosample.utils.AppConfig
 import com.black.multi.videosample.utils.NavGraphBuilder
 import com.black.multi.videosample.utils.ShowHideBottomBar
 import com.black.multi.videosample.utils.UserManager
-import com.black.xcommon.utils.EzLog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -37,7 +35,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), BottomNavigationView.O
         super.initView(savedInstanceState)
         initNavConfig()
         initTitle()
+        var isLight = true
+        mBinding.includeToolbar.tvRight.setOnClickListener {
+            if (isLight) {
+                isLight = false
+                dimBackground(1.0f,0.5f)
+            }else{
+                isLight = true
+                dimBackground(0.5f,1.0f)
+            }
+        }
     }
+
+
 
     private fun initNavConfig(){
         val navHostFg = supportFragmentManager.findFragmentById(R.id.nav_host_fg)

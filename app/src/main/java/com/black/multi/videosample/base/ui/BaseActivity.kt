@@ -1,5 +1,6 @@
 package com.black.multi.videosample.base.ui
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -34,5 +35,18 @@ abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
     private  fun performDataBinding() {
         mBinding = DataBindingUtil.setContentView<B>(this, getLayoutId())
         mBinding.executePendingBindings()
+    }
+
+    open fun dimBackground(from:Float, to :Float) {
+        val window = window
+        val valueAnimator = ValueAnimator.ofFloat(from, to)
+        valueAnimator.duration = 500
+        valueAnimator.addUpdateListener { animation ->
+            val params = window.attributes
+            params.alpha = animation?.animatedValue as Float
+            window.attributes = params
+        }
+
+        valueAnimator.start();
     }
 }
