@@ -100,13 +100,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnRefreshLoadMoreListe
 
     override fun onResume() {
         super.onResume()
-        EzLog.d("HomeFragment onResume")
         binding.bannerView.startAnimation()
     }
 
     override fun onPause() {
         super.onPause()
-        EzLog.d("HomeFragment onPause")
         binding.bannerView.stopAnimation()
     }
 
