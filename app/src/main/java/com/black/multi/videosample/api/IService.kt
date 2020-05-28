@@ -34,4 +34,8 @@ interface IService {
     //项目标题
     @GET("project/tree/json")
     suspend fun getProjectTitle(): Response<ServiceResponse<List<ProjectTitleModel>>>
+
+    //项目列表
+    @GET("project/list/{page}/json")
+    suspend fun getProjectList(@Path("page") page:Int,@Query("cid") cid:Int): Response<ServiceResponse<ProjectListModel>>
 }

@@ -4,7 +4,8 @@ import androidx.lifecycle.ViewModel
 import com.black.multi.videosample.api.IService
 import com.black.multi.videosample.api.ServiceResponse
 import com.black.multi.videosample.api.net.NetResource
-import com.black.multi.videosample.model.*
+import com.black.multi.videosample.model.ProjectListModel
+import com.black.multi.videosample.model.ProjectTitleModel
 import retrofit2.Response
 
 /**
@@ -21,6 +22,12 @@ class ProjectVm : ViewModel(){
     fun getProjectTitle()=object : NetResource<List<ProjectTitleModel>>(){
         override suspend fun requestNetResource(api: IService): Response<ServiceResponse<List<ProjectTitleModel>>>? {
             return api.getProjectTitle()
+        }
+    }.fetchData()
+
+    fun getProjectList(page:Int,cid:Int)=object : NetResource<ProjectListModel>(){
+        override suspend fun requestNetResource(api: IService): Response<ServiceResponse<ProjectListModel>>? {
+            return api.getProjectList(page,cid)
         }
     }.fetchData()
 

@@ -7,7 +7,7 @@
 
         <variable
             name="bean"
-            type="com.black.multi.videosample.model.DataX" />
+            type="com.black.multi.videosample.model.ProjectListData" />
 
         <import type="com.black.xcommon.utils.XTimeUtil" />
     </data>
@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp20"
-                android:text="@{XTimeUtil.friendly_time_detail(bean.publishTime)}"
+                android:text="@{bean.niceDate}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title"
                 tools:text="发布时间" />

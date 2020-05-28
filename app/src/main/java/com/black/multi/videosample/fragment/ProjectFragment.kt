@@ -1,19 +1,14 @@
 package com.black.multi.videosample.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.black.multi.libnavannotation.FragmentDestination
 import com.black.multi.videosample.R
-import com.black.multi.videosample.api.net.Resource
 import com.black.multi.videosample.api.net.Status
-import com.black.multi.videosample.databinding.FragmentProjectBinding
 import com.black.multi.videosample.base.ui.BaseFragment
-import com.black.multi.videosample.utils.GsonUtils
+import com.black.multi.videosample.databinding.FragmentProjectBinding
 import com.black.multi.videosample.utils.PROJECT_PAGE
 import com.black.multi.videosample.viewmodel.ProjectVm
-import com.black.multi.videosample.widget.ProjectTabView
-import com.black.xcommon.utils.EzLog
 
 /**
  * Created by wei.
@@ -22,7 +17,7 @@ import com.black.xcommon.utils.EzLog
  */
 @FragmentDestination(pageUrl = PROJECT_PAGE,asStartPage = false)
 class ProjectFragment : BaseFragment<FragmentProjectBinding>() {
-
+    
     override fun beforeInitView(savedInstanceState: Bundle?) {
     }
 
@@ -42,9 +37,7 @@ class ProjectFragment : BaseFragment<FragmentProjectBinding>() {
                 Status.SUCCESS ->{
                     val data = it.data
 //                    EzLog.d("data--->${GsonUtils.getGson().toJson(data)}")
-                    val tabView = ProjectTabView(activity as FragmentActivity)
-                    tabView.initView(data,this)
-                    binding.rl.addView(tabView)
+                    binding.tabView.initView(data!!,this,lifecycle)
                 }
 
                 Status.ERROR ->{
@@ -54,5 +47,16 @@ class ProjectFragment : BaseFragment<FragmentProjectBinding>() {
         })
     }
 
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        val fragments =
+            childFragmentManager.fragments
+        for (fragment in fragments) {
+            if (fragment.isAdded && fragment.isVisible) {
+                fragment.onHiddenChanged(hidden)
+                break
+            }
+        }
+    }
 
 }

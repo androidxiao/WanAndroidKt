@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <kotyox.widget.XRoundTextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp8"
+        android:paddingTop="@dimen/dp4"
+        android:paddingRight="@dimen/dp8"
+        android:paddingBottom="@dimen/dp4"
+        app:x_fontEnableColor="@color/white"
+        android:textSize="@dimen/font_28px"
+        app:x_radius="@dimen/dp8"
+        app:x_selectColor="@color/c_E9EEF4"
+        app:x_selectTextColor="@color/colorPrimary"
+        app:x_unselectColor="@color/white"
+        app:x_unselectTextColor="@color/font_content_color"
+        tools:text="标题" />
+</layout>
+

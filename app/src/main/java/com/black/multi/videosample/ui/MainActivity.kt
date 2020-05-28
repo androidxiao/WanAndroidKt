@@ -40,10 +40,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), BottomNavigationView.O
         mBinding.includeToolbar.tvRight.setOnClickListener {
             if (isLight) {
                 isLight = false
-                dimBackground(1.0f, 0.5f)
+                nightOrDay(1.0f, 0.5f)
             } else {
                 isLight = true
-                dimBackground(0.5f, 1.0f)
+                nightOrDay(0.5f, 1.0f)
             }
         }
     }

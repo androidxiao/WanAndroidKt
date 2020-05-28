@@ -18,6 +18,7 @@ object ApiClient {
     private const val CONNECT_TIME = 20L
     private const val WRITE_TIME = 20L
     private const val READ_TIME = 20L
+    private val mRetrofitMap=HashMap<String,Retrofit>()
     private val okHttpClient by lazy { OkHttpClient() }
 
     private val retrofit: Retrofit by lazy {
@@ -38,6 +39,12 @@ object ApiClient {
     }
 
     fun <T> createService(tClass: Class<T>?): T {
+        //有了，直接取
+        if(mRetrofitMap[BASE_URL+tClass?.name]!=null){
+            return mRetrofitMap[BASE_URL+tClass?.name]!!.create(tClass)
+        }
+        //缓存 retrofit 实例
+        mRetrofitMap[BASE_URL+tClass?.name] = retrofit
         return retrofit.create(tClass)
     }
 }

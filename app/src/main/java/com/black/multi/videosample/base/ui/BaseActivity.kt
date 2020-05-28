@@ -37,7 +37,7 @@ abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
         mBinding.executePendingBindings()
     }
 
-    open fun dimBackground(from:Float, to :Float) {
+    open fun nightOrDay(from:Float, to :Float) {
         val window = window
         val valueAnimator = ValueAnimator.ofFloat(from, to)
         valueAnimator.duration = 500
@@ -46,7 +46,6 @@ abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
             params.alpha = animation?.animatedValue as Float
             window.attributes = params
         }
-
         valueAnimator.start();
     }
 }

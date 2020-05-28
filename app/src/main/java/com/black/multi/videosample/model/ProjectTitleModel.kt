@@ -9,11 +9,7 @@ data class ProjectTitleModel(val courseId: Int = 0){
     var children: List<Any>?=null
 //    val courseId: Int = 0
     val id: Int = 0
-    var name: String = ""
-        get() = name.replace("&amp;","")
-        set(value) {
-            field = value
-        }
+    var name: String?=null
     val order: Int=0
     val parentChapterId: Int=0
     var userControlSetTop: Boolean = false
