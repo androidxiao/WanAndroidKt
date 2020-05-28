@@ -14,9 +14,7 @@ import com.black.multi.videosample.base.ui.BaseFragment
 import com.black.multi.videosample.databinding.FragmentHomeBinding
 import com.black.multi.videosample.model.DataX
 import com.black.multi.videosample.ui.adapter.HomeAdapter
-import com.black.multi.videosample.utils.AppConfig
-import com.black.multi.videosample.utils.HOME_DETAIL_PAGE
-import com.black.multi.videosample.utils.HOME_PAGE
+import com.black.multi.videosample.utils.*
 import com.black.multi.videosample.viewmodel.HomeVm
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
@@ -61,10 +59,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnRefreshLoadMoreListe
         binding.bannerView.initView(this)
         mAdapter = HomeAdapter(this, IRecycleViewCallback<DataX> { bean, itemView ->
             run {
-//            findNavController(this).navigate(R.id.navigation_dashboard)
                 val destination = AppConfig.getDestConfig()!![HOME_DETAIL_PAGE]
                 val bundle = Bundle()
-                bundle.putString("url",bean.link)
+                bundle.putString(HomeDetailFragment_Url,bean.link)
+                bundle.putString(HomeDetailFragment_Title,bean.title)
                 findNavController(this).navigate(destination!!.id,bundle)
                 EzLog.d("${bean.title}${destination?.id}")
             }

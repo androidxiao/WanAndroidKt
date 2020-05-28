@@ -1,11 +1,10 @@
 package com.black.multi.videosample.api
 
-import com.black.multi.videosample.model.Banner
-import com.black.multi.videosample.model.HomeModel
-import com.black.multi.videosample.model.KnowledgeModel
+import com.black.multi.videosample.model.*
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 /**
@@ -26,4 +25,13 @@ interface IService {
     //体系数据
     @GET("tree/json")
     suspend fun getKnowledge(): Response<ServiceResponse<List<KnowledgeModel>>>
+
+
+    //体系下列表
+    @GET("article/list/{page}/json")
+    suspend fun getKnowledgeList(@Path("page") page:Int,@Query("cid") cid:Int): Response<ServiceResponse<KnowledgeListModel>>
+
+    //项目标题
+    @GET("project/tree/json")
+    suspend fun getProjectTitle(): Response<ServiceResponse<List<ProjectTitleModel>>>
 }

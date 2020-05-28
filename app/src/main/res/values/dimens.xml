@@ -18,4 +18,5 @@
     <dimen name="font_32px">16sp</dimen>
     <dimen name="font_36px">18sp</dimen>
     <dimen name="dp20">20dp</dimen>
+    <dimen name="dp2">2dp</dimen>
 </resources>

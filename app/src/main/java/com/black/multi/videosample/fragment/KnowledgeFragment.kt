@@ -12,8 +12,6 @@ import com.black.multi.videosample.base.ui.BaseFragment
 import com.black.multi.videosample.databinding.FragmentKnowledgeBinding
 import com.black.multi.videosample.model.KnowledgeModel
 import com.black.multi.videosample.ui.adapter.KnowledgeAdapter
-import com.black.multi.videosample.utils.AppConfig
-import com.black.multi.videosample.utils.HOME_DETAIL_PAGE
 import com.black.multi.videosample.utils.KNOWLEDGE_PAGE
 import com.black.multi.videosample.viewmodel.KnowledgeVm
 import com.scwang.smartrefresh.layout.api.RefreshLayout
@@ -45,10 +43,6 @@ class KnowledgeFragment : BaseFragment<FragmentKnowledgeBinding>(),OnRefreshList
     @SuppressLint("ResourceType")
     private fun fillData() {
         mAdapter = KnowledgeAdapter(this, IRecycleViewCallback<KnowledgeModel> { bean, itemView ->
-            run {
-                //            findNavController(this).navigate(R.id.navigation_dashboard)
-                val destination = AppConfig.getDestConfig()!![HOME_DETAIL_PAGE]
-            }
         })
         (binding.recycleView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         mAdapter.setHasStableIds(true)
@@ -62,8 +56,8 @@ class KnowledgeFragment : BaseFragment<FragmentKnowledgeBinding>(),OnRefreshList
 
                 }
                 Status.SUCCESS->{
+                    binding.refreshLayout.finishRefresh()
                     val data = it.data
-                    val get = data?.get(0)
                     mAdapter.setData(data)
                 }
                 Status.ERROR->{

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp44"
+        android:background="@color/white"
+        android:minHeight="@dimen/dp44"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:navigationIcon="@mipmap/left_back"
+        app:theme="@style/toolbar_style">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title_tv"
+            style="@style/textview_18sp_style"
+            android:layout_gravity="center"
+            android:includeFontPadding="false"
+            android:textColor="@color/c_222222"
+            android:textStyle="bold"
+            android:layout_marginRight="@dimen/dp44"
+            android:ellipsize="end"
+            android:maxLines="1"
+            tools:text="我是标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题" />
+    </androidx.appcompat.widget.Toolbar>
+</layout>

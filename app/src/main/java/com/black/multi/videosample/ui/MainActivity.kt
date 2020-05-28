@@ -12,6 +12,7 @@ import com.black.multi.videosample.utils.AppConfig
 import com.black.multi.videosample.utils.NavGraphBuilder
 import com.black.multi.videosample.utils.ShowHideBottomBar
 import com.black.multi.videosample.utils.UserManager
+import com.black.xcommon.utils.EzLog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -39,30 +40,29 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), BottomNavigationView.O
         mBinding.includeToolbar.tvRight.setOnClickListener {
             if (isLight) {
                 isLight = false
-                dimBackground(1.0f,0.5f)
-            }else{
+                dimBackground(1.0f, 0.5f)
+            } else {
                 isLight = true
-                dimBackground(0.5f,1.0f)
+                dimBackground(0.5f, 1.0f)
             }
         }
     }
 
 
-
-    private fun initNavConfig(){
+    private fun initNavConfig() {
         val navHostFg = supportFragmentManager.findFragmentById(R.id.nav_host_fg)
         navHostFg?.let { navController = NavHostFragment.findNavController(it) }
         NavGraphBuilder.build(this, navController, navHostFg!!.id)
         mBinding.mainBottomBar.setOnNavigationItemSelectedListener(this)
 
-        ShowHideBottomBar.instance.showHideBottomBar(navController,mBinding.includeToolbar.toolbar,mBinding.mainBottomBar)
+        ShowHideBottomBar.instance.showHideBottomBar(navController, mBinding.includeToolbar.toolbar, mBinding.mainBottomBar)
     }
 
     override fun afterInitView(savedInstanceState: Bundle?) {
 
     }
 
-    private fun initTitle(){
+    private fun initTitle() {
         mBinding.includeToolbar.titleTv.text = AppConfig.getBottomBarFirstTitle()
     }
 
@@ -86,19 +86,31 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), BottomNavigationView.O
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        val curPageId = navController.currentDestination?.id
-        //APP 页面路由导航图，获取首页的 destinationId
-        val startDestinationId = navController.graph.startDestination
-        //如果当前显示的不是首页，点击返回键时，则拦截
-        if (curPageId != startDestinationId) {
-            mBinding.mainBottomBar.selectedItemId = startDestinationId
-            return
+//        super.onBackPressed()
+
+        val id = ShowHideBottomBar.instance.getId()
+        val isMain = ShowHideBottomBar.instance.getIsMain()
+        EzLog.d("onBackPressed--finish--to--page--id--->${ShowHideBottomBar.instance.getId()}----isMain-->${isMain}")
+        if (id != null && isMain != null && isMain) {
+//            navController.navigateUp()
+            //NavController 有 navigateUp() 和 popBackStack() 都可以返回上一级，
+            // 区别:
+            //popBackStack() 如果当前的返回栈是空的就会报错，因为栈是空的了
+            // navigateUp() 则不会，还是停留在当前界面
+            navController.popBackStack()
+        } else {
+            val curPageId = navController.currentDestination?.id
+            //APP 页面路由导航图，获取首页的 destinationId
+            val startDestinationId = navController.graph.startDestination
+            //如果当前显示的不是首页，点击返回键时，则拦截
+            if (curPageId != startDestinationId) {
+                mBinding.mainBottomBar.selectedItemId = startDestinationId
+                return
+            }
+
+            //否则，直接 finish
+            finish()
         }
-
-        //否则，直接 finish，此处不宜使用 onBackPressed，因为 navigation 会操作返回栈，切换到之前的页面
-        finish()
-
     }
 
 }

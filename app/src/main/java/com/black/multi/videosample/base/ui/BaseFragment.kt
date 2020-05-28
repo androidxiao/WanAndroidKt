@@ -4,9 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import com.black.multi.videosample.utils.ShowHideBottomBar
+import com.black.xcommon.utils.EzLog
 
 /**
  * Created by wei.
@@ -16,7 +21,7 @@ import androidx.fragment.app.Fragment
 abstract class BaseFragment<B : ViewDataBinding> :Fragment() {
 
     protected lateinit var binding: B
-
+    protected lateinit var mToolBar:Toolbar
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,14 +31,27 @@ abstract class BaseFragment<B : ViewDataBinding> :Fragment() {
         binding = DataBindingUtil.inflate(inflater!!, getLayoutId(), container, false)
         initView(savedInstanceState)
         afterInitView(savedInstanceState)
-        return binding.getRoot()
+        return binding.root
     }
 
-    abstract fun beforeInitView(savedInstanceState:Bundle?)
+    private fun navigationUp(){
+        if (mToolBar != null) {
+            mToolBar.setNavigationOnClickListener {
+                val id = ShowHideBottomBar.instance.getId()
+                val isMain = ShowHideBottomBar.instance.getIsMain()
+                EzLog.d("navigationUp--finish--to--page--id--->${ShowHideBottomBar.instance.getId()}----isMain-->${isMain}")
+                if (id != null && isMain != null && isMain) {
+                    NavHostFragment.findNavController(this).popBackStack()
+                }
+            }
+        }
+    }
 
-    abstract fun initView(savedInstanceState: Bundle?)
+    abstract fun beforeInitView(bundle: Bundle?)
 
-    abstract fun afterInitView(savedInstanceState: Bundle?)
+    abstract fun initView(bundle: Bundle?)
+
+    abstract fun afterInitView(bundle: Bundle?)
 
     protected abstract fun getLayoutId(): Int
 }

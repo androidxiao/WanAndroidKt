@@ -22,6 +22,8 @@ import io.reactivex.schedulers.Schedulers
  */
 class ShowHideBottomBar {
 
+    private var id: Int? = null
+    private var isMain:Boolean?=null
     companion object {
         val instance: ShowHideBottomBar by lazy { ShowHideBottomBar() }
     }
@@ -30,10 +32,10 @@ class ShowHideBottomBar {
     open fun showHideBottomBar(navController: NavController, toolbar: Toolbar, mainBottomBar: MainBottomBar) {
         navController.addOnDestinationChangedListener(object : NavController.OnDestinationChangedListener {
             override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
-                val id = destination.id
+                id = destination.id
                 val navigatorName = destination.navigatorName
                 val parent = destination.parent
-                EzLog.d("id-->${id}--navigatorName--->${navigatorName}---parent-->${parent?.id}")
+                EzLog.d("ShowHideBottomBar---to page---id-->${id}")
                 val destConfig = AppConfig.getDestConfig()
                 Observable.just(destConfig)
                         .subscribeOn(Schedulers.io())
@@ -59,17 +61,22 @@ class ShowHideBottomBar {
                             }
 
                         }).observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(Consumer<Boolean> { t ->
+                        .subscribe({ t ->
+                            isMain = t
                             if (t) {
                                 toolbar.visibility = View.GONE
                                 mainBottomBar.visibility = View.GONE
-                            }else{
+                            } else {
                                 toolbar.visibility = View.VISIBLE
                                 mainBottomBar.visibility = View.VISIBLE
                             }
-                        }, Consumer<Throwable> { t -> EzLog.d("ShowHideBottomBar--->${t?.message}") })
+                        }, { t -> EzLog.d("ShowHideBottomBar--exception->${t?.message}") })
             }
 
         })
     }
+
+    open fun getId() = id
+
+    open fun getIsMain() = isMain
 }
