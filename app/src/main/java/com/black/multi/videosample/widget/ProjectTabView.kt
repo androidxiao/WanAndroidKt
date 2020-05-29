@@ -38,7 +38,7 @@ class ProjectTabView : ConstraintLayout {
         mBind = DataBindingUtil.inflate<ProjectTabViewBinding>(LayoutInflater.from(context), R.layout.project_tab_view, this, true)
         //禁止预加载
         mBind.viewPager.offscreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
-        EzLog.d("${titles.size}")
+
         //viewPager2默认只有一种类型的Adapter。FragmentStateAdapter
         //并且在页面切换的时候 不会调用子Fragment的setUserVisibleHint，取而代之的是onPause(),onResume()
         mBind.viewPager.adapter = object : FragmentStateAdapter(activity.childFragmentManager, lifecycle) {

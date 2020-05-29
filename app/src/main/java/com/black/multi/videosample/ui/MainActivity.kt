@@ -19,13 +19,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), BottomNavigationView.O
 
     private lateinit var navController: NavController
 
-//        val adapter = RvAdapter(this,IRecycleViewCallback<String> { var1, var2 ->
-//            Toast.makeText(this,"aa",Toast.LENGTH_SHORT).show()
-//        })
-//        val list = arrayListOf("aa","bb","cc","dd") as List<String>
-//        adapter.setData(list)
-//        rv.adapter =adapter
-
     override fun beforeInitView(savedInstanceState: Bundle?) {
 
     }

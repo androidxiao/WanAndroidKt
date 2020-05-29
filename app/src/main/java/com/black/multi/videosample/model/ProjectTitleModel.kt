@@ -10,6 +10,7 @@ data class ProjectTitleModel(val courseId: Int = 0){
 //    val courseId: Int = 0
     val id: Int = 0
     var name: String?=null
+    get() = field?.replace("&amp;","")
     val order: Int=0
     val parentChapterId: Int=0
     var userControlSetTop: Boolean = false

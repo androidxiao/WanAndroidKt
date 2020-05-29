@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="bean"
+            type="java.lang.String" />
+    </data>
+
+    <kotyox.widget.XRoundTextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        app:x_selectColor="@color/colorPrimary"
+        app:x_selectTextColor="@color/white"
+        app:x_unselectColor="@color/white"
+        app:x_unselectTextColor="@color/font_content_color"
+        android:text="@{bean}"
+        tools:text="标题" />
+</layout>
