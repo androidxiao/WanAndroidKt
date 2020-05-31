@@ -1,6 +1,8 @@
 package com.black.multi.libnavannotation;
 
 import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
@@ -9,6 +11,7 @@ import java.lang.annotation.Target;
  * Description:
  */
 @Target(ElementType.TYPE)
+@Retention(RetentionPolicy.CLASS)
 public @interface FragmentDestination {
     String pageUrl();
     boolean needLogin() default false;

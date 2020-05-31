@@ -1,6 +1,8 @@
 package com.black.multi.videosample.ui.vh
 
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
+import com.black.multi.videosample.R
 import com.black.multi.videosample.base.baseadapter.BaseAdapter
 import com.black.multi.videosample.base.baseadapter.IRecycleViewCallback
 import com.black.multi.videosample.base.baseadapter.XViewHolder
@@ -24,4 +26,24 @@ class NavTitleVH(owner: LifecycleOwner,
     }
 
     override fun getCurrentT(): String? = binding.bean
+
+    open fun setChoose(position:Int){
+
+        EzLog.d("position--->${position}---->adapterPosition--->${adapterPosition}--->layoutPosition-->${getmCurPosition()}")
+        if(adapterPosition==position) {
+            binding.root.setBackgroundColor(
+                ContextCompat.getColor(
+                    binding.root.context,
+                    R.color.colorPrimary
+                )
+            )
+        }else{
+            binding.root.setBackgroundColor(
+                ContextCompat.getColor(
+                    binding.root.context,
+                    R.color.c_transparent
+                )
+            )
+        }
+    }
 }

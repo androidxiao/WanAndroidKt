@@ -1,19 +1,26 @@
 package com.black.multi.videosample.widget
 
 import android.content.Context
+import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.NavHostFragment
 import cn.bingoogolapple.bgabanner.BGABanner
 import com.black.multi.videosample.R
-import com.black.multi.videosample.databinding.HomeBannerBinding
-import com.black.multi.videosample.model.Banner
 import com.black.multi.videosample.api.net.Resource
 import com.black.multi.videosample.api.net.Status
+import com.black.multi.videosample.databinding.HomeBannerBinding
+import com.black.multi.videosample.model.Banner
+import com.black.multi.videosample.utils.AppConfig
+import com.black.multi.videosample.utils.HOME_DETAIL_PAGE
+import com.black.multi.videosample.utils.HomeDetailFragment_Title
+import com.black.multi.videosample.utils.HomeDetailFragment_Url
 import com.black.multi.videosample.viewmodel.HomeVm
 import com.black.xcommon.imageloader.ImageLoader
 import com.black.xcommon.imageloader.glide.ImageConfigImpl
@@ -25,9 +32,10 @@ import java.util.*
  * Date: 2020/5/26 8:46
  * Desc:
  */
-class HomeBannerView : CardView, BGABanner.Adapter<ImageView, String> {
+class HomeBannerView : CardView, BGABanner.Adapter<ImageView, String>,BGABanner.Delegate<ImageView,String>{
 
     private lateinit var mBind: HomeBannerBinding
+    private lateinit var bannerList: List<Banner>
 
     constructor(context: Context):super(context)
     constructor(context: Context,attributeSet: AttributeSet):super(context,attributeSet)
@@ -51,7 +59,7 @@ class HomeBannerView : CardView, BGABanner.Adapter<ImageView, String> {
     }
 
     private fun showBanner(it:Resource<List<Banner>>){
-        val bannerList: List<Banner> = it.data!!
+        bannerList = it.data!!
         val mList: MutableList<String> = ArrayList()
         for (banner in bannerList) {
             mList.add(banner.imagePath)
@@ -61,6 +69,8 @@ class HomeBannerView : CardView, BGABanner.Adapter<ImageView, String> {
         mBind.bannerView.setAdapter(this)
         mBind.bannerView.setData(mList, null)
     }
+
+
 
     open fun startAnimation(){
         mBind.bannerView.startAutoPlay()
@@ -75,6 +85,19 @@ class HomeBannerView : CardView, BGABanner.Adapter<ImageView, String> {
                 ImageConfigImpl.builder().url(model)
                         .cacheStrategy(1).isCenterCrop(true)
                         .isCircle(false).imageView(itemView).build())
+    }
+
+    override fun onBannerItemClick(
+        banner: BGABanner?,
+        itemView: ImageView?,
+        model: String?,
+        position: Int
+    ) {
+        val destination = AppConfig.getDestConfig()!![HOME_DETAIL_PAGE]
+        val bundle = Bundle()
+        bundle.putString(HomeDetailFragment_Url,bannerList.get(0).url)
+        bundle.putString(HomeDetailFragment_Title,bannerList.get(0).title)
+        NavHostFragment.findNavController(context as Fragment).navigate(destination!!.id,bundle)
     }
 
 }

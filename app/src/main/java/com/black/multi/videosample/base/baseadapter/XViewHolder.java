@@ -16,6 +16,7 @@ import java.lang.reflect.Method;
  */
 public abstract class XViewHolder<B extends ViewDataBinding, T> extends HViewHolder<B, T> {
     protected LifecycleOwner owner;
+    protected int mCurPosition;
 
     public XViewHolder(LifecycleOwner owner, BaseAdapter adapter, B binding, IRecycleViewCallback<T> callback) {
         super(binding.getRoot(), adapter, binding);
@@ -38,4 +39,12 @@ public abstract class XViewHolder<B extends ViewDataBinding, T> extends HViewHol
     }
 
     protected abstract T getCurrentT();
+
+    public void setPosition(int position){
+        mCurPosition = position;
+    }
+
+    public int getmCurPosition() {
+        return mCurPosition;
+    }
 }

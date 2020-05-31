@@ -15,6 +15,9 @@ import java.lang.reflect.Type;
  */
 public abstract class SimpleBaseAdapter<V extends XViewHolder, Data> extends BaseAdapter<V, Data> {
 
+    protected int curPosition;
+    protected V mCurHolder;
+
     public SimpleBaseAdapter(LifecycleOwner owner, IRecycleViewCallback<Data> callback) {
         super(owner, callback);
     }
@@ -46,6 +49,32 @@ public abstract class SimpleBaseAdapter<V extends XViewHolder, Data> extends Bas
     }
 
     public void onBindViewHolder(V holder, int position) {
-        holder.onBind(this.getDatas().get(position));
+        curPosition = position;
+        mCurHolder = holder;
+        if (iBaseListener != null) {
+            iBaseListener.getCurPosition(position);
+        }
+        holder.setPosition(position);
+        holder.onBind(getDatas().get(position));
+    }
+
+    private IBaseListener iBaseListener;
+
+    public void setiBaseListener(IBaseListener listener){
+        iBaseListener = listener;
+    }
+
+    public interface IBaseListener{
+        void  getCurPosition(int position);
+
+//        void getCurHolder(V holder);
+    }
+
+    public int getCurPosition(){
+        return curPosition;
+    }
+
+    public V getCurHolder(){
+        return mCurHolder;
     }
 }

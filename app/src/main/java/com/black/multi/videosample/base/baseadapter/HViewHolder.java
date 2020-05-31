@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public abstract class HViewHolder<B extends ViewDataBinding, T> extends RecyclerView.ViewHolder {
     protected B binding;
+
     protected BaseAdapter adapter;
 
     public HViewHolder(@NonNull View itemView, BaseAdapter adapter, B binding) {

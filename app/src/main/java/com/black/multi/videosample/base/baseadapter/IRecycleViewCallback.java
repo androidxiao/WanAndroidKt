@@ -8,7 +8,9 @@ import android.view.View;
  * Description:
  */
 public interface IRecycleViewCallback<T> {
-    void onModelClicked(T var1, View var2);
+    void onModelClicked(T bean, View view);
+
+    default void onModelClicked(T bean, View view,int position){}
 
     default boolean onModelLongClicked(T model, View sharedView) {
         return true;

@@ -42,9 +42,9 @@ public abstract class BaseAdapter<Type extends HViewHolder, Data> extends Recycl
 
     public void remove(Data data) {
         if (this.datas != null) {
-            int indx = this.datas.indexOf(data);
+            int index = this.datas.indexOf(data);
             this.datas.remove(data);
-            this.notifyItemRemoved(indx);
+            this.notifyItemRemoved(index);
         }
     }
 

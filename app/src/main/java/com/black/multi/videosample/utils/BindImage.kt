@@ -17,7 +17,7 @@ object BindImage {
     fun bindImage(iv:ImageView,url:String){
         ImageLoader.getInstance().loadImage<ImageConfigImpl>(iv.context,
                 ImageConfigImpl.builder().url(url)
-                        .cacheStrategy(3)
+                        .cacheStrategy(1)
                         .imageRadius(8)
                         .isCircle(false).imageView(iv).build())
     }

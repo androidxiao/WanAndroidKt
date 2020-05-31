@@ -8,7 +8,7 @@ import android.webkit.WebView
 import androidx.annotation.ColorInt
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
-import androidx.fragment.app.Fragment
+import androidx.databinding.ViewDataBinding
 import com.just.agentweb.*
 
 
@@ -17,7 +17,7 @@ import com.just.agentweb.*
  * Date: 2020/5/26 15:51
  * Desc:
  */
-abstract class BaseAgentWebFragment : Fragment() {
+abstract class BaseAgentWebFragment<B : ViewDataBinding> : BaseFragment<B>() {
 
     protected var mAgentWeb: AgentWeb? = null
     private var mMiddleWareWebChrome: MiddlewareWebChromeBase? = null
@@ -133,4 +133,15 @@ abstract class BaseAgentWebFragment : Fragment() {
     protected fun getMiddleWareWebClient(): MiddlewareWebClientBase {
         return object : MiddlewareWebClientBase() {}.also { mMiddleWareWebClient = it }
     }
+
+    override fun beforeInitView(bundle: Bundle?) {
+    }
+
+    override fun initView(bundle: Bundle?) {
+    }
+
+    override fun afterInitView(bundle: Bundle?) {
+    }
+
+    override fun getLayoutId(): Int = 0
 }

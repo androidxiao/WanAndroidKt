@@ -12,7 +12,7 @@ import com.black.multi.videosample.viewmodel.ProjectVm
 
 /**
  * Created by wei.
- * Date: 2020/5/18 下午10:49
+ * Date: 2020/5/28 下午4:49
  * Description:
  */
 @FragmentDestination(pageUrl = PROJECT_PAGE,asStartPage = false)

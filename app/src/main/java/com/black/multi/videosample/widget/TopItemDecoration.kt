@@ -9,7 +9,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.black.multi.videosample.R
-import com.black.xcommon.utils.EzLog
 
 /**
  * Created by wei.
@@ -33,14 +32,13 @@ class TopItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
             color = ContextCompat.getColor(mContext, R.color.colorPrimary)
         }
         textPaint.apply {
-            color = ContextCompat.getColor(mContext, R.color.c_222222)
+            color = ContextCompat.getColor(mContext, R.color.white)
             textSize = 40f
         }
         val left = parent.paddingLeft.toFloat()
         val right = (parent.width - parent.paddingRight).toFloat()
         val childCount = parent.childCount
         for (i in 0 until childCount) {
-            EzLog.d("childCount--->${i}")
             val childView = parent.getChildAt(i)
             val bottom = childView.top.toFloat()
             val top = bottom - mHeight

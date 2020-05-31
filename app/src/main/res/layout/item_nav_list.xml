@@ -7,26 +7,14 @@
     
         <variable
             name="bean"
-            type="com.black.multi.videosample.model.Article" />
+            type="com.black.multi.videosample.model.NavModel" />
 
     </data>
 
-    <kotyox.widget.XRoundTextView
-        android:id="@+id/tv_sub_title"
-        android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/sub_rv"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/dp4"
-        android:paddingTop="@dimen/dp4"
-        android:paddingRight="@dimen/dp8"
-        android:paddingBottom="@dimen/dp4"
-        android:text="@{bean.title}"
-        android:layout_marginLeft="@dimen/dp4"
-        android:layout_marginRight="@dimen/dp8"
         android:layout_marginTop="@dimen/dp8"
-        app:x_backgroundColor="@color/c_E9EEF4"
-        app:x_fontEnableColor="@color/font_content_color"
-        tools:text="测试"
-        app:x_radius="@dimen/dp4">
-
-    </kotyox.widget.XRoundTextView>
+        />
 </layout>

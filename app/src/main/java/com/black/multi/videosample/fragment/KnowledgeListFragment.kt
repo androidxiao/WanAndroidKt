@@ -10,17 +10,12 @@ import com.black.multi.videosample.R
 import com.black.multi.videosample.api.net.Status
 import com.black.multi.videosample.base.baseadapter.IRecycleViewCallback
 import com.black.multi.videosample.base.ui.BaseFragment
-import com.black.multi.videosample.databinding.FragmentKnowledgeBinding
 import com.black.multi.videosample.databinding.FragmentKnowledgeSubListBinding
-import com.black.multi.videosample.model.KnowledgeModel
 import com.black.multi.videosample.model.KnowledgeSubList
-import com.black.multi.videosample.ui.adapter.KnowledgeAdapter
 import com.black.multi.videosample.ui.adapter.KnowledgeListAdapter
-import com.black.multi.videosample.ui.adapter.KnowledgeSubAdapter
 import com.black.multi.videosample.utils.*
 import com.black.multi.videosample.viewmodel.KnowledgeVm
 import com.scwang.smartrefresh.layout.api.RefreshLayout
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 
 /**
@@ -46,6 +41,7 @@ class KnowledgeListFragment : BaseFragment<FragmentKnowledgeSubListBinding>(),On
     }
 
     override fun initView(bundle: Bundle?) {
+        mToolBar = binding.includeToolbar.toolbar
         initListener()
     }
 
