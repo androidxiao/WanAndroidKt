@@ -8,8 +8,12 @@ import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.NavOptions
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import cn.bingoogolapple.bgabanner.BGABanner
 import com.black.multi.videosample.R
@@ -68,6 +72,7 @@ class HomeBannerView : CardView, BGABanner.Adapter<ImageView, String>,BGABanner.
         mBind.bannerView.setAutoPlayAble(mList.size > 1)
         mBind.bannerView.setAdapter(this)
         mBind.bannerView.setData(mList, null)
+        mBind.bannerView.setDelegate(this)
     }
 
 
@@ -95,9 +100,9 @@ class HomeBannerView : CardView, BGABanner.Adapter<ImageView, String>,BGABanner.
     ) {
         val destination = AppConfig.getDestConfig()!![HOME_DETAIL_PAGE]
         val bundle = Bundle()
-        bundle.putString(HomeDetailFragment_Url,bannerList.get(0).url)
-        bundle.putString(HomeDetailFragment_Title,bannerList.get(0).title)
-        NavHostFragment.findNavController(context as Fragment).navigate(destination!!.id,bundle)
+        bundle.putString(HomeDetailFragment_Url,bannerList[position].url)
+        bundle.putString(HomeDetailFragment_Title,bannerList[position].title)
+        Navigation.findNavController(context as FragmentActivity,R.id.bannerView).navigate(destination!!.id,bundle)
     }
 
 }

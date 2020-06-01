@@ -3,6 +3,7 @@ package com.black.multi.videosample.fragment
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.black.multi.libnavannotation.FragmentDestination
@@ -41,7 +42,7 @@ class KnowledgeListFragment : BaseFragment<FragmentKnowledgeSubListBinding>(),On
     }
 
     override fun initView(bundle: Bundle?) {
-        mToolBar = binding.includeToolbar.toolbar
+        ivBack = binding.includeToolbar.ivBack
         initListener()
     }
 
@@ -71,7 +72,12 @@ class KnowledgeListFragment : BaseFragment<FragmentKnowledgeSubListBinding>(),On
                 val bundle = Bundle()
                 bundle.putString(HomeDetailFragment_Url,bean.link)
                 bundle.putString(HomeDetailFragment_Title,bean.title)
-                NavHostFragment.findNavController(this).navigate(destination!!.id,bundle)
+                val navOptions = NavOptions.Builder().setEnterAnim(R.anim.rotate_fg_enter_right)
+                        .setExitAnim(R.anim.rotate_fg_exit_left)
+                        .setPopEnterAnim(R.anim.rotate_fg_enter_left)
+                        .setPopExitAnim(R.anim.rotate_fg_exit_right)
+                        .build()
+                NavHostFragment.findNavController(this).navigate(destination!!.id,bundle,navOptions)
             }
         })
         (binding.recycleView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false

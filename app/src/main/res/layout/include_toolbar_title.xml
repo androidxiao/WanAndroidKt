@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -12,19 +13,33 @@
         app:contentInsetLeft="0dp"
         app:contentInsetStart="0dp"
         app:contentInsetStartWithNavigation="0dp"
-        app:navigationIcon="@mipmap/left_back"
         app:theme="@style/toolbar_style">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/title_tv"
-            style="@style/textview_18sp_style"
-            android:layout_gravity="center"
-            android:includeFontPadding="false"
-            android:textColor="@color/c_222222"
-            android:textStyle="bold"
-            android:layout_marginRight="@dimen/dp44"
-            android:ellipsize="end"
-            android:maxLines="1"
-            tools:text="我是标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="@dimen/dp44"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/dp16"
+                android:src="@mipmap/left_back" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/title_tv"
+                style="@style/textview_18sp_style"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="@dimen/dp44"
+                android:layout_toRightOf="@+id/iv_back"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="@color/c_222222"
+                android:textStyle="bold"
+                tools:text="标题" />
+        </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 </layout>

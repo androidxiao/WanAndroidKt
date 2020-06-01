@@ -25,7 +25,7 @@ class HomeDetailFragment : BaseAgentWebFragment<FragmentHomeDetailBinding>() {
 
     override fun initView(bundle: Bundle?) {
         super.initView(bundle)
-        mToolBar = binding.includeToolbar.toolbar
+        ivBack = binding.includeToolbar.ivBack
         getBundle()
         initTitle()
     }

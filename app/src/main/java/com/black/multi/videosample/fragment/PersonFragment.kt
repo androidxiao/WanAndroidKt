@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.black.multi.libnavannotation.FragmentDestination
 import com.black.multi.videosample.R
 import com.black.multi.videosample.base.ui.BaseFragment
+import com.black.multi.videosample.databinding.FragmentPersonBinding
 import com.black.multi.videosample.databinding.FragmentProjectBinding
 import com.black.multi.videosample.utils.PERSON_PAGE
 
@@ -13,7 +14,7 @@ import com.black.multi.videosample.utils.PERSON_PAGE
  * Description:
  */
 @FragmentDestination(pageUrl = PERSON_PAGE,asStartPage = false)
-class PersonFragment : BaseFragment<FragmentProjectBinding>() {
+class PersonFragment : BaseFragment<FragmentPersonBinding>() {
 
     override fun beforeInitView(savedInstanceState: Bundle?) {
     }

@@ -16,6 +16,7 @@ import javax.lang.model.element.TypeElement
 import javax.tools.Diagnostic
 import javax.tools.FileObject
 import javax.tools.StandardLocation
+import kotlin.math.abs
 
 /**
  * Created by wei.
@@ -35,7 +36,6 @@ class NavProcessor : AbstractProcessor() {
         super.init(processingEnv)
         messager = processingEnv.messager
         filer = processingEnv.filer
-        messager.printMessage(Diagnostic.Kind.NOTE, "resourcePath---bbbbb>")
     }
 
     override fun getSupportedAnnotationTypes(): Set<String>? {
@@ -128,7 +128,7 @@ class NavProcessor : AbstractProcessor() {
             val typeElement = element as TypeElement
             var pageUrl: String? = null
             val clazzName = typeElement.qualifiedName.toString()
-            val id = Math.abs(clazzName.hashCode())
+            val id = abs(clazzName.hashCode())
             var needLogin = false
             var asStartPage = false
             var isFragment = false

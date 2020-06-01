@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -20,7 +21,7 @@ import com.black.xcommon.utils.EzLog
 abstract class BaseFragment<B : ViewDataBinding> :Fragment() {
 
     protected lateinit var binding: B
-    protected var mToolBar:Toolbar?=null
+    protected var ivBack:ImageView?=null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,8 +36,8 @@ abstract class BaseFragment<B : ViewDataBinding> :Fragment() {
     }
 
     private fun navigationUp(){
-        if (mToolBar != null) {
-            mToolBar?.setNavigationOnClickListener {
+        if (ivBack != null) {
+            ivBack?.setOnClickListener {
                 val id = ShowHideBottomBar.instance.getId()
                 val isMain = ShowHideBottomBar.instance.getIsMain()
                 EzLog.d("navigationUp--finish--to--page--id--->${ShowHideBottomBar.instance.getId()}----isMain-->${isMain}")

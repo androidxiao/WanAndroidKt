@@ -61,6 +61,10 @@ class NavTitleAdapter :
         }
     }
 
+    override fun getItemId(position: Int): Long {
+        return mDatas?.get(position).hashCode().toLong()
+    }
+
     private fun setTitleBg(
         position: Int,
         holder: NavTitleHolder

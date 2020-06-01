@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/c_3ec88e"
+        android:orientation="vertical">
+
+
+        <kotyox.widget.XRoundEditText
+            android:id="@+id/et_username"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="90dp"
+            android:layout_marginRight="50dp"
+            android:gravity="center_vertical"
+            android:hint="用户名"
+            android:paddingLeft="30dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            app:x_backgroundColor="@color/x_75ffffff"
+            app:x_borderColor="@color/x_75ffffff"
+            app:x_borderWidth="1px"
+            app:x_radius="@dimen/dp20" />
+
+
+        <kotyox.widget.XRoundEditText
+            android:id="@+id/et_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/et_username"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="50dp"
+            android:gravity="center_vertical"
+            android:hint="密码"
+            android:inputType="textPassword"
+            android:paddingLeft="30dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            app:x_backgroundColor="@color/x_75ffffff"
+            app:x_borderColor="@color/x_75ffffff"
+            app:x_borderWidth="1px"
+            app:x_radius="@dimen/dp20" />
+
+        <kotyox.widget.XRoundEditText
+            android:id="@+id/et_pwd2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/et_pwd"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="50dp"
+            android:gravity="center_vertical"
+            android:hint="验证密码"
+            android:inputType="textPassword"
+            android:paddingLeft="30dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            app:x_backgroundColor="@color/x_75ffffff"
+            app:x_borderColor="@color/x_75ffffff"
+            app:x_borderWidth="1px"
+            app:x_radius="@dimen/dp20" />
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_below="@+id/et_pwd2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:background="@null"
+            android:text="注册"
+            android:textColor="#95ffffff"
+            android:textSize="40sp" />
+
+
+    </RelativeLayout>
+</layout>

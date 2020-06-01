@@ -14,32 +14,37 @@
         app:contentInsetStartWithNavigation="0dp"
         app:theme="@style/toolbar_style">
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="@dimen/dp44"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/dp16"
+                android:visibility="invisible"
+                android:src="@mipmap/left_back" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/title_tv"
             style="@style/textview_18sp_style"
             android:layout_gravity="center"
             android:includeFontPadding="false"
+            android:gravity="center"
             android:textColor="@color/c_222222"
+            app:navigationIcon="@mipmap/left_back"
             android:textStyle="bold"
             tools:text="我是标题" />
-
-        <LinearLayout
-            android:id="@+id/ll_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:orientation="horizontal"
-            tools:visibility="visible">
-
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/tv_right"
                 android:layout_width="@dimen/dp24"
                 android:layout_height="@dimen/dp24"
+                android:layout_gravity="right|center"
                 android:layout_marginRight="@dimen/dp16"
                 android:src="@drawable/ic_search"
                 />
-
-        </LinearLayout>
+        </FrameLayout>
     </androidx.appcompat.widget.Toolbar>
 </layout>
