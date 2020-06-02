@@ -18,7 +18,7 @@ import com.black.multi.videosample.utils.HomeDetailFragment_Url
  */
 
 
-@FragmentDestination(pageUrl = HOME_DETAIL_PAGE, asStartPage = false)
+@FragmentDestination(pageUrl = HOME_DETAIL_PAGE)
 class HomeDetailFragment : BaseAgentWebFragment<FragmentHomeDetailBinding>() {
     private var url: String? = null
     private var title: String? = null

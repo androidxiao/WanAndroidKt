@@ -5,6 +5,7 @@ import androidx.lifecycle.liveData
 import com.black.multi.videosample.api.FetchData
 import com.black.multi.videosample.api.IService
 import com.black.multi.videosample.api.ServiceResponse
+import com.black.xcommon.utils.EzLog
 
 import kotlinx.coroutines.Dispatchers
 import retrofit2.Response
@@ -27,11 +28,13 @@ abstract class NetResource<T> {
                     emit(Resource.success(response.body()?.data))
                 } else {
                     val errorBody = response.errorBody()?.string()
+                    EzLog.d("errorBody--->${errorBody}")
                     val code = response.code()
                     val message = response.message()
                     emit(Resource.error(ExceptionHandle.handleException(code, message),null))
                 }
             } catch (e: Exception) {
+                EzLog.d("e--->${e.message}")
                 emit(Resource.error(ExceptionHandle.handleException(e),null))
             }
         }

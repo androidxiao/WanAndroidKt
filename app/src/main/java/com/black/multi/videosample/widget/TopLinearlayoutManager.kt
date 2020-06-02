@@ -2,7 +2,6 @@ package com.black.multi.videosample.widget
 
 import android.content.Context
 import android.graphics.PointF
-import android.util.DisplayMetrics
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView

@@ -2,9 +2,7 @@ package com.black.multi.videosample.api
 
 import com.black.multi.videosample.model.*
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 
 /**
@@ -20,7 +18,7 @@ interface IService {
 
     //首页文章列表
     @GET("article/list/{page}/json")
-    suspend fun getHomeData(@Path("page") page:Int): Response<ServiceResponse<HomeModel>>
+    suspend fun getHomeData(@Path("page") page: Int): Response<ServiceResponse<HomeModel>>
 
     //体系数据
     @GET("tree/json")
@@ -28,7 +26,7 @@ interface IService {
 
     //体系下列表
     @GET("article/list/{page}/json")
-    suspend fun getKnowledgeList(@Path("page") page:Int,@Query("cid") cid:Int): Response<ServiceResponse<KnowledgeListModel>>
+    suspend fun getKnowledgeList(@Path("page") page: Int, @Query("cid") cid: Int): Response<ServiceResponse<KnowledgeListModel>>
 
     //项目标题
     @GET("project/tree/json")
@@ -36,9 +34,18 @@ interface IService {
 
     //项目列表
     @GET("project/list/{page}/json")
-    suspend fun getProjectList(@Path("page") page:Int,@Query("cid") cid:Int): Response<ServiceResponse<ProjectListModel>>
+    suspend fun getProjectList(@Path("page") page: Int, @Query("cid") cid: Int): Response<ServiceResponse<ProjectListModel>>
 
     //导航数据
     @GET("navi/json")
     suspend fun getNavData(): Response<ServiceResponse<List<NavModel>>>
+
+    //登录
+    @FormUrlEncoded
+    @POST("user/login")
+    suspend fun login(@Field("username") username: String, @Field("password") password: String): Response<ServiceResponse<LoginModel>>
+
+    //收藏文章列表
+    @GET("lg/collect/list/{page}/json")
+    suspend fun collectChapter(@Path("page") page:Int): Response<ServiceResponse<CollectChapterModel>>
 }

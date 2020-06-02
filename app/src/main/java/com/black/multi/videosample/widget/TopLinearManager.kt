@@ -1,7 +1,6 @@
 package com.black.multi.videosample.widget
 
 import android.content.Context
-import android.util.AttributeSet
 import androidx.recyclerview.widget.LinearSmoothScroller
 
 /**

@@ -11,34 +11,30 @@ import com.black.multi.videosample.R
 import com.black.multi.videosample.api.net.Status
 import com.black.multi.videosample.base.baseadapter.IRecycleViewCallback
 import com.black.multi.videosample.base.ui.BaseFragment
-import com.black.multi.videosample.databinding.FragmentKnowledgeSubListBinding
+import com.black.multi.videosample.databinding.FragmentCollectBinding
+import com.black.multi.videosample.model.CollectChapterData
 import com.black.multi.videosample.model.KnowledgeSubList
+import com.black.multi.videosample.ui.adapter.CollectAdapter
 import com.black.multi.videosample.ui.adapter.KnowledgeListAdapter
 import com.black.multi.videosample.utils.*
+import com.black.multi.videosample.viewmodel.CollectVM
 import com.black.multi.videosample.viewmodel.KnowledgeVm
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 
 /**
  * Created by wei.
- * Date: 2020/5/28 上午9:37
- * Description:
+ * Date: 2020/6/2 15:50
+ * Desc:
  */
-
-const val KnowledgeListFragment_Cid = "cid"
-const val KnowledgeListFragment_Title = "title"
-
-@FragmentDestination(pageUrl = KNOWLEDGE_LIST_PAGE)
-class KnowledgeListFragment : BaseFragment<FragmentKnowledgeSubListBinding>(),OnRefreshLoadMoreListener {
+@FragmentDestination(pageUrl = COLLECT_PAGE)
+class CollectFragment :BaseFragment<FragmentCollectBinding>(), OnRefreshLoadMoreListener {
 
     private var page = 0
-    private lateinit var mAdapter: KnowledgeListAdapter
-    private var cid = 0
-    private var title:String?=null
+    private lateinit var mAdapter: CollectAdapter
 
     override fun beforeInitView(bundle: Bundle?) {
-        cid = arguments?.getInt(KnowledgeListFragment_Cid)!!
-        title = arguments?.getString(KnowledgeListFragment_Title)
+
     }
 
     override fun initView(bundle: Bundle?) {
@@ -51,7 +47,7 @@ class KnowledgeListFragment : BaseFragment<FragmentKnowledgeSubListBinding>(),On
         binding.refreshLayout.setOnRefreshLoadMoreListener(this)
     }
 
-    override fun getLayoutId(): Int = R.layout.fragment_knowledge_sub_list
+    override fun getLayoutId(): Int = R.layout.fragment_collect
 
     override fun afterInitView(savedInstanceState: Bundle?) {
         initData()
@@ -60,24 +56,19 @@ class KnowledgeListFragment : BaseFragment<FragmentKnowledgeSubListBinding>(),On
     }
 
     private fun initData(){
-        binding.includeToolbar.titleTv.text = title
+        binding.includeToolbar.titleTv.text = "我的收藏"
     }
 
     @SuppressLint("ResourceType")
     private fun fillData() {
-        mAdapter = KnowledgeListAdapter(this, IRecycleViewCallback<KnowledgeSubList> { bean, itemView ->
+        mAdapter = CollectAdapter(this, IRecycleViewCallback<CollectChapterData> { bean, itemView ->
             run {
                 //            findNavController(this).navigate(R.id.navigation_dashboard)
                 val destination = AppConfig.getDestConfig()!![HOME_DETAIL_PAGE]
                 val bundle = Bundle()
                 bundle.putString(HomeDetailFragment_Url,bean.link)
                 bundle.putString(HomeDetailFragment_Title,bean.title)
-                val navOptions = NavOptions.Builder().setEnterAnim(R.anim.rotate_fg_enter_right)
-                        .setExitAnim(R.anim.rotate_fg_exit_left)
-                        .setPopEnterAnim(R.anim.rotate_fg_enter_left)
-                        .setPopExitAnim(R.anim.rotate_fg_exit_right)
-                        .build()
-                NavHostFragment.findNavController(this).navigate(destination!!.id,bundle,navOptions)
+                NavHostFragment.findNavController(this).navigate(destination!!.id,bundle)
             }
         })
         (binding.recycleView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
@@ -86,7 +77,7 @@ class KnowledgeListFragment : BaseFragment<FragmentKnowledgeSubListBinding>(),On
     }
 
     private fun fetchData(){
-        KnowledgeVm.instance.getKnowledgeList(page,cid).observe(this, Observer {
+        CollectVM.instance.collectChapter(page).observe(this, Observer {
             when (it.status) {
                 Status.LOADING->{
 
@@ -116,6 +107,5 @@ class KnowledgeListFragment : BaseFragment<FragmentKnowledgeSubListBinding>(),On
         page = 0
         fetchData()
     }
-
 
 }

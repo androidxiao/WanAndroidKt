@@ -10,7 +10,7 @@
         android:orientation="vertical">
 
         <kotyox.widget.XRoundEditText
-            android:id="@+id/id_et1"
+            android:id="@+id/et_username"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginLeft="50dp"
@@ -28,10 +28,10 @@
 
 
         <kotyox.widget.XRoundEditText
-            android:id="@+id/id_et2"
+            android:id="@+id/et_pwd"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_below="@+id/id_et1"
+            android:layout_below="@+id/et_username"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:layout_marginTop="30dp"
@@ -50,7 +50,7 @@
             android:id="@+id/id_btn_login"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:layout_below="@+id/id_et2"
+            android:layout_below="@+id/et_pwd"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:background="@null"
@@ -59,33 +59,18 @@
             android:textColor="#95ffffff"
             android:textSize="40sp"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <cn.login.anim.demo.TransMenuView
-                android:id="@+id/id_trans"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:visibility="gone"
-                />
-
             <kotyox.widget.XRoundButton
-                android:id="@+id/id_btn_click_me"
+                android:id="@+id/btn_to_register"
                 android:layout_width="60dp"
-                android:layout_height="match_parent"
+                android:layout_height="60dp"
                 android:layout_marginRight="15dp"
                 app:x_fontEnableColor="@color/white"
                 android:gravity="center"
                 app:x_radius="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
                 app:x_backgroundColor="@color/x_75ffffff"
                 android:text="去注册"/>
-
-        </LinearLayout>
 
     </RelativeLayout>
 </layout>

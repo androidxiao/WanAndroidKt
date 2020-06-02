@@ -3,15 +3,17 @@ package com.black.multi.videosample.ui.adapter
 import androidx.lifecycle.LifecycleOwner
 import com.black.multi.videosample.base.baseadapter.IRecycleViewCallback
 import com.black.multi.videosample.base.baseadapter.SimpleBaseAdapter
+import com.black.multi.videosample.model.CollectChapterData
 import com.black.multi.videosample.model.KnowledgeSubList
+import com.black.multi.videosample.ui.vh.CollectVH
 import com.black.multi.videosample.ui.vh.KnowledgeListVH
 
 /**
  * Created by wei.
- * Date: 2020/5/28 9:48
+ * Date: 2020/6/2 16:04
  * Desc:
  */
-class KnowledgeListAdapter(owner: LifecycleOwner, callback: IRecycleViewCallback<KnowledgeSubList>) :SimpleBaseAdapter<KnowledgeListVH,KnowledgeSubList>(owner,callback) {
+class CollectAdapter(owner: LifecycleOwner, callback: IRecycleViewCallback<CollectChapterData>) :SimpleBaseAdapter<CollectVH,CollectChapterData>(owner,callback) {
 
     override fun getItemId(position: Int): Long {
         return datas[position].id.toLong()

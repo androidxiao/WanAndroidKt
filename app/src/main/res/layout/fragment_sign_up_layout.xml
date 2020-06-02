@@ -78,6 +78,18 @@
             android:textColor="#95ffffff"
             android:textSize="40sp" />
 
+        <kotyox.widget.XRoundButton
+            android:id="@+id/btn_to_login"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginRight="15dp"
+            app:x_fontEnableColor="@color/white"
+            android:gravity="center"
+            app:x_radius="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            app:x_backgroundColor="@color/x_75ffffff"
+            android:text="去登录"/>
 
     </RelativeLayout>
 </layout>

@@ -22,7 +22,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener
  * Date: 2020/5/18 下午10:49
  * Description:
  */
-@FragmentDestination(pageUrl = KNOWLEDGE_PAGE,asStartPage = false)
+@FragmentDestination(pageUrl = KNOWLEDGE_PAGE)
 class KnowledgeFragment : BaseFragment<FragmentKnowledgeBinding>(),OnRefreshListener {
 
     private lateinit var mAdapter: KnowledgeAdapter

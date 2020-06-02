@@ -7,14 +7,10 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
 import cn.bingoogolapple.bgabanner.BGABanner
 import com.black.multi.videosample.R
 import com.black.multi.videosample.api.net.Resource
@@ -45,7 +41,7 @@ class HomeBannerView : CardView, BGABanner.Adapter<ImageView, String>,BGABanner.
     constructor(context: Context,attributeSet: AttributeSet):super(context,attributeSet)
     constructor(context: Context,attributeSet: AttributeSet,defStyle:Int):super(context,attributeSet,defStyle)
 
-    open fun initView(owner: LifecycleOwner){
+    fun initView(owner: LifecycleOwner){
         mBind = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.home_banner,this,true)
 
         HomeVm.instance.getBanner().observe(owner, Observer {
@@ -77,11 +73,11 @@ class HomeBannerView : CardView, BGABanner.Adapter<ImageView, String>,BGABanner.
 
 
 
-    open fun startAnimation(){
+    fun startAnimation(){
         mBind.bannerView.startAutoPlay()
     }
 
-    open fun stopAnimation(){
+    fun stopAnimation(){
         mBind.bannerView.stopAutoPlay()
     }
 

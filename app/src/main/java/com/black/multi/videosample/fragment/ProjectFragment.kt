@@ -15,7 +15,7 @@ import com.black.multi.videosample.viewmodel.ProjectVm
  * Date: 2020/5/28 下午4:49
  * Description:
  */
-@FragmentDestination(pageUrl = PROJECT_PAGE,asStartPage = false)
+@FragmentDestination(pageUrl = PROJECT_PAGE)
 class ProjectFragment : BaseFragment<FragmentProjectBinding>() {
     
     override fun beforeInitView(savedInstanceState: Bundle?) {

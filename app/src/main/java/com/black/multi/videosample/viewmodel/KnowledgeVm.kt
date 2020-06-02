@@ -3,8 +3,6 @@ package com.black.multi.videosample.viewmodel
 import androidx.lifecycle.ViewModel
 import com.black.multi.videosample.api.IService
 import com.black.multi.videosample.api.ServiceResponse
-import com.black.multi.videosample.model.Banner
-import com.black.multi.videosample.model.HomeModel
 import com.black.multi.videosample.api.net.NetResource
 import com.black.multi.videosample.model.KnowledgeListModel
 import com.black.multi.videosample.model.KnowledgeModel

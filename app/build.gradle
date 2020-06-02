@@ -88,4 +88,5 @@ dependencies {
     implementation  dep.live_event_bus
     implementation  dep.banner
     implementation  dep.flexbox
+    debugImplementation   dep.leakcanary
 }

@@ -16,7 +16,6 @@ import com.black.multi.videosample.databinding.ItemProjectTabTvBinding
 import com.black.multi.videosample.databinding.ProjectTabViewBinding
 import com.black.multi.videosample.fragment.ProjectListFragment
 import com.black.multi.videosample.model.ProjectTitleModel
-import com.black.xcommon.utils.EzLog
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 

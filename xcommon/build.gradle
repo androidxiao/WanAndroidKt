@@ -34,6 +34,7 @@ dependencies {
     api  dep.okhttp3
     api  dep.ktx
     api  dep.okhttp3log
+    api  dep.okhttpcookie
     api  dep.retrofit2
     api  dep.retrofit2Gson
     api  dep.retrofit_adapter

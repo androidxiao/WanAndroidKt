@@ -24,7 +24,7 @@ import com.black.multi.videosample.widget.TopItemDecoration
  * Date: 2020/5/29 下午3:49
  * Description:
  */
-@FragmentDestination(pageUrl = NAV_PAGE, asStartPage = false)
+@FragmentDestination(pageUrl = NAV_PAGE)
 class NavFragment : BaseFragment<FragmentNavBinding>() {
 
     private val titles = ArrayList<String>()

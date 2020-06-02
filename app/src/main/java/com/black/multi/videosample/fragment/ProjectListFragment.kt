@@ -23,7 +23,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
  * Date: 2020/5/27 上午10:49
  * Description:
  */
-@FragmentDestination(pageUrl = PROJECT_LIST_PAGE,asStartPage = false)
+@FragmentDestination(pageUrl = PROJECT_LIST_PAGE)
 class ProjectListFragment(id:Int) : BaseFragment<FragmentProjectListBinding>(),
     OnRefreshLoadMoreListener {
 

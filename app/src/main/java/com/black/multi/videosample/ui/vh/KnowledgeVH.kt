@@ -13,7 +13,8 @@ import com.black.multi.videosample.fragment.KnowledgeListFragment_Title
 import com.black.multi.videosample.model.Children
 import com.black.multi.videosample.model.KnowledgeModel
 import com.black.multi.videosample.ui.adapter.KnowledgeSubAdapter
-import com.black.multi.videosample.utils.*
+import com.black.multi.videosample.utils.AppConfig
+import com.black.multi.videosample.utils.KNOWLEDGE_LIST_PAGE
 import com.black.xcommon.utils.EzLog
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection

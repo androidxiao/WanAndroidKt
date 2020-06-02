@@ -11,7 +11,6 @@ import com.black.multi.videosample.widget.MainBottomBar
 import com.black.xcommon.utils.EzLog
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
 import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
 
