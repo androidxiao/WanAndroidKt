@@ -13,8 +13,9 @@ class UserManager private constructor(){
         }
     }
 
-    fun saveLogin(){
+    fun saveLoginUserInfo(info:String){
         User.isLogin = true
+        User.user = info
     }
 
     fun clear(){

@@ -3,19 +3,17 @@ package com.black.multi.videosample.fragment
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
-import androidx.navigation.Navigation
 import com.black.multi.libnavannotation.FragmentDestination
 import com.black.multi.videosample.R
 import com.black.multi.videosample.api.net.Status
 import com.black.multi.videosample.base.ui.BaseFragment
 import com.black.multi.videosample.databinding.FragmentLoginInBinding
 import com.black.multi.videosample.utils.*
-import com.black.multi.videosample.viewmodel.CollectVM
 import com.black.multi.videosample.viewmodel.LoginVM
 import com.black.xcommon.utils.EzLog
+import com.jeremyliao.liveeventbus.LiveEventBus
 
 /**
  * Created by wei.
@@ -41,13 +39,23 @@ class LoginInFragment : BaseFragment<FragmentLoginInBinding>(), View.OnClickList
     }
 
     private fun toRegister() {
-        val destination = AppConfig.getDestConfig()!![REGISTER_PAGE]
-        val navOptions = NavOptions.Builder().setEnterAnim(R.anim.rotate_fg_enter_left)
+//        val destination = AppConfig.getDestConfig()!![REGISTER_PAGE]
+//        val navOptions =
+//        Navigation.findNavController(activity as FragmentActivity, R.id.btn_to_register).navigate(destination!!.id, null, navOptions)
+        navigateToNextPage()
+    }
+
+    override fun nextPageUrl(): String? {
+        return REGISTER_PAGE
+    }
+
+    override fun navigateAnimation(): NavOptions? {
+        return NavOptions.Builder()
+                .setEnterAnim(R.anim.rotate_fg_enter_left)
                 .setExitAnim(R.anim.rotate_fg_exit_right)
                 .setPopEnterAnim(R.anim.rotate_fg_exit_right)
                 .setPopExitAnim(R.anim.rotate_fg_exit_left)
                 .build()
-        Navigation.findNavController(activity as FragmentActivity, R.id.btn_to_register).navigate(destination!!.id, null, navOptions)
     }
 
     private fun login() {
@@ -69,20 +77,9 @@ class LoginInFragment : BaseFragment<FragmentLoginInBinding>(), View.OnClickList
                 }
                 Status.SUCCESS -> {
                     val data = GsonUtils.getGson().toJson(it.data)
+                    LiveEventBus.get(Is_Login).post(data)
+                    fgPopBack()
                     EzLog.d("data--->${data}")
-                    CollectVM.instance.collectChapter(0).observe(this, Observer {
-                        when (it.status) {
-                            Status.LOADING->{
-
-                            }
-                            Status.SUCCESS->{
-                                EzLog.d("collect-->${GsonUtils.getGson().toJson(it.data)}")
-                            }
-                            Status.ERROR->{
-                                EzLog.d("error--->${it.msg}")
-                            }
-                        }
-                    })
                 }
                 Status.ERROR -> {
                     EzLog.d("data--->${it.msg}")

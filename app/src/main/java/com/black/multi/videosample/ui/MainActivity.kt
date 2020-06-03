@@ -6,8 +6,6 @@ import android.view.MenuItem
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.black.multi.videosample.R
-import com.black.multi.videosample.api.ApiClient
-import com.black.multi.videosample.api.IService
 import com.black.multi.videosample.base.ui.BaseActivity
 import com.black.multi.videosample.databinding.ActivityMainBinding
 import com.black.multi.videosample.utils.AppConfig
@@ -15,12 +13,7 @@ import com.black.multi.videosample.utils.NavGraphBuilder
 import com.black.multi.videosample.utils.ShowHideBottomBar
 import com.black.multi.videosample.utils.UserManager
 import com.black.xcommon.utils.EzLog
-import com.franmontiel.persistentcookiejar.ClearableCookieJar
-import com.franmontiel.persistentcookiejar.PersistentCookieJar
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import okhttp3.HttpUrl
 
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -40,7 +33,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), BottomNavigationView.O
         var isLight = true
         mBinding.includeToolbar.tvRight.setOnClickListener {
             if (isLight) {
-                UserManager.instance.saveLogin()
                 isLight = false
                 nightOrDay(1.0f, 0.5f)
             } else {

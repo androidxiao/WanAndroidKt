@@ -26,7 +26,7 @@ class HomeDetailFragment : BaseAgentWebFragment<FragmentHomeDetailBinding>() {
     override fun initView(bundle: Bundle?) {
         super.initView(bundle)
         ivBack = binding.includeToolbar.ivBack
-        getBundle()
+        getBundleData()
         initTitle()
     }
 
@@ -34,7 +34,7 @@ class HomeDetailFragment : BaseAgentWebFragment<FragmentHomeDetailBinding>() {
         binding.includeToolbar.titleTv.text = title
     }
 
-    private fun getBundle() {
+    private fun getBundleData() {
         url = arguments?.get(HomeDetailFragment_Url) as String
         title = arguments?.get(HomeDetailFragment_Title) as String
     }

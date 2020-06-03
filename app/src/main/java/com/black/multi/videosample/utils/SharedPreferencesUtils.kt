@@ -8,15 +8,7 @@ import kotlin.reflect.KProperty
 /**
  * Created by wei.
  * Date: 2020/6/2 11:05
- * Desc: 基本用法
- * <p>
- * var spString1: String by sharedPreferences.string(name = "spString1")
- * var spString2: String by sharedPreferences.string(name = "spString2", defValue = "def")
- * var spString3: String? by sharedPreferences.nullableString(name = "spString3", defValue = "def")
- * var spString4: String? by sharedPreferences.nullableString(name = "spString4", defValue = null)
- * var spBoolean: Boolean by sharedPreferences.boolean(name = "spBoolean")
- * var spFloat: Float by sharedPreferences.float(name = "spFloat", defValue = 1f)
- * </p>
+ * Desc: 通过代理方式实现 sp
  */
 object SharedPreferencesUtils {
 

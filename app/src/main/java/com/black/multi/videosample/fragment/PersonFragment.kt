@@ -2,16 +2,13 @@ package com.black.multi.videosample.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.lifecycle.Observer
 import com.black.multi.libnavannotation.FragmentDestination
 import com.black.multi.videosample.R
 import com.black.multi.videosample.base.ui.BaseFragment
 import com.black.multi.videosample.databinding.FragmentPersonBinding
-import com.black.multi.videosample.utils.AppConfig
-import com.black.multi.videosample.utils.COLLECT_PAGE
-import com.black.multi.videosample.utils.LOGIN_IN_PAGE
-import com.black.multi.videosample.utils.PERSON_PAGE
-import com.black.xcommon.utils.EzLog
+import com.black.multi.videosample.utils.*
+import com.jeremyliao.liveeventbus.LiveEventBus
 
 /**
  * Created by wei.
@@ -25,8 +22,15 @@ class PersonFragment : BaseFragment<FragmentPersonBinding>(), View.OnClickListen
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-
+        isLogin()
         initListener()
+    }
+
+    private fun isLogin(){
+//        binding.btnToLogin.visibility = if(UserManager.instance.isLogin())  View.GONE else View.VISIBLE
+        binding.tvName.visibility = if(UserManager.instance.isLogin())  View.VISIBLE else View.GONE
+        binding.tvDj.visibility = if(UserManager.instance.isLogin())  View.VISIBLE else View.GONE
+        binding.tvJf.visibility = if(UserManager.instance.isLogin())  View.VISIBLE else View.GONE
     }
 
     private fun initListener() {
@@ -37,12 +41,16 @@ class PersonFragment : BaseFragment<FragmentPersonBinding>(), View.OnClickListen
     override fun getLayoutId(): Int = R.layout.fragment_person
 
     override fun afterInitView(savedInstanceState: Bundle?) {
+        getLiveDataBusEvent()
     }
 
-    private fun navigate(destination:String) {
-        val destination = AppConfig.getDestConfig()!![destination]
-        findNavController(this).navigate(destination!!.id)
+    private fun getLiveDataBusEvent(){
+        LiveEventBus.get(Is_Login).observe(this, Observer{
+            binding.btnToLogin.visibility = View.GONE
+            UserManager.instance.saveLoginUserInfo(it.toString())
+        })
     }
+
 
     override fun onClick(v: View) {
         when (v.id) {

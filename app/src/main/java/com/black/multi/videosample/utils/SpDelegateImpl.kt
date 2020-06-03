@@ -10,5 +10,5 @@ object User : SharedPreferencesUtils.Delegates() {
     override fun getSharedPreferencesName(): String = javaClass.simpleName
 
     var isLogin by boolean()
-    var name by string()
+    var user by string()
 }

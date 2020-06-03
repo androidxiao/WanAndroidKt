@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.black.multi.libnavannotation.FragmentDestination
 import com.black.multi.videosample.R
@@ -14,7 +13,10 @@ import com.black.multi.videosample.base.ui.BaseFragment
 import com.black.multi.videosample.databinding.FragmentHomeBinding
 import com.black.multi.videosample.model.DataX
 import com.black.multi.videosample.ui.adapter.HomeAdapter
-import com.black.multi.videosample.utils.*
+import com.black.multi.videosample.utils.HOME_DETAIL_PAGE
+import com.black.multi.videosample.utils.HOME_PAGE
+import com.black.multi.videosample.utils.HomeDetailFragment_Title
+import com.black.multi.videosample.utils.HomeDetailFragment_Url
 import com.black.multi.videosample.viewmodel.HomeVm
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
@@ -31,6 +33,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnRefreshLoadMoreListe
 
     private var page = 0
     private lateinit var mAdapter: HomeAdapter
+    private lateinit var mBean:DataX
 
     companion object {
         val instance = HomeFragment()
@@ -59,17 +62,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnRefreshLoadMoreListe
         binding.bannerView.initView(this)
         mAdapter = HomeAdapter(this, IRecycleViewCallback<DataX> { bean, itemView ->
             run {
-                val destination = AppConfig.getDestConfig()!![HOME_DETAIL_PAGE]
-                val bundle = Bundle()
-                bundle.putString(HomeDetailFragment_Url,bean.link)
-                bundle.putString(HomeDetailFragment_Title,bean.title)
-                findNavController(this).navigate(destination!!.id,bundle)
-                EzLog.d("${bean.title}${destination?.id}")
+                mBean = bean
+                navigateToNextPage()
             }
         })
         (binding.recycleView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         mAdapter.setHasStableIds(true)
         binding.recycleView.adapter = mAdapter
+    }
+
+    override fun nextPageUrl():String?{
+        return HOME_DETAIL_PAGE
+    }
+
+    override fun getBundle(): Bundle? {
+        val bundle = Bundle()
+        bundle.putString(HomeDetailFragment_Url,mBean.link)
+        bundle.putString(HomeDetailFragment_Title,mBean.title)
+        return bundle
     }
 
     private fun fetchData() {

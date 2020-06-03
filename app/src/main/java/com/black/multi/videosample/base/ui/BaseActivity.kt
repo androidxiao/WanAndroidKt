@@ -37,7 +37,7 @@ abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
         mBinding.executePendingBindings()
     }
 
-    open fun nightOrDay(from:Float, to :Float) {
+    protected fun nightOrDay(from:Float, to :Float) {
         val window = window
         val valueAnimator = ValueAnimator.ofFloat(from, to)
         valueAnimator.duration = 500

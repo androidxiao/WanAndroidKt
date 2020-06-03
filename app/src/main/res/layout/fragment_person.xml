@@ -9,7 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/iv_header"
@@ -18,6 +19,7 @@
             tools:background="@color/colorPrimary"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:src="@mipmap/icon_portrait_default"
             android:layout_marginLeft="@dimen/dp16"
             android:layout_marginTop="@dimen/dp20"/>
 
@@ -44,7 +46,7 @@
             app:layout_constraintLeft_toRightOf="@+id/iv_header"
             app:layout_constraintTop_toTopOf="@+id/iv_header"
             android:layout_marginLeft="@dimen/dp8"
-            tools:text="用户名"
+            android:text="用户名"
             android:textColor="@color/c_222222"
             />
 
@@ -56,7 +58,7 @@
             app:layout_constraintLeft_toRightOf="@+id/iv_header"
             android:layout_marginLeft="@dimen/dp8"
             android:textColor="@color/font_content_color"
-            tools:text="等级"/>
+            android:text="等级"/>
 
 
 
@@ -68,7 +70,7 @@
             app:layout_constraintLeft_toRightOf="@+id/tv_dj"
             android:layout_marginLeft="@dimen/dp8"
             android:textColor="@color/font_content_color"
-            tools:text="积分"/>
+            android:text="积分"/>
 
         <View
             android:id="@+id/line1"

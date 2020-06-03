@@ -3,7 +3,6 @@ package com.black.multi.videosample.fragment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.black.multi.libnavannotation.FragmentDestination
 import com.black.multi.videosample.R
@@ -13,7 +12,10 @@ import com.black.multi.videosample.base.ui.BaseFragment
 import com.black.multi.videosample.databinding.FragmentProjectListBinding
 import com.black.multi.videosample.model.ProjectListData
 import com.black.multi.videosample.ui.adapter.ProjectListAdapter
-import com.black.multi.videosample.utils.*
+import com.black.multi.videosample.utils.HOME_DETAIL_PAGE
+import com.black.multi.videosample.utils.HomeDetailFragment_Title
+import com.black.multi.videosample.utils.HomeDetailFragment_Url
+import com.black.multi.videosample.utils.PROJECT_LIST_PAGE
 import com.black.multi.videosample.viewmodel.ProjectVm
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
@@ -66,12 +68,10 @@ class ProjectListFragment(id:Int) : BaseFragment<FragmentProjectListBinding>(),
     private fun fillData() {
         mAdapter = ProjectListAdapter(this, IRecycleViewCallback<ProjectListData> { bean, itemView ->
             run {
-                //            findNavController(this).navigate(R.id.navigation_dashboard)
-                val destination = AppConfig.getDestConfig()!![HOME_DETAIL_PAGE]
                 val bundle = Bundle()
                 bundle.putString(HomeDetailFragment_Url,bean.link)
                 bundle.putString(HomeDetailFragment_Title,bean.title)
-                NavHostFragment.findNavController(this).navigate(destination!!.id,bundle)
+                navigate(HOME_DETAIL_PAGE,bundle,null)
             }
         })
         (binding.recycleView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
