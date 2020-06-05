@@ -8,11 +8,13 @@ import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
-import com.black.multi.videosample.utils.AppConfig
-import com.black.multi.videosample.utils.ShowHideBottomBar
+import com.black.multi.videosample.R
+import com.black.multi.videosample.utils.*
 import com.black.xcommon.utils.EzLog
+import com.jeremyliao.liveeventbus.LiveEventBus
 
 /**
  * Created by wei.
@@ -31,10 +33,22 @@ abstract class BaseFragment<B : ViewDataBinding> :Fragment() {
     ): View? {
         beforeInitView(savedInstanceState)
         binding = DataBindingUtil.inflate(inflater!!, getLayoutId(), container, false)
+        observableIsLogin()
         initView(savedInstanceState)
         navigationUp()
         afterInitView(savedInstanceState)
         return binding.root
+    }
+
+    private fun observableIsLogin(){
+        LiveEventBus.get(Login_First).observe(this, Observer {
+            context!!.toast(R.string.login_first)
+            toLogin()
+        })
+    }
+
+    private fun toLogin(){
+        navigate(LOGIN_IN_PAGE)
     }
 
     private fun navigationUp(){

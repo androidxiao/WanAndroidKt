@@ -27,8 +27,7 @@ class PersonFragment : BaseFragment<FragmentPersonBinding>(), View.OnClickListen
     }
 
     private fun isLogin(){
-//        binding.btnToLogin.visibility = if(UserManager.instance.isLogin())  View.GONE else View.VISIBLE
-        binding.tvName.visibility = if(UserManager.instance.isLogin())  View.VISIBLE else View.GONE
+        binding.btnToLogin.visibility = if(UserManager.instance.isLogin())  View.GONE else View.VISIBLE
         binding.tvDj.visibility = if(UserManager.instance.isLogin())  View.VISIBLE else View.GONE
         binding.tvJf.visibility = if(UserManager.instance.isLogin())  View.VISIBLE else View.GONE
     }

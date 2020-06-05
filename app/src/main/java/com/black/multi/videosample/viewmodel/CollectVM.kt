@@ -18,10 +18,17 @@ class CollectVM : ViewModel() {
         val instance: CollectVM by lazy { CollectVM() }
     }
 
-    fun collectChapter(page: Int) = object : NetResource<CollectChapterModel>() {
+    fun collectChapterList(page: Int) = object : NetResource<CollectChapterModel>() {
         override suspend fun requestNetResource(api: IService): Response<ServiceResponse<CollectChapterModel>>? {
-            return api.collectChapter(page)
+            return api.collectChapterList(page)
         }
     }.fetchData()
 
+
+    fun collectChapter(id:Int) = object :NetResource<Any>(){
+        override suspend fun requestNetResource(api: IService): Response<ServiceResponse<Any>>? {
+             return api.collectInnerChapter(id)
+        }
+
+    }.fetchData()
 }

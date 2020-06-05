@@ -47,5 +47,9 @@ interface IService {
 
     //收藏文章列表
     @GET("lg/collect/list/{page}/json")
-    suspend fun collectChapter(@Path("page") page:Int): Response<ServiceResponse<CollectChapterModel>>
+    suspend fun collectChapterList(@Path("page") page:Int): Response<ServiceResponse<CollectChapterModel>>
+
+    //收藏站内文章
+    @POST("lg/collect/{id}/json")
+    suspend fun collectInnerChapter(@Path("id") id:Int):Response<ServiceResponse<Any>>
 }

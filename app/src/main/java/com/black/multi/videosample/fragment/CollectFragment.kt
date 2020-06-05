@@ -83,7 +83,7 @@ class CollectFragment : BaseFragment<FragmentCollectBinding>(), OnRefreshLoadMor
     }
 
     private fun fetchData() {
-        CollectVM.instance.collectChapter(page).observe(this, Observer {
+        CollectVM.instance.collectChapterList(page).observe(this, Observer {
             when (it.status) {
                 Status.LOADING -> {
 

@@ -2,7 +2,10 @@ package com.black.multi.videosample.api.net
 
 import android.net.ParseException
 import com.black.multi.videosample.api.net.ExceptionHandle.ERROR.HTTP_ERROR
+import com.black.multi.videosample.api.net.ExceptionHandle.ERROR.LOGIN_FIRST
+import com.black.multi.videosample.utils.Login_First
 import com.google.gson.JsonParseException
+import com.jeremyliao.liveeventbus.LiveEventBus
 import org.apache.http.conn.ConnectTimeoutException
 import org.json.JSONException
 import java.net.ConnectException
@@ -77,35 +80,27 @@ object ExceptionHandle {
         }
     }
 
-
-
-    /**
-     * 约定异常
-     */
     object ERROR {
-        /**
-         * 未知错误
-         */
-        const val UNKNOWN = 1000
-        /**
-         * 解析错误
-         */
-        const val PARSE_ERROR = 1001
-        /**
-         * 网络错误
-         */
-        const val NETWORD_ERROR = 1002
         /**
          * 协议出错
          */
         const val HTTP_ERROR = 1003
         /**
-         * 证书出错
+         * 请先登录
          */
-        const val SSL_ERROR = 1005
-        /**
-         * 连接超时
-         */
-        const val TIMEOUT_ERROR = 1006
+        const val LOGIN_FIRST = -1001
+    }
+
+    /**
+     * 是否是约定错误
+     */
+    fun isConstraintError(code:Int):Boolean{
+        return when (code) {
+            LOGIN_FIRST -> {
+                LiveEventBus.get(Login_First).post(false)
+                true
+            }
+            else -> false
+        }
     }
 }

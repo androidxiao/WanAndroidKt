@@ -25,17 +25,25 @@ abstract class NetResource<T> {
                 //json 与 javabean 的格式不对应，到这里是会报解析错误的，如果不捕获，app 直接崩溃
                 val response = requestNetResource(api)
                 if (response!!.isSuccessful) {
-                    emit(Resource.success(response.body()?.data))
+//                    val data = response.body()?.data
+                    val serviceResponse = response.body()
+                    var data = serviceResponse?.data
+                    if (ExceptionHandle.isConstraintError(serviceResponse!!.errorCode)) {
+                        val handleException = ExceptionHandle.handleException(serviceResponse!!.errorCode, serviceResponse!!.errorMsg!!)
+                        emit(Resource.error(handleException, null))
+                    } else {
+                        emit(Resource.success(data))
+                    }
                 } else {
                     val errorBody = response.errorBody()?.string()
                     EzLog.d("errorBody--->${errorBody}")
                     val code = response.code()
                     val message = response.message()
-                    emit(Resource.error(ExceptionHandle.handleException(code, message),null))
+                    emit(Resource.error(ExceptionHandle.handleException(code, message), null))
                 }
             } catch (e: Exception) {
                 EzLog.d("e--->${e.message}")
-                emit(Resource.error(ExceptionHandle.handleException(e),null))
+                emit(Resource.error(ExceptionHandle.handleException(e), null))
             }
         }
     }
