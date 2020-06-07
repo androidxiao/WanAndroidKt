@@ -3,10 +3,10 @@ package com.black.multi.videosample.widget
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.black.multi.videosample.R
 import com.black.multi.videosample.databinding.LayoutSettingViewBinding
-import com.black.xcommon.utils.EzLog
 import kotyox.layout.XConstraintLayout
 
 /**
@@ -32,8 +32,9 @@ class ItemSettingView : XConstraintLayout {
         val binding = DataBindingUtil.inflate<LayoutSettingViewBinding>(LayoutInflater.from(context), R.layout.layout_setting_view, this,true)
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ItemSettingView)
         val title = ta.getString(R.styleable.ItemSettingView_title)
+        val visiable = ta.getInt(R.styleable.ItemSettingView_arrowVisiable,1)
         ta.recycle()
-        EzLog.d("title${title}")
         binding.tvTitle.text = title
+        binding.ivArrow.visibility = if(visiable == 1) View.VISIBLE else View.GONE
     }
 }

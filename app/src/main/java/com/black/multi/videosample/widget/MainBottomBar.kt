@@ -12,7 +12,7 @@ import com.black.multi.videosample.model.BottomBar
 import com.black.multi.videosample.model.Destination
 import com.black.multi.videosample.model.Tab
 import com.black.multi.videosample.utils.AppConfig
-import com.black.multi.videosample.utils.AppGlobals
+import com.black.xcommon.utils.AppGlobals
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -109,7 +109,7 @@ class MainBottomBar : BottomNavigationView {
         }
     }
 
-    private fun getItemId(pageUrl: String): Int {
+    open fun getItemId(pageUrl: String): Int {
         val destination: Destination = AppConfig.getDestConfig()?.get(pageUrl) ?: return -1
         return destination.id
     }

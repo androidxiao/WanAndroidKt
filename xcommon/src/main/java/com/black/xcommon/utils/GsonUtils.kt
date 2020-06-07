@@ -1,9 +1,9 @@
-package com.black.multi.videosample.utils
+package com.black.xcommon.utils
 
-import com.black.multi.videosample.utils.gson.DateDeserializer
-import com.black.multi.videosample.utils.gson.DateSerializer
-import com.black.multi.videosample.utils.gson.StrDateDeserializer
-import com.black.multi.videosample.utils.gson.StrDateSerializer
+import com.black.xcommon.utils.gson.DateDeserializer
+import com.black.xcommon.utils.gson.DateSerializer
+import com.black.xcommon.utils.gson.StrDateDeserializer
+import com.black.xcommon.utils.gson.StrDateSerializer
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import java.lang.reflect.Type

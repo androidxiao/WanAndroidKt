@@ -10,9 +10,13 @@ import com.black.multi.videosample.R
 import com.black.multi.videosample.api.net.Status
 import com.black.multi.videosample.base.ui.BaseFragment
 import com.black.multi.videosample.databinding.FragmentLoginInBinding
-import com.black.multi.videosample.utils.*
+import com.black.multi.videosample.utils.Is_Login
+import com.black.multi.videosample.utils.LOGIN_IN_PAGE
+import com.black.multi.videosample.utils.REGISTER_PAGE
+import com.black.multi.videosample.utils.toast
 import com.black.multi.videosample.viewmodel.LoginVM
 import com.black.xcommon.utils.EzLog
+import com.black.xcommon.utils.GsonUtils
 import com.jeremyliao.liveeventbus.LiveEventBus
 
 /**
@@ -33,15 +37,11 @@ class LoginInFragment : BaseFragment<FragmentLoginInBinding>(), View.OnClickList
     override fun afterInitView(bundle: Bundle?) {
     }
 
-    private fun initListener() {
-        binding.idBtnLogin.setOnClickListener(this)
-        binding.btnToRegister.setOnClickListener(this)
+    override fun initListener():Array<Int> {
+        return arrayOf(R.id.id_btn_login,R.id.btn_to_register)
     }
 
     private fun toRegister() {
-//        val destination = AppConfig.getDestConfig()!![REGISTER_PAGE]
-//        val navOptions =
-//        Navigation.findNavController(activity as FragmentActivity, R.id.btn_to_register).navigate(destination!!.id, null, navOptions)
         navigateToNextPage()
     }
 

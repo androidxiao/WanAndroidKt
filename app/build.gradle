@@ -2,6 +2,10 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: "kotlin-kapt"
+//这个是和 aspectj 同步的，因为原生的 aspectj 代码不支持 kotlin，所以这里使用 hujiang 的 plugin
+//apply plugin: 'aspectj.dep'
+apply plugin: 'android-aspectjx'
+
 def ext = rootProject.ext
 def dep = rootProject.dep
 android {
@@ -65,12 +69,18 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+
+    aspectjx {
+        //排除所有package路径中包含`android.support`的class文件及库（jar文件）
+        //如果报错就先 exclude 掉第三方的包，如下所示：
+        exclude 'androidx','com.google','com.squareup','io.reactivex'
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation dep.appcompat
     implementation dep.constrainlayout
+    implementation project(":aoputils")
     implementation project(":xcommon")
     implementation project(":libnavannotation")
     kapt project(":libnavcompiler")

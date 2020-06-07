@@ -2,26 +2,23 @@ package com.black.multi.videosample.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.black.multi.libnavannotation.FragmentDestination
 import com.black.multi.videosample.R
-import com.black.multi.videosample.api.net.Status
+import com.black.multi.videosample.api.net.Resource
 import com.black.multi.videosample.base.baseadapter.IRecycleViewCallback
-import com.black.multi.videosample.base.ui.BaseFragment
+import com.black.multi.videosample.base.ui.BaseListFragmentBinding
 import com.black.multi.videosample.databinding.FragmentHomeBinding
 import com.black.multi.videosample.model.DataX
+import com.black.multi.videosample.model.HomeModel
 import com.black.multi.videosample.ui.adapter.HomeAdapter
 import com.black.multi.videosample.utils.HOME_DETAIL_PAGE
 import com.black.multi.videosample.utils.HOME_PAGE
 import com.black.multi.videosample.utils.HomeDetailFragment_Title
 import com.black.multi.videosample.utils.HomeDetailFragment_Url
+import com.black.multi.videosample.viewmodel.BaseViewModel
 import com.black.multi.videosample.viewmodel.HomeVm
-import com.scwang.smartrefresh.layout.api.RefreshLayout
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
-import kotyoxutils.EzLog
-
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
 /**
  * Created by wei.
@@ -29,9 +26,8 @@ import kotyoxutils.EzLog
  * Description:
  */
 @FragmentDestination(pageUrl = HOME_PAGE, asStartPage = true)
-class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnRefreshLoadMoreListener {
+class HomeFragment : BaseListFragmentBinding<FragmentHomeBinding,HomeModel>() {
 
-    private var page = 0
     private lateinit var mAdapter: HomeAdapter
     private lateinit var mBean:DataX
 
@@ -39,22 +35,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnRefreshLoadMoreListe
         val instance = HomeFragment()
     }
 
-    private val vm: HomeVm by viewModels()
-
     override fun beforeInitView(savedInstanceState: Bundle?) {
 
     }
 
+    override fun createViewModel(): BaseViewModel<HomeModel> {
+        return HomeVm()
+    }
+
     override fun initView(savedInstanceState: Bundle?) {
-        binding.refreshLayout.setEnableLoadMore(true)
-        binding.refreshLayout.setOnRefreshLoadMoreListener(this)
+        mSmartRefreshLayout = binding.refreshLayout
+        setTipView(mSmartRefreshLayout)
+        super.initViews(savedInstanceState)
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_home
 
     override fun afterInitView(savedInstanceState: Bundle?) {
         fillData()
-        fetchData()
     }
 
     @SuppressLint("ResourceType")
@@ -82,30 +80,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnRefreshLoadMoreListe
         return bundle
     }
 
-    private fun fetchData() {
-        vm.getHomeData(page).observe(this, Observer {
-            when (it.status) {
-                Status.LOADING -> {
-                }
-                Status.SUCCESS -> {
-                    if (page == 0) {
-                        binding.refreshLayout.finishRefresh()
-                        mAdapter.setData(it.data?.datas)
-                    } else {
-                        binding.refreshLayout.finishLoadMore()
-                        mAdapter.addData(it.data?.datas)
-                    }
-
-                }
-                Status.ERROR -> {
-                    EzLog.d("HomeFg--->" + it.msg)
-                }
-            }
-        })
-    }
-
-
-
     override fun onResume() {
         super.onResume()
         binding.bannerView.startAnimation()
@@ -116,15 +90,25 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnRefreshLoadMoreListe
         binding.bannerView.stopAnimation()
     }
 
-    override fun onRefresh(refreshLayout: RefreshLayout) {
-        page = 0
-        fetchData()
+    override fun fetchDataLoading() {
     }
 
+    override fun fetchDataError(error: String?) {
+    }
 
-    override fun onLoadMore(refreshLayout: RefreshLayout) {
-        page++
-        fetchData()
+    override fun fetchDataSuccess(
+        it: Resource<HomeModel>,
+        isRefresh: Boolean,
+        smartRefreshLayout: SmartRefreshLayout?,
+        page: Int
+    ) {
+        if (page == 0) {
+            binding.refreshLayout.finishRefresh()
+            mAdapter.setData(it.data?.datas)
+        } else {
+            binding.refreshLayout.finishLoadMore()
+            mAdapter.addData(it.data?.datas)
+        }
     }
 
 

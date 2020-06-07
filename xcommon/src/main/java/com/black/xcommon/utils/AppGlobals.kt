@@ -1,4 +1,4 @@
-package com.black.multi.videosample.utils
+package com.black.xcommon.utils
 
 import android.app.Application
 import java.lang.reflect.InvocationTargetException

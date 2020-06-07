@@ -2,6 +2,9 @@ package com.black.multi.videosample.utils
 
 import android.content.Context
 import android.widget.Toast
+import com.black.multi.aoputils.utils.User
+import com.black.multi.videosample.model.LoginModel
+import com.black.xcommon.utils.GsonUtils
 
 /**
  * Created by wei.
@@ -13,3 +16,9 @@ fun Context.toast(message: CharSequence) =
 
 fun Context.toast(message: Int) =
         Toast.makeText(this, getString(message), Toast.LENGTH_SHORT).show()
+
+fun userName():String{
+        val loginModel = GsonUtils.getGson().fromJson<LoginModel>(User.user, LoginModel::class.java)
+        return loginModel.username
+
+}

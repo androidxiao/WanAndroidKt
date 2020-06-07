@@ -1,4 +1,4 @@
-package com.black.multi.videosample.utils
+package com.black.xcommon.utils
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

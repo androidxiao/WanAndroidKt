@@ -4,9 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.black.multi.videosample.base.baseadapter.IRecycleViewCallback
 import com.black.multi.videosample.base.baseadapter.SimpleBaseAdapter
 import com.black.multi.videosample.model.CollectChapterData
-import com.black.multi.videosample.model.KnowledgeSubList
 import com.black.multi.videosample.ui.vh.CollectVH
-import com.black.multi.videosample.ui.vh.KnowledgeListVH
 
 /**
  * Created by wei.

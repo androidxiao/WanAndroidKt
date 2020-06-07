@@ -1,4 +1,4 @@
-package com.black.multi.videosample.utils.gson
+package com.black.xcommon.utils.gson
 
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer

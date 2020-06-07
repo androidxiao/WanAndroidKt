@@ -10,6 +10,7 @@ import org.apache.http.conn.ConnectTimeoutException
 import org.json.JSONException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import javax.net.ssl.SSLHandshakeException
 
 /**
@@ -54,7 +55,7 @@ object ExceptionHandle {
             SERVICE_UNAVAILABLE -> {
                 exceptionMsg = "< SERVICE_UNAVAILABLE > 服务器不可用"
             }
-            HTTP_ERROR ->{
+            HTTP_ERROR -> {
                 exceptionMsg = "< SERVICE_UNAVAILABLE > 协议出错"
             }
             else -> {
@@ -67,15 +68,16 @@ object ExceptionHandle {
         return exceptionMsg
     }
 
-    fun handleException(e:Exception):String{
-        return when(e){
-            is JsonParseException-> "解析出错"
+    fun handleException(e: Exception): String {
+        return when (e) {
+            is JsonParseException -> "解析出错"
             is JSONException -> "解析出错"
             is ParseException -> "解析出错"
             is ConnectException -> "连接失败"
             is SSLHandshakeException -> "证书验证失败"
             is ConnectTimeoutException -> "连接超时"
             is SocketTimeoutException -> "连接超时"
+            is UnknownHostException -> "请检查网络连接"
             else -> "未知错误"
         }
     }
@@ -85,6 +87,7 @@ object ExceptionHandle {
          * 协议出错
          */
         const val HTTP_ERROR = 1003
+
         /**
          * 请先登录
          */
@@ -94,7 +97,7 @@ object ExceptionHandle {
     /**
      * 是否是约定错误
      */
-    fun isConstraintError(code:Int):Boolean{
+    fun isConstraintError(code: Int): Boolean {
         return when (code) {
             LOGIN_FIRST -> {
                 LiveEventBus.get(Login_First).post(false)

@@ -5,23 +5,37 @@ import android.text.TextUtils
 import android.view.MenuItem
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.black.multi.aoputils.annotation.CheckNetStatus
+import com.black.multi.aoputils.annotation.Login_Out
+import com.black.multi.aoputils.utils.UserManager
 import com.black.multi.videosample.R
 import com.black.multi.videosample.base.ui.BaseActivity
 import com.black.multi.videosample.databinding.ActivityMainBinding
-import com.black.multi.videosample.utils.AppConfig
-import com.black.multi.videosample.utils.NavGraphBuilder
-import com.black.multi.videosample.utils.ShowHideBottomBar
-import com.black.multi.videosample.utils.UserManager
+import com.black.multi.videosample.utils.*
 import com.black.xcommon.utils.EzLog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class MainActivity : BaseActivity<ActivityMainBinding>(), BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity<ActivityMainBinding>(),
+    BottomNavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var navController: NavController
 
     override fun beforeInitView(savedInstanceState: Bundle?) {
+        observableIsLoginByAspect()
+    }
 
+    private fun observableIsLoginByAspect() {
+        UserManager.instance.setIsLoginListener { loginType ->
+            if (loginType == Login_Out) {
+                mBinding.mainBottomBar.apply {
+                    selectedItemId = getItemId(HOME_PAGE)
+                }
+            } else {
+                val destination = AppConfig.getDestConfig()!![LOGIN_IN_PAGE]
+                navController.navigate(destination!!.id)
+            }
+        }
     }
 
     override fun getLayoutId() = R.layout.activity_main
@@ -30,15 +44,27 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), BottomNavigationView.O
         super.initView(savedInstanceState)
         initNavConfig()
         initTitle()
-        var isLight = true
+        clickSearch()
+    }
+
+
+    private fun clickSearch() {
+
         mBinding.includeToolbar.tvRight.setOnClickListener {
-            if (isLight) {
-                isLight = false
-                nightOrDay(1.0f, 0.5f)
-            } else {
-                isLight = true
-                nightOrDay(0.5f, 1.0f)
-            }
+            isDark()
+        }
+    }
+
+    @CheckNetStatus
+//    @ShowDialog
+    private fun isDark(){
+        var isLight = true
+        if (isLight) {
+            isLight = false
+            nightOrDay(1.0f, 0.5f)
+        } else {
+            isLight = true
+            nightOrDay(0.5f, 1.0f)
         }
     }
 
@@ -49,7 +75,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), BottomNavigationView.O
         NavGraphBuilder.build(this, navController, navHostFg!!.id)
         mBinding.mainBottomBar.setOnNavigationItemSelectedListener(this)
 
-        ShowHideBottomBar.instance.showHideBottomBar(navController, mBinding.includeToolbar.toolbar, mBinding.mainBottomBar)
+        ShowHideBottomBar.instance.showHideBottomBar(
+            navController,
+            mBinding.includeToolbar.toolbar,
+            mBinding.mainBottomBar
+        )
     }
 
     override fun afterInitView(savedInstanceState: Bundle?) {
@@ -102,7 +132,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), BottomNavigationView.O
                 return
             }
 
-            //否则，直接 finish
+            //直接 finish
             finish()
         }
     }

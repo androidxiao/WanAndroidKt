@@ -12,9 +12,13 @@ import com.black.multi.videosample.R
 import com.black.multi.videosample.api.net.Status
 import com.black.multi.videosample.base.ui.BaseFragment
 import com.black.multi.videosample.databinding.FragmentSignUpLayoutBinding
-import com.black.multi.videosample.utils.*
+import com.black.multi.videosample.utils.AppConfig
+import com.black.multi.videosample.utils.LOGIN_IN_PAGE
+import com.black.multi.videosample.utils.REGISTER_PAGE
+import com.black.multi.videosample.utils.toast
 import com.black.multi.videosample.viewmodel.LoginVM
 import com.black.xcommon.utils.EzLog
+import com.black.xcommon.utils.GsonUtils
 
 /**
  * Created by wei.
@@ -30,9 +34,8 @@ class RegisterInFragment : BaseFragment<FragmentSignUpLayoutBinding>(),View.OnCl
        initListener()
     }
 
-    private fun initListener(){
-        binding.btnRegister.setOnClickListener(this)
-        binding.btnToLogin.setOnClickListener(this)
+    override fun initListener():Array<Int>{
+        return arrayOf(R.id.btn_register,R.id.btn_to_login)
     }
 
     private fun toLogin(){

@@ -11,8 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
-import com.black.multi.videosample.R
-import com.black.multi.videosample.utils.*
+import com.black.multi.videosample.utils.AppConfig
+import com.black.multi.videosample.utils.LOGIN_IN_PAGE
+import com.black.multi.videosample.utils.Login_First
+import com.black.multi.videosample.utils.ShowHideBottomBar
+import com.black.xcommon.tips.DefaultTipsHelper
+import com.black.xcommon.tips.IBaseView
+import com.black.xcommon.tips.TipsHelper
 import com.black.xcommon.utils.EzLog
 import com.jeremyliao.liveeventbus.LiveEventBus
 
@@ -21,10 +26,11 @@ import com.jeremyliao.liveeventbus.LiveEventBus
  * Date: 2020/5/24 下午7:40
  * Description:
  */
-abstract class BaseFragment<B : ViewDataBinding> :Fragment() {
+abstract class BaseFragment<B : ViewDataBinding> :Fragment(), IBaseView, View.OnClickListener {
 
     protected lateinit var binding: B
     protected var ivBack:ImageView?=null
+    private var mTipsHelper: TipsHelper? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,20 +41,33 @@ abstract class BaseFragment<B : ViewDataBinding> :Fragment() {
         binding = DataBindingUtil.inflate(inflater!!, getLayoutId(), container, false)
         observableIsLogin()
         initView(savedInstanceState)
+        val initListener = initListener()
+        if (initListener != null) {
+            for(i in initListener)
+            binding.root.findViewById<View>(i).setOnClickListener(this)
+        }
         navigationUp()
         afterInitView(savedInstanceState)
         return binding.root
     }
 
+    protected open fun initListener():Array<Int>?{
+        return null
+    }
+
+
+    /**
+     * 监听是否登录
+     */
     private fun observableIsLogin(){
         LiveEventBus.get(Login_First).observe(this, Observer {
-            context!!.toast(R.string.login_first)
             toLogin()
         })
     }
 
     private fun toLogin(){
-        navigate(LOGIN_IN_PAGE)
+        val navOptions = NavOptions.Builder().setLaunchSingleTop(true).build()
+        navigate(LOGIN_IN_PAGE,navOptions = navOptions)
     }
 
     private fun navigationUp(){
@@ -71,6 +90,7 @@ abstract class BaseFragment<B : ViewDataBinding> :Fragment() {
         NavHostFragment.findNavController(this).popBackStack()
     }
 
+    //-------------------------------------------------------------------
     /**
      * 根据 pageUrl 跳转到具体的页面
      */
@@ -100,13 +120,52 @@ abstract class BaseFragment<B : ViewDataBinding> :Fragment() {
         return null
     }
 
+    //-------------------------------------------------------------------
+
     /**
-     * 直接添加参数，直接跳转
+     * 添加参数，直接跳转
      */
     protected open fun navigate(destination:String,bundle: Bundle?=null,navOptions: NavOptions?=null) {
         val destination = AppConfig.getDestConfig()!![destination]
         NavHostFragment.findNavController(this).navigate(destination!!.id,bundle,navOptions)
     }
+
+    open fun setTipView(view: View?) {
+        if (mTipsHelper == null) mTipsHelper = DefaultTipsHelper(context, view)
+    }
+
+    /**
+     * 需要在数据回调的地方手动调用
+     */
+    override fun onRefreshEmpty() {
+        if (mTipsHelper != null) {
+            mTipsHelper!!.showEmpty()
+        }
+    }
+
+    override fun onRefreshFailure(message: String?) {
+        if (mTipsHelper!=null) {
+            mTipsHelper!!.hideEmpty()
+            mTipsHelper!!.hideLoading()
+            mTipsHelper!!.showError(true, message) { v -> onRetryBtnClick() }
+        }
+    }
+
+    override fun showLoading() {
+        if (mTipsHelper != null) {
+            mTipsHelper!!.showLoading(true)
+        }
+    }
+
+    override fun showContent() {
+        if (mTipsHelper != null) {
+            mTipsHelper!!.hideEmpty()
+            mTipsHelper!!.hideError()
+            mTipsHelper!!.hideLoading()
+        }
+    }
+
+    protected open fun onRetryBtnClick() {}
 
     abstract fun beforeInitView(bundle: Bundle?)
 
@@ -115,4 +174,7 @@ abstract class BaseFragment<B : ViewDataBinding> :Fragment() {
     abstract fun afterInitView(bundle: Bundle?)
 
     protected abstract fun getLayoutId(): Int
+
+    override fun onClick(v: View) {
+    }
 }

@@ -1,3 +1,4 @@
+include ':aoputils'
 rootProject.name='VideoSample'
 include ':app'
 include ':libnavannotation'

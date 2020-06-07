@@ -1,15 +1,11 @@
 package com.black.multi.videosample.api
 
-import com.black.multi.videosample.base.ui.BaseFragment
-import com.black.multi.videosample.utils.AppGlobals
-import com.black.xcommon.utils.EzLog
+import com.black.xcommon.utils.AppGlobals
 import com.franmontiel.persistentcookiejar.ClearableCookieJar
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.google.gson.GsonBuilder
-import okhttp3.HttpUrl
-import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -35,7 +31,8 @@ object ApiClient {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
         //添加 coolie
-        val cookieJar: ClearableCookieJar = PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(AppGlobals.getApplication()))
+        val cookieJar: ClearableCookieJar = PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(
+            AppGlobals.getApplication()))
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         val client: OkHttpClient = okHttpClient.newBuilder()

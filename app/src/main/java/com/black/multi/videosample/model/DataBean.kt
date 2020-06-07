@@ -45,7 +45,7 @@ data class Destination(
         var pageUrl: String
 )
 
-//------------------------------------------------------------HomeModel
+//------------------------------------------------------------首页列表
 data class HomeModel(
         val curPage: Int,
         val datas: List<DataX>,
@@ -95,7 +95,7 @@ data class Tag(
         val url: String
 )
 
-//----------------------------------------KnowledgeListModel----------------------//
+//----------------------------------------知识体系列表-------------------
 data class KnowledgeListModel(
         val curPage: Int,
         val datas: List<KnowledgeSubList>,
@@ -139,7 +139,7 @@ data class KnowledgeSubList(
         val visible: Int,
         val zan: Int
 )
-//-------------------------------------------------------------------KnowledgeModel
+//----------------------------------------------------------------知识体系
 data class KnowledgeModel(
         val children: List<Children>,
         val courseId: Int,
@@ -162,7 +162,7 @@ data class Children(
         val visible: Int
 )
 
-//-------------------------------------------------------------LoginModel
+//-------------------------------------------------------------登录
 data class LoginModel(
         val chapterTops: MutableList<String>,
         val collectIds: MutableList<String>,
@@ -175,7 +175,7 @@ data class LoginModel(
         val username: String
 )
 
-//--------------------------------------------------------------NavModel
+//--------------------------------------------------------------导航数据
 data class NavModel(
         val articles: List<Article>,
         val cid: Int,
@@ -216,7 +216,7 @@ data class Article(
         val zan: Int
 )
 
-//-----------------------------------------------------------ProjectListModel
+//-----------------------------------------------------------项目列表
 data class ProjectListModel(
         val curPage: Int,
         val datas: List<ProjectListData>,
@@ -266,7 +266,7 @@ data class ProjectListTag(
         val url: String
 )
 
-//----------------------------------------------------------------ProjectTitleModel
+//----------------------------------------------------------------项目标题
 data class ProjectTitleModel(val courseId: Int = 0){
     var children: List<Any>?=null
     //    val courseId: Int = 0
@@ -279,7 +279,7 @@ data class ProjectTitleModel(val courseId: Int = 0){
     var visible: Int = 0
 }
 
-//--------------------------------------------------------------CollectChapterModel
+//--------------------------------------------------------------收藏列表
 data class CollectChapterModel(
     val curPage: Int,
     val datas: List<CollectChapterData>,
@@ -307,4 +307,12 @@ data class CollectChapterData(
     val userId: Int,
     val visible: Int,
     val zan: Int
+)
+
+//-------------------------------------------个人积分
+data class PersonalScoreModel(
+    val coinCount: Int,
+    val rank: Int,
+    val userId: Int,
+    val username: String
 )

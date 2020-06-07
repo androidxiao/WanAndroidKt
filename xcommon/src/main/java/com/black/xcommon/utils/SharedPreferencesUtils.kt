@@ -1,4 +1,4 @@
-package com.black.multi.videosample.utils
+package com.black.xcommon.utils
 
 import android.content.Context
 import android.content.SharedPreferences

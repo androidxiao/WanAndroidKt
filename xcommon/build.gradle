@@ -26,11 +26,16 @@ android {
         }
     }
 
+    dataBinding{
+        enabled true
+    }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api dep.appcompat
     api  dep.okhttp3
     api  dep.ktx
     api  dep.okhttp3log

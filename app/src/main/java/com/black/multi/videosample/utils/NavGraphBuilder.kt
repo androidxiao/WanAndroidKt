@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.NavGraphNavigator
 import com.black.multi.videosample.widget.ShowHideFragmentNavigator
+import com.black.xcommon.utils.AppGlobals
 
 /**
  * Created by wei.

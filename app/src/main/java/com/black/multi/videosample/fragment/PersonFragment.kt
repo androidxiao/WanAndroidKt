@@ -3,11 +3,15 @@ package com.black.multi.videosample.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import com.black.multi.aoputils.annotation.IsLogin
+import com.black.multi.aoputils.utils.UserManager
 import com.black.multi.libnavannotation.FragmentDestination
 import com.black.multi.videosample.R
+import com.black.multi.videosample.api.net.Status
 import com.black.multi.videosample.base.ui.BaseFragment
 import com.black.multi.videosample.databinding.FragmentPersonBinding
 import com.black.multi.videosample.utils.*
+import com.black.multi.videosample.viewmodel.LoginVM
 import com.jeremyliao.liveeventbus.LiveEventBus
 
 /**
@@ -23,7 +27,6 @@ class PersonFragment : BaseFragment<FragmentPersonBinding>(), View.OnClickListen
 
     override fun initView(savedInstanceState: Bundle?) {
         isLogin()
-        initListener()
     }
 
     private fun isLogin(){
@@ -32,9 +35,8 @@ class PersonFragment : BaseFragment<FragmentPersonBinding>(), View.OnClickListen
         binding.tvJf.visibility = if(UserManager.instance.isLogin())  View.VISIBLE else View.GONE
     }
 
-    private fun initListener() {
-        binding.btnToLogin.setOnClickListener(this)
-        binding.myCollect.setOnClickListener(this)
+    override fun initListener():Array<Int>?{
+        return arrayOf(R.id.btn_to_login,R.id.my_collect,R.id.login_out)
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_person
@@ -45,8 +47,23 @@ class PersonFragment : BaseFragment<FragmentPersonBinding>(), View.OnClickListen
 
     private fun getLiveDataBusEvent(){
         LiveEventBus.get(Is_Login).observe(this, Observer{
+            getPersonalScore()
             binding.btnToLogin.visibility = View.GONE
+            binding.tvName.text = userName()
             UserManager.instance.saveLoginUserInfo(it.toString())
+        })
+    }
+
+    //登录成功后获取个人信息
+    private fun getPersonalScore(){
+        LoginVM.instance.getPersonalScore().observe(this, Observer {
+            when(it.status){
+                Status.SUCCESS ->{
+                    val data = it.data
+                    binding.tvJf.text = "${data?.coinCount}+\"\""
+                    binding.tvDj.text = "${data?.rank}+\"\""
+                }
+            }
         })
     }
 
@@ -56,10 +73,29 @@ class PersonFragment : BaseFragment<FragmentPersonBinding>(), View.OnClickListen
             R.id.btn_to_login -> {
                 navigate(LOGIN_IN_PAGE)
             }
+
             R.id.my_collect -> {
-                navigate(COLLECT_PAGE)
+                toCollect()
+            }
+            R.id.login_out->{
+                loginOut()
             }
         }
+    }
+    @IsLogin(-1)
+    private fun loginOut(){
+        LoginVM.instance.loginOut().observe(this, Observer {
+            when(it.status){
+                Status.SUCCESS->{
+                    isLogin()
+                }
+            }
+        })
+    }
+
+    @IsLogin()
+    private fun toCollect(){
+        navigate(COLLECT_PAGE)
     }
 
 

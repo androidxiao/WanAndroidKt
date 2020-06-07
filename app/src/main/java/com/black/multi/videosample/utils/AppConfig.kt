@@ -3,7 +3,8 @@ package com.black.multi.videosample.utils
 import android.content.res.AssetManager
 import com.black.multi.videosample.model.BottomBar
 import com.black.multi.videosample.model.Destination
-import com.black.multi.videosample.utils.GsonUtils.getGson
+import com.black.xcommon.utils.AppGlobals
+import com.black.xcommon.utils.GsonUtils.getGson
 import com.google.gson.reflect.TypeToken
 import java.io.BufferedReader
 import java.io.IOException

@@ -46,10 +46,10 @@ class KnowledgeListFragment : BaseFragment<FragmentKnowledgeSubListBinding>(), O
 
     override fun initView(bundle: Bundle?) {
         ivBack = binding.includeToolbar.ivBack
-        initListener()
+        initRefreshListener()
     }
 
-    private fun initListener() {
+    private fun initRefreshListener() {
         binding.refreshLayout.setEnableLoadMore(true)
         binding.refreshLayout.setOnRefreshLoadMoreListener(this)
     }

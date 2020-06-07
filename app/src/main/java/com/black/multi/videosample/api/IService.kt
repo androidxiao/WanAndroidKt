@@ -49,7 +49,21 @@ interface IService {
     @GET("lg/collect/list/{page}/json")
     suspend fun collectChapterList(@Path("page") page:Int): Response<ServiceResponse<CollectChapterModel>>
 
+    //获取个人积分
+    @GET("lg/coin/userinfo/json")
+    suspend fun getPersonalScore(): Response<ServiceResponse<PersonalScoreModel>>
+
     //收藏站内文章
+    @FormUrlEncoded
     @POST("lg/collect/{id}/json")
     suspend fun collectInnerChapter(@Path("id") id:Int):Response<ServiceResponse<Any>>
+
+    //收藏站内文章
+    @FormUrlEncoded
+    @POST("lg/uncollect/{id}/json")
+    suspend fun unCollectInnerChapter(@Path("id") id:Int,@Field("originId") originId:Int):Response<ServiceResponse<Any>>
+
+    //退出登录
+    @GET("user/logout/json")
+    suspend fun loginOut():Response<ServiceResponse<Any>>
 }

@@ -1,23 +1,26 @@
-package com.black.multi.videosample.utils.gson
+package com.black.xcommon.utils.gson
 
 import com.google.gson.JsonElement
 import com.google.gson.JsonPrimitive
 import com.google.gson.JsonSerializationContext
 import com.google.gson.JsonSerializer
 import java.lang.reflect.Type
+import java.text.SimpleDateFormat
 import java.util.*
 
 /**
  * Created by wei.
- * Date: 2020/5/24 下午10:44
+ * Date: 2020/5/24 下午10:46
  * Description:
  */
-class DateSerializer : JsonSerializer<Date> {
+class StrDateSerializer : JsonSerializer<Date> {
     override fun serialize(
-        src: Date,
+        src: Date?,
         typeOfSrc: Type?,
         context: JsonSerializationContext?
     ): JsonElement {
-        return JsonPrimitive(src.time)
+        val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val date = format.format(src)
+        return JsonPrimitive(date)
     }
 }

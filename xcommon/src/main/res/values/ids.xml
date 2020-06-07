@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    <item name="SimpleMultiStateView" type="id" />-->
+    <item name="retry_bt" type="id" />
+</resources>
