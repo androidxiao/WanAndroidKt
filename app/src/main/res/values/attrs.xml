@@ -4,4 +4,9 @@
         <attr name="title" format="string" />
         <attr name="arrowVisiable" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="CenterFlowLayout">
+        <attr name="center_flow_layout_childSpacing" format="dimension"/>
+        <attr name="center_flow_layout_rowSpacing" format="dimension"/>
+    </declare-styleable>
 </resources>

@@ -5,7 +5,6 @@ import android.text.TextUtils
 import android.view.MenuItem
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.black.multi.aoputils.annotation.CheckNetStatus
 import com.black.multi.aoputils.annotation.Login_Out
 import com.black.multi.aoputils.utils.UserManager
 import com.black.multi.videosample.R
@@ -32,10 +31,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
                     selectedItemId = getItemId(HOME_PAGE)
                 }
             } else {
-                val destination = AppConfig.getDestConfig()!![LOGIN_IN_PAGE]
-                navController.navigate(destination!!.id)
+                navigate(LOGIN_IN_PAGE)
             }
         }
+    }
+
+    private fun navigate(pageUrl:String){
+        val destination = AppConfig.getDestConfig()!![pageUrl]
+        navController.navigate(destination!!.id)
     }
 
     override fun getLayoutId() = R.layout.activity_main
@@ -51,20 +54,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
     private fun clickSearch() {
 
         mBinding.includeToolbar.tvRight.setOnClickListener {
-            isDark()
-        }
-    }
-
-    @CheckNetStatus
-//    @ShowDialog
-    private fun isDark(){
-        var isLight = true
-        if (isLight) {
-            isLight = false
-            nightOrDay(1.0f, 0.5f)
-        } else {
-            isLight = true
-            nightOrDay(0.5f, 1.0f)
+            navigate(SEARCH_KEY_PAGE)
         }
     }
 

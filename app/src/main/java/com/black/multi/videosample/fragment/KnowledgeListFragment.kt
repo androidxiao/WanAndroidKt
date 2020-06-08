@@ -2,23 +2,24 @@ package com.black.multi.videosample.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.black.multi.libnavannotation.FragmentDestination
 import com.black.multi.videosample.R
-import com.black.multi.videosample.api.net.Status
+import com.black.multi.videosample.api.net.Resource
 import com.black.multi.videosample.base.baseadapter.IRecycleViewCallback
-import com.black.multi.videosample.base.ui.BaseFragment
+import com.black.multi.videosample.base.ui.BaseListFragmentBinding
 import com.black.multi.videosample.databinding.FragmentKnowledgeSubListBinding
+import com.black.multi.videosample.model.KnowledgeListModel
 import com.black.multi.videosample.model.KnowledgeSubList
 import com.black.multi.videosample.ui.adapter.KnowledgeListAdapter
 import com.black.multi.videosample.utils.HOME_DETAIL_PAGE
 import com.black.multi.videosample.utils.HomeDetailFragment_Title
 import com.black.multi.videosample.utils.HomeDetailFragment_Url
 import com.black.multi.videosample.utils.KNOWLEDGE_LIST_PAGE
+import com.black.multi.videosample.viewmodel.BaseViewModel
 import com.black.multi.videosample.viewmodel.KnowledgeVm
-import com.scwang.smartrefresh.layout.api.RefreshLayout
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 
 /**
@@ -31,9 +32,8 @@ const val KnowledgeListFragment_Cid = "cid"
 const val KnowledgeListFragment_Title = "title"
 
 @FragmentDestination(pageUrl = KNOWLEDGE_LIST_PAGE)
-class KnowledgeListFragment : BaseFragment<FragmentKnowledgeSubListBinding>(), OnRefreshLoadMoreListener {
+class KnowledgeListFragment : BaseListFragmentBinding<FragmentKnowledgeSubListBinding, KnowledgeListModel>(), OnRefreshLoadMoreListener {
 
-    private var page = 0
     private lateinit var mAdapter: KnowledgeListAdapter
     private var cid = 0
     private var title: String? = null
@@ -45,13 +45,10 @@ class KnowledgeListFragment : BaseFragment<FragmentKnowledgeSubListBinding>(), O
     }
 
     override fun initView(bundle: Bundle?) {
+        mSmartRefreshLayout = binding.refreshLayout
+        setTipView(mSmartRefreshLayout)
+        super.initViews(bundle)
         ivBack = binding.includeToolbar.ivBack
-        initRefreshListener()
-    }
-
-    private fun initRefreshListener() {
-        binding.refreshLayout.setEnableLoadMore(true)
-        binding.refreshLayout.setOnRefreshLoadMoreListener(this)
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_knowledge_sub_list
@@ -59,7 +56,6 @@ class KnowledgeListFragment : BaseFragment<FragmentKnowledgeSubListBinding>(), O
     override fun afterInitView(savedInstanceState: Bundle?) {
         initData()
         fillData()
-        fetchData()
     }
 
     private fun initData() {
@@ -99,37 +95,18 @@ class KnowledgeListFragment : BaseFragment<FragmentKnowledgeSubListBinding>(), O
                 .build()
     }
 
-    private fun fetchData() {
-        KnowledgeVm.instance.getKnowledgeList(page, cid).observe(this, Observer {
-            when (it.status) {
-                Status.LOADING -> {
-
-                }
-                Status.SUCCESS -> {
-                    if (page == 0) {
-                        binding.refreshLayout.finishRefresh()
-                        mAdapter.setData(it.data?.datas)
-                    } else {
-                        binding.refreshLayout.finishLoadMore()
-                        mAdapter.addData(it.data?.datas)
-                    }
-                }
-                Status.ERROR -> {
-
-                }
-            }
-        })
+    override fun createViewModel(): BaseViewModel<KnowledgeListModel> {
+        val vm = KnowledgeVm.instance
+        vm.cid = cid
+        return vm
     }
 
-    override fun onLoadMore(refreshLayout: RefreshLayout) {
-        page++
-        fetchData()
+    override fun fetchDataSuccess(it: Resource<KnowledgeListModel>, isRefresh: Boolean, smartRefreshLayout: SmartRefreshLayout?, page: Int) {
+        if (page == 0) {
+            mAdapter.setData(it.data?.datas)
+        } else {
+            mAdapter.addData(it.data?.datas)
+        }
     }
-
-    override fun onRefresh(refreshLayout: RefreshLayout) {
-        page = 0
-        fetchData()
-    }
-
 
 }

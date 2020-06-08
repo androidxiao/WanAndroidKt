@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<kotyox.widget.XRoundTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:x_radius="@dimen/dp20"
+    app:x_backgroundColor="@color/white"
+    app:x_fontEnableColor="@color/font_content_color"
+    android:paddingBottom="@dimen/dp4"
+    android:paddingTop="@dimen/dp4"
+    android:paddingRight="@dimen/dp10"
+    android:paddingLeft="@dimen/dp10"
+    tools:text="测试"
+    android:layout_height="wrap_content" />

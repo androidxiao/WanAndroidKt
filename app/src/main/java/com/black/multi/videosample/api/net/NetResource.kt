@@ -29,8 +29,8 @@ abstract class NetResource<T> {
                     val serviceResponse = response.body()
                     var data = serviceResponse?.data
                     if (ExceptionHandle.isConstraintError(serviceResponse!!.errorCode)) {
-                        val handleException = ExceptionHandle.handleException(serviceResponse!!.errorCode, serviceResponse!!.errorMsg!!)
-                        EzLog.d("${serviceResponse!!.errorMsg!!}")
+                        val handleException = ExceptionHandle.handleException(serviceResponse.errorCode, serviceResponse.errorMsg!!)
+                        EzLog.d("${serviceResponse.errorMsg}")
                         emit(Resource.error(handleException, null))
                     } else {
                         emit(Resource.success(data))

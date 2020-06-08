@@ -13,4 +13,6 @@ object User : SharedPreferencesUtils.Delegates() {
 
     var isLogin by boolean()
     var user by string()
+    var isNightModel by boolean()
+    var userScore by string()
 }

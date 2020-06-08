@@ -47,7 +47,7 @@ interface IService {
 
     //收藏文章列表
     @GET("lg/collect/list/{page}/json")
-    suspend fun collectChapterList(@Path("page") page:Int): Response<ServiceResponse<CollectChapterModel>>
+    suspend fun collectChapterList(@Path("page") page: Int): Response<ServiceResponse<CollectChapterModel>>
 
     //获取个人积分
     @GET("lg/coin/userinfo/json")
@@ -56,14 +56,27 @@ interface IService {
     //收藏站内文章
     @FormUrlEncoded
     @POST("lg/collect/{id}/json")
-    suspend fun collectInnerChapter(@Path("id") id:Int):Response<ServiceResponse<Any>>
+    suspend fun collectInnerChapter(@Path("id") id: Int): Response<ServiceResponse<Any>>
 
     //收藏站内文章
     @FormUrlEncoded
     @POST("lg/uncollect/{id}/json")
-    suspend fun unCollectInnerChapter(@Path("id") id:Int,@Field("originId") originId:Int):Response<ServiceResponse<Any>>
+    suspend fun unCollectInnerChapter(@Path("id") id: Int, @Field("originId") originId: Int): Response<ServiceResponse<Any>>
 
     //退出登录
     @GET("user/logout/json")
-    suspend fun loginOut():Response<ServiceResponse<Any>>
+    suspend fun loginOut(): Response<ServiceResponse<Any>>
+
+    //积分排行
+    @GET("coin/rank/{page}/json")
+    suspend fun scoreRank(@Path("page") page: Int): Response<ServiceResponse<RankScoreModel>>
+
+    //热搜关键字
+    @GET("hotkey/json")
+    suspend fun hotSearchKey(): Response<ServiceResponse<List<HotSearchModel>>>
+
+    //搜索列表
+    @FormUrlEncoded
+    @POST("article/query/{page}/json")
+    suspend fun searchChapterList(@Path("page") page: Int, @Field("k") k: String): Response<ServiceResponse<HomeModel>>
 }

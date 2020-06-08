@@ -19,7 +19,7 @@ class NavTitleAdapter :
     private var mDatas: List<String>?=null
     private var selectPosition = 0
 
-    open fun setDatas(data: List<String>) {
+    fun setDatas(data: List<String>) {
         mDatas = data;
         notifyDataSetChanged()
     }
@@ -92,7 +92,7 @@ class NavTitleAdapter :
         val mBind = binding
     }
 
-    open fun setChoose(position: Int) {
+    fun setChoose(position: Int) {
         selectPosition = position
 //        notifyItemChanged(position)
         notifyDataSetChanged()

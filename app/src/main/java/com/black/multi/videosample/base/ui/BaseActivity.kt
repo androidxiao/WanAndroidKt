@@ -11,6 +11,8 @@ import androidx.databinding.ViewDataBinding
  * Date: 2020/5/24 上午10:40
  * Description:
  */
+const val alphaAnimationDuration = 500L
+
 abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
 
     lateinit var mBinding: B
@@ -37,10 +39,10 @@ abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
         mBinding.executePendingBindings()
     }
 
-    protected fun nightOrDay(from:Float, to :Float) {
+    open fun nightOrDay(from:Float, to :Float) {
         val window = window
         val valueAnimator = ValueAnimator.ofFloat(from, to)
-        valueAnimator.duration = 500
+        valueAnimator.duration = alphaAnimationDuration
         valueAnimator.addUpdateListener { animation ->
             val params = window.attributes
             params.alpha = animation?.animatedValue as Float

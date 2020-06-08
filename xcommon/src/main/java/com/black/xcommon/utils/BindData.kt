@@ -1,6 +1,8 @@
 package com.black.xcommon.utils
 
+import android.text.Html
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.black.xcommon.imageloader.ImageLoader
 import com.black.xcommon.imageloader.glide.ImageConfigImpl
@@ -10,7 +12,7 @@ import com.black.xcommon.imageloader.glide.ImageConfigImpl
  * Date: 2020/5/29 9:20
  * Desc:
  */
-object BindImage {
+object BindData {
 
     @BindingAdapter("app:url")
     @JvmStatic
@@ -20,5 +22,11 @@ object BindImage {
                         .cacheStrategy(1)
                         .imageRadius(8)
                         .isCircle(false).imageView(iv).build())
+    }
+
+    @BindingAdapter("app:title")
+    @JvmStatic
+    fun bindHtmlText(tv: TextView, text: String) {
+        tv.text = Html.fromHtml(text)
     }
 }

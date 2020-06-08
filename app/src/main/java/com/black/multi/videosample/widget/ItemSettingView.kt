@@ -16,6 +16,8 @@ import kotyox.layout.XConstraintLayout
  */
 class ItemSettingView : XConstraintLayout {
 
+    lateinit var binding : LayoutSettingViewBinding
+
     constructor(context: Context) : super(context) {
         initView(context, null)
     }
@@ -29,12 +31,16 @@ class ItemSettingView : XConstraintLayout {
     }
 
     private fun initView(context: Context, attributeSet: AttributeSet?) {
-        val binding = DataBindingUtil.inflate<LayoutSettingViewBinding>(LayoutInflater.from(context), R.layout.layout_setting_view, this,true)
+        binding = DataBindingUtil.inflate<LayoutSettingViewBinding>(LayoutInflater.from(context), R.layout.layout_setting_view, this,true)
         val ta = context.obtainStyledAttributes(attributeSet, R.styleable.ItemSettingView)
         val title = ta.getString(R.styleable.ItemSettingView_title)
         val visiable = ta.getInt(R.styleable.ItemSettingView_arrowVisiable,1)
         ta.recycle()
         binding.tvTitle.text = title
         binding.ivArrow.visibility = if(visiable == 1) View.VISIBLE else View.GONE
+    }
+
+    open fun setTitle(title:String){
+        binding.tvTitle.text = title
     }
 }

@@ -22,7 +22,8 @@ import io.reactivex.schedulers.Schedulers
 class ShowHideBottomBar {
 
     private var id: Int? = null
-    private var isMain:Boolean?=null
+    private var isMain: Boolean? = null
+
     companion object {
         val instance: ShowHideBottomBar by lazy { ShowHideBottomBar() }
     }
@@ -48,7 +49,7 @@ class ShowHideBottomBar {
                                     //先找对应的 id，找到后，再判断该 id 是不是首页的几个 tab 中的一个
                                     //如果不是，则隐藏 toolbar 和 bottomBar
                                     if (id == value.id) {
-                                        if (value.pageUrl.equals(HOME_PAGE, ignoreCase = true) || value.pageUrl.equals(KNOWLEDGE_PAGE, ignoreCase = true) || value.pageUrl.equals(PROJECT_PAGE, ignoreCase = true) || value.pageUrl.equals(NAV_PAGE, ignoreCase = true) || value.pageUrl.equals(PERSON_PAGE, ignoreCase = true)) {
+                                        if (isMainPage(value)) {
                                             return Observable.just(false)
 
                                         }
@@ -73,6 +74,14 @@ class ShowHideBottomBar {
             }
 
         })
+    }
+
+    private fun isMainPage(value: Destination):Boolean{
+        return isMainPage(value, HOME_PAGE) || isMainPage(value, KNOWLEDGE_PAGE) || isMainPage(value, PROJECT_PAGE) || isMainPage(value, NAV_PAGE) || isMainPage(value, PERSON_PAGE)
+    }
+
+    private fun isMainPage(value: Destination, pageUrl: String): Boolean {
+        return value.pageUrl.equals(pageUrl, ignoreCase = true)
     }
 
     open fun getId() = id

@@ -26,6 +26,7 @@ class HomeVH(owner: LifecycleOwner,
         callback) {
     override fun onBind(bean: DataX) {
         binding.bean = bean
+
         binding.ivCollect.isSelected = bean.collect
         binding.ivCollect.setOnClickListener {
             CollectVM.instance.collectChapter(bean.id).observe(owner, Observer {

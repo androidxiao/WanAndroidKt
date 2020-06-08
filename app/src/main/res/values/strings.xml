@@ -2,4 +2,7 @@
 <resources  xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
     <string name="app_name">VideoSample</string>
     <string name="login_first">请先登录!</string>
+    <string name="score">积分</string>
+    <string name="level">等级</string>
+    <string name="rank">排名</string>
 </resources>

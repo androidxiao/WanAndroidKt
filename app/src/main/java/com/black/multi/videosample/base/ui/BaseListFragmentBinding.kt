@@ -16,24 +16,24 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener
  * Date: 2020/6/5 下午10:26
  * Description:
  */
-abstract class BaseListFragmentBinding<B : ViewDataBinding,T> :BaseFragment<B>(), OnRefreshListener,
-    OnLoadMoreListener {
+abstract class BaseListFragmentBinding<B : ViewDataBinding, T> : BaseFragment<B>(), OnRefreshListener,
+        OnLoadMoreListener {
 
     protected var page = 0
-    protected var isRefresh = true
-    protected lateinit var mSmartRefreshLayout:SmartRefreshLayout
+    private var isRefresh = true
+    protected var mSmartRefreshLayout: SmartRefreshLayout?=null
     protected lateinit var mViewModel: BaseViewModel<T>
 
     protected open fun initViews(
-        savedInstanceState: Bundle?
+            savedInstanceState: Bundle?
     ) {
         mViewModel = createViewModel()
         if (mSmartRefreshLayout != null) {
-            mSmartRefreshLayout.setOnRefreshListener(this)
-            mSmartRefreshLayout.setOnLoadMoreListener(this)
-            mSmartRefreshLayout.setEnableLoadMore(true)
+            mSmartRefreshLayout!!.setOnRefreshListener(this)
+            mSmartRefreshLayout!!.setOnLoadMoreListener(this)
+            mSmartRefreshLayout!!.setEnableLoadMore(true)
             showLoading()
-            mSmartRefreshLayout.autoRefresh()
+            mSmartRefreshLayout!!.autoRefresh()
         }
     }
 
@@ -53,34 +53,43 @@ abstract class BaseListFragmentBinding<B : ViewDataBinding,T> :BaseFragment<B>()
 
     private fun fetchData() {
         mViewModel.getModels().observe(this,
-            Observer {
-                when (it.status) {
-                    Status.LOADING -> if (isRefresh) {
-                        fetchDataLoading()
+                Observer {
+                    when (it.status) {
+                        Status.LOADING -> if (isRefresh) {
+                            fetchDataLoading()
+                        }
+                        Status.SUCCESS -> {
+                            finishSmartRefreshLayout()
+                            showContent()
+                            stopLoadData()
+                            fetchDataSuccess(it, isRefresh, mSmartRefreshLayout, page)
+                        }
+                        Status.ERROR -> {
+                            finishSmartRefreshLayout()
+                            onRefreshFailure(it.msg)
+                            fetchDataError(it.msg)
+                        }
                     }
-                    Status.SUCCESS -> {
-                        mSmartRefreshLayout.finishRefresh()
-                        showContent()
-                        stopLoadData()
-                        fetchDataSuccess(it, isRefresh, mSmartRefreshLayout, page)
-                    }
-                    Status.ERROR -> {
-                        onRefreshFailure(it.msg)
-                        fetchDataError(it.msg)
-                    }
-                }
-            })
+                })
     }
 
-    protected open fun fetchDataLoading(){}
+    private fun finishSmartRefreshLayout(){
+        if (page == 0) {
+            mSmartRefreshLayout!!.finishRefresh()
+        } else {
+            mSmartRefreshLayout!!.finishLoadMore()
+        }
+    }
 
-    protected open fun fetchDataError(error: String?){}
+    protected open fun fetchDataLoading() {}
+
+    protected open fun fetchDataError(error: String?) {}
 
     private fun stopLoadData() {
         if (isRefresh) {
-            mSmartRefreshLayout.finishRefresh()
+            mSmartRefreshLayout!!.finishRefresh()
         } else {
-            mSmartRefreshLayout.finishLoadMore()
+            mSmartRefreshLayout!!.finishLoadMore()
         }
     }
 
@@ -97,9 +106,9 @@ abstract class BaseListFragmentBinding<B : ViewDataBinding,T> :BaseFragment<B>()
     }
 
     protected abstract fun fetchDataSuccess(
-        resource: Resource<T>,
-        isRefresh: Boolean,
-        smartRefreshLayout: SmartRefreshLayout?,
-        page: Int
+            resource: Resource<T>,
+            isRefresh: Boolean,
+            smartRefreshLayout: SmartRefreshLayout?,
+            page: Int
     )
 }

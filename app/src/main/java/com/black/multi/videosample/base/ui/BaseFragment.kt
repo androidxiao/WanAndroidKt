@@ -38,7 +38,7 @@ abstract class BaseFragment<B : ViewDataBinding> :Fragment(), IBaseView, View.On
         savedInstanceState: Bundle?
     ): View? {
         beforeInitView(savedInstanceState)
-        binding = DataBindingUtil.inflate(inflater!!, getLayoutId(), container, false)
+        binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
         observableIsLogin()
         initView(savedInstanceState)
         val initListener = initListener()

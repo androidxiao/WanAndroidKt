@@ -1,5 +1,6 @@
 package com.black.multi.videosample.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.black.multi.libnavannotation.FragmentDestination
@@ -7,16 +8,13 @@ import com.black.multi.videosample.R
 import com.black.multi.videosample.api.net.Resource
 import com.black.multi.videosample.base.baseadapter.IRecycleViewCallback
 import com.black.multi.videosample.base.ui.BaseListFragmentBinding
-import com.black.multi.videosample.databinding.FragmentHomeBinding
+import com.black.multi.videosample.databinding.FragmentSearchBinding
 import com.black.multi.videosample.model.DataX
 import com.black.multi.videosample.model.HomeModel
 import com.black.multi.videosample.ui.adapter.HomeAdapter
-import com.black.multi.videosample.utils.HOME_DETAIL_PAGE
-import com.black.multi.videosample.utils.HOME_PAGE
-import com.black.multi.videosample.utils.HomeDetailFragment_Title
-import com.black.multi.videosample.utils.HomeDetailFragment_Url
+import com.black.multi.videosample.utils.*
 import com.black.multi.videosample.viewmodel.BaseViewModel
-import com.black.multi.videosample.viewmodel.HomeVm
+import com.black.multi.videosample.viewmodel.SearchVm
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
 /**
@@ -24,38 +22,64 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
  * Date: 2020/5/18 下午10:49
  * Description:
  */
-@FragmentDestination(pageUrl = HOME_PAGE, asStartPage = true)
-class HomeFragment : BaseListFragmentBinding<FragmentHomeBinding,HomeModel>() {
+
+const val k = "k"
+
+@FragmentDestination(pageUrl = SEARCH_PAGE)
+class SearchFragment : BaseListFragmentBinding<FragmentSearchBinding, HomeModel>() {
 
     private lateinit var mAdapter: HomeAdapter
-    private lateinit var mBean:DataX
+    private lateinit var mBean: DataX
+    private var key: String? = null
 
     companion object {
-        val instance = HomeFragment()
+        val instance = SearchFragment()
     }
 
-    override fun beforeInitView(savedInstanceState: Bundle?) {
-
+    override fun beforeInitView(bundle: Bundle?) {
+        key = arguments?.getString(k)
     }
 
     override fun createViewModel(): BaseViewModel<HomeModel> {
-        return HomeVm()
+        val vm = SearchVm()
+        vm.k = key!!
+        return vm
     }
 
     override fun initView(savedInstanceState: Bundle?) {
         mSmartRefreshLayout = binding.refreshLayout
         setTipView(mSmartRefreshLayout)
         super.initViews(savedInstanceState)
+        ivBack = binding.includeToolbar.ivBack
     }
 
-    override fun getLayoutId(): Int = R.layout.fragment_home
+    override fun getLayoutId(): Int = R.layout.fragment_search
 
     override fun afterInitView(savedInstanceState: Bundle?) {
+        initData()
+        search()
         fillData()
     }
 
+    private fun initData(){
+        binding.includeToolbar.etSearch.setText(key)
+    }
+
+    private fun search(){
+        binding.includeToolbar.tvSearch.setOnClickListener {
+            val searchText = binding.includeToolbar.etSearch.text.toString()
+            val notEmpty = searchText.isNotEmpty()
+            if(notEmpty) {
+                (mViewModel as SearchVm).k = searchText
+                onRefresh(binding.refreshLayout)
+            }else{
+                activity?.toast("关键字不能为空!")
+            }
+        }
+    }
+
+    @SuppressLint("ResourceType")
     private fun fillData() {
-        binding.bannerView.initView(this)
         mAdapter = HomeAdapter(this, IRecycleViewCallback<DataX> { bean, itemView ->
             run {
                 mBean = bean
@@ -67,25 +91,15 @@ class HomeFragment : BaseListFragmentBinding<FragmentHomeBinding,HomeModel>() {
         binding.recycleView.adapter = mAdapter
     }
 
-    override fun nextPageUrl():String?{
+    override fun nextPageUrl(): String? {
         return HOME_DETAIL_PAGE
     }
 
     override fun getBundle(): Bundle? {
         val bundle = Bundle()
-        bundle.putString(HomeDetailFragment_Url,mBean.link)
-        bundle.putString(HomeDetailFragment_Title,mBean.title)
+        bundle.putString(HomeDetailFragment_Url, mBean.link)
+        bundle.putString(HomeDetailFragment_Title, mBean.title)
         return bundle
-    }
-
-    override fun onResume() {
-        super.onResume()
-        binding.bannerView.startAnimation()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        binding.bannerView.stopAnimation()
     }
 
     override fun fetchDataLoading() {
@@ -95,10 +109,10 @@ class HomeFragment : BaseListFragmentBinding<FragmentHomeBinding,HomeModel>() {
     }
 
     override fun fetchDataSuccess(
-        it: Resource<HomeModel>,
-        isRefresh: Boolean,
-        smartRefreshLayout: SmartRefreshLayout?,
-        page: Int
+            it: Resource<HomeModel>,
+            isRefresh: Boolean,
+            smartRefreshLayout: SmartRefreshLayout?,
+            page: Int
     ) {
         if (page == 0) {
             mAdapter.setData(it.data?.datas)

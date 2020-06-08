@@ -316,3 +316,31 @@ data class PersonalScoreModel(
     val userId: Int,
     val username: String
 )
+
+//-------------------------------------------积分排行
+data class RankScoreModel(
+    val curPage: Int,
+    val datas: List<RankScoreDataX>,
+    val offset: Int,
+    val over: Boolean,
+    val pageCount: Int,
+    val size: Int,
+    val total: Int
+)
+
+data class RankScoreDataX(
+    val coinCount: Int,
+    val level: Int,
+    val rank: String,
+    val userId: Int,
+    val username: String
+)
+
+//--------------------------------------------------热搜关键字
+data class HotSearchModel(
+    val id: Int,
+    val link: String,
+    val name: String,
+    val order: Int,
+    val visible: Int
+)

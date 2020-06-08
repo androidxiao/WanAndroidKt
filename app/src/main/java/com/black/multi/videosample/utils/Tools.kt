@@ -20,5 +20,4 @@ fun Context.toast(message: Int) =
 fun userName():String{
         val loginModel = GsonUtils.getGson().fromJson<LoginModel>(User.user, LoginModel::class.java)
         return loginModel.username
-
 }

@@ -1,6 +1,5 @@
 package com.black.multi.videosample.viewmodel
 
-import androidx.lifecycle.ViewModel
 import com.black.multi.videosample.api.IService
 import com.black.multi.videosample.api.ServiceResponse
 import com.black.multi.videosample.api.net.NetResource
@@ -13,7 +12,7 @@ import retrofit2.Response
  * Date: 2020/5/25 15:57
  * Desc:
  */
-class KnowledgeVm : ViewModel(){
+class KnowledgeVm : BaseViewModel<KnowledgeListModel>(){
 
     companion object{
         val instance : KnowledgeVm by lazy { KnowledgeVm() }
@@ -25,8 +24,9 @@ class KnowledgeVm : ViewModel(){
         }
     }.fetchData()
 
+    var cid = 0
 
-    fun getKnowledgeList(page:Int,cid:Int)=object : NetResource<KnowledgeListModel>(){
+    override fun getModels()=object : NetResource<KnowledgeListModel>(){
         override suspend fun requestNetResource(api: IService): Response<ServiceResponse<KnowledgeListModel>>? {
             return api.getKnowledgeList(page,cid)
         }

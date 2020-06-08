@@ -36,6 +36,7 @@ class LoginAspect {
         if(loginType == Login_Out){
             UserManager.instance.clear()
             loginListener(isLoginAnnotation.loginType)
+            joinPoint.proceed()
             return
         }
         if (isLogin) {
