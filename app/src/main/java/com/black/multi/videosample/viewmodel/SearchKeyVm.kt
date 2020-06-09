@@ -13,7 +13,7 @@ import retrofit2.Response
  * Date: 2020/5/25 15:57
  * Desc:
  */
-class SearchKeyVm : BaseViewModel<List<HotSearchModel>>() {
+class SearchKeyVm : BaseListViewModel<List<HotSearchModel>>() {
 
     companion object{
         val INSTANCE : SearchKeyVm by lazy { SearchKeyVm() }

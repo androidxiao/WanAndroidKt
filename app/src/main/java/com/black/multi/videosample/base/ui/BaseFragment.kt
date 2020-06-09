@@ -8,6 +8,7 @@ import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
@@ -19,6 +20,7 @@ import com.black.xcommon.tips.DefaultTipsHelper
 import com.black.xcommon.tips.IBaseView
 import com.black.xcommon.tips.TipsHelper
 import com.black.xcommon.utils.EzLog
+import com.blankj.utilcode.util.KeyboardUtils
 import com.jeremyliao.liveeventbus.LiveEventBus
 
 /**
@@ -73,6 +75,9 @@ abstract class BaseFragment<B : ViewDataBinding> :Fragment(), IBaseView, View.On
     private fun navigationUp(){
         if (ivBack != null) {
             ivBack?.setOnClickListener {
+
+                KeyboardUtils.hideSoftInput(activity as FragmentActivity)
+
                 val id = ShowHideBottomBar.instance.getId()
                 val isMain = ShowHideBottomBar.instance.getIsMain()
                 EzLog.d("navigationUp--finish--to--page--id--->${ShowHideBottomBar.instance.getId()}----isMain-->${isMain}")

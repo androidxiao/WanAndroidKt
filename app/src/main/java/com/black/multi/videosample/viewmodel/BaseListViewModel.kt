@@ -9,7 +9,7 @@ import com.black.multi.videosample.api.net.Resource
  * Date: 2020/6/5 下午10:34
  * Description:
  */
-abstract class BaseViewModel<T> :ViewModel() {
+abstract class BaseListViewModel<T> :ViewModel() {
 
     var page = 0
 

@@ -35,7 +35,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    api dep.appcompat
+    api  dep.appcompat
     api  dep.okhttp3
     api  dep.ktx
     api  dep.okhttp3log
@@ -49,7 +49,7 @@ dependencies {
     api  dep.lifecycle_viewmodel_ktx
     api  dep.lifecycle_runtime_ktx
     //图片加载
-    api dep.glide
+    api  dep.glide
 //    api 'jp.wasabeef:glide-transformations:4.0.0'
     kapt dep.glide_compiler
 }

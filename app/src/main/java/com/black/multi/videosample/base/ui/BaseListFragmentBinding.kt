@@ -5,7 +5,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.black.multi.videosample.api.net.Resource
 import com.black.multi.videosample.api.net.Status
-import com.black.multi.videosample.viewmodel.BaseViewModel
+import com.black.multi.videosample.viewmodel.BaseListViewModel
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
@@ -22,7 +22,7 @@ abstract class BaseListFragmentBinding<B : ViewDataBinding, T> : BaseFragment<B>
     protected var page = 0
     private var isRefresh = true
     protected var mSmartRefreshLayout: SmartRefreshLayout?=null
-    protected lateinit var mViewModel: BaseViewModel<T>
+    protected lateinit var mViewModel: BaseListViewModel<T>
 
     protected open fun initViews(
             savedInstanceState: Bundle?
@@ -37,7 +37,7 @@ abstract class BaseListFragmentBinding<B : ViewDataBinding, T> : BaseFragment<B>
         }
     }
 
-    protected abstract fun createViewModel(): BaseViewModel<T>
+    protected abstract fun createViewModel(): BaseListViewModel<T>
 
     /**
      * 刷新

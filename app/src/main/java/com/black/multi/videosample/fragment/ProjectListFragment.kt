@@ -16,8 +16,9 @@ import com.black.multi.videosample.utils.HOME_DETAIL_PAGE
 import com.black.multi.videosample.utils.HomeDetailFragment_Title
 import com.black.multi.videosample.utils.HomeDetailFragment_Url
 import com.black.multi.videosample.utils.PROJECT_LIST_PAGE
-import com.black.multi.videosample.viewmodel.BaseViewModel
+import com.black.multi.videosample.viewmodel.BaseListViewModel
 import com.black.multi.videosample.viewmodel.ProjectVm
+import com.black.xcommon.utils.EzLog
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
 /**
@@ -26,23 +27,25 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
  * Description:
  */
 @FragmentDestination(pageUrl = PROJECT_LIST_PAGE)
-class ProjectListFragment(id:Int) : BaseListFragmentBinding<FragmentProjectListBinding,ProjectListModel>(){
+class ProjectListFragment : BaseListFragmentBinding<FragmentProjectListBinding,ProjectListModel>(){
 
     private var cid : Int= 0
     private lateinit var mAdapter: ProjectListAdapter
 
     companion object {
         fun getInstance(id:Int):Fragment{
-            val instance = ProjectListFragment(id)
+            val instance = ProjectListFragment()
             val bundle = Bundle()
             bundle.putInt("id",id)
             instance.arguments = bundle
+            EzLog.d("mTitle-cccccccc-->${id}")
             return instance
         }
     }
 
     override fun beforeInitView(savedInstanceState: Bundle?) {
         cid = arguments!!.getInt("id",-1)
+        EzLog.d("mTitle--->${cid}")
     }
 
     override fun initView(bundle: Bundle?) {
@@ -71,8 +74,10 @@ class ProjectListFragment(id:Int) : BaseListFragmentBinding<FragmentProjectListB
         binding.recycleView.adapter = mAdapter
     }
 
-    override fun createViewModel(): BaseViewModel<ProjectListModel> {
+    override fun createViewModel(): BaseListViewModel<ProjectListModel> {
         val vm  = ProjectVm()
+
+
         vm.cid = cid
         return vm
     }

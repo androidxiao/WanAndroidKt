@@ -47,16 +47,16 @@ class ProjectFragment : BaseFragment<FragmentProjectBinding>() {
         })
     }
 
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        val fragments =
-            childFragmentManager.fragments
-        for (fragment in fragments) {
-            if (fragment.isAdded && fragment.isVisible) {
-                fragment.onHiddenChanged(hidden)
-                break
-            }
-        }
-    }
+//    override fun onHiddenChanged(hidden: Boolean) {
+//        super.onHiddenChanged(hidden)
+//        val fragments =
+//            childFragmentManager.fragments
+//        for (fragment in fragments) {
+//            if (fragment.isAdded && fragment.isVisible) {
+//                fragment.onHiddenChanged(hidden)
+//                break
+//            }
+//        }
+//    }
 
 }

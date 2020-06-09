@@ -13,7 +13,7 @@ import retrofit2.Response
  * Date: 2020/6/2 14:09
  * Desc:
  */
-class CollectVM : BaseViewModel<CollectChapterModel>() {
+class CollectVM : BaseListViewModel<CollectChapterModel>() {
 
     companion object {
         val instance: CollectVM by lazy { CollectVM() }

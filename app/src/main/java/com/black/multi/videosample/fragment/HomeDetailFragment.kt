@@ -1,6 +1,7 @@
 package com.black.multi.videosample.fragment
 
 import android.os.Bundle
+import android.text.Html
 import android.view.ViewGroup
 import com.black.multi.libnavannotation.FragmentDestination
 import com.black.multi.videosample.R
@@ -31,7 +32,7 @@ class HomeDetailFragment : BaseAgentWebFragment<FragmentHomeDetailBinding>() {
     }
 
     private fun initTitle(){
-        binding.includeToolbar.titleTv.text = title
+        binding.includeToolbar.titleTv.text = Html.fromHtml(title)
     }
 
     private fun getBundleData() {

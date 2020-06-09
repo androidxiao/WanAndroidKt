@@ -14,7 +14,7 @@ import retrofit2.Response
  * Date: 2020/5/25 15:57
  * Desc:
  */
-class HomeVm : BaseViewModel<HomeModel>() {
+class HomeVm : BaseListViewModel<HomeModel>() {
 
     companion object{
         val instance : HomeVm by lazy { HomeVm() }

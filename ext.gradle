@@ -30,7 +30,7 @@ ext {
             ac_ktx:'androidx.activity:activity-ktx:1.0.0',
             nav_fg:'androidx.navigation:navigation-fragment:2.1.0',
             nav_ui:'androidx.navigation:navigation-ui:2.1.0',
-            viewpager2:'androidx.viewpager2:viewpager2:1.0.0-beta04',
+            viewpager2:'androidx.viewpager2:viewpager2:1.1.0-alpha01',
             material:'com.google.android.material:material:1.1.0-alpha10',
             roundwidget:'cn.round.widget:roundwidget:1.0.30',
             smart_refresh_layout:'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0',
@@ -43,6 +43,10 @@ ext {
             flexbox:'com.google.android:flexbox:2.0.1',
             leakcanary:'com.squareup.leakcanary:leakcanary-android:2.3',
             aspectj:'org.aspectj:aspectjrt:1.9.5',
-            multitype:'com.drakeet.multitype:multitype:4.2.0'
+            multitype:'com.drakeet.multitype:multitype:4.2.0',
+            roomKt:'androidx.room:room-ktx:2.2.5',
+            roomRuntime:'androidx.room:room-runtime:2.2.5',
+            roomCompiler:'androidx.room:room-compiler:2.2.5',
+            utilCode:'com.blankj:utilcodex:1.29.0',
     ]
 }

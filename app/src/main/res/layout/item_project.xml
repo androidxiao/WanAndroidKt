@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/dp8"
                 android:paddingRight="@dimen/dp8"
-                android:text="@{bean.chapterName}"
+                app:title="@{bean.chapterName}"
                 app:layout_constraintRight_toRightOf="parent"
                 app:x_backgroundColor="@color/colorPrimary"
                 app:x_fontEnableColor="@color/white"

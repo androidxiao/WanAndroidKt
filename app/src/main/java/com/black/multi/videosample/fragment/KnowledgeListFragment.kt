@@ -17,7 +17,7 @@ import com.black.multi.videosample.utils.HOME_DETAIL_PAGE
 import com.black.multi.videosample.utils.HomeDetailFragment_Title
 import com.black.multi.videosample.utils.HomeDetailFragment_Url
 import com.black.multi.videosample.utils.KNOWLEDGE_LIST_PAGE
-import com.black.multi.videosample.viewmodel.BaseViewModel
+import com.black.multi.videosample.viewmodel.BaseListViewModel
 import com.black.multi.videosample.viewmodel.KnowledgeVm
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
@@ -95,7 +95,7 @@ class KnowledgeListFragment : BaseListFragmentBinding<FragmentKnowledgeSubListBi
                 .build()
     }
 
-    override fun createViewModel(): BaseViewModel<KnowledgeListModel> {
+    override fun createViewModel(): BaseListViewModel<KnowledgeListModel> {
         val vm = KnowledgeVm.instance
         vm.cid = cid
         return vm

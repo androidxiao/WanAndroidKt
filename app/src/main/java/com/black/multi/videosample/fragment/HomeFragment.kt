@@ -15,7 +15,7 @@ import com.black.multi.videosample.utils.HOME_DETAIL_PAGE
 import com.black.multi.videosample.utils.HOME_PAGE
 import com.black.multi.videosample.utils.HomeDetailFragment_Title
 import com.black.multi.videosample.utils.HomeDetailFragment_Url
-import com.black.multi.videosample.viewmodel.BaseViewModel
+import com.black.multi.videosample.viewmodel.BaseListViewModel
 import com.black.multi.videosample.viewmodel.HomeVm
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
@@ -38,7 +38,7 @@ class HomeFragment : BaseListFragmentBinding<FragmentHomeBinding,HomeModel>() {
 
     }
 
-    override fun createViewModel(): BaseViewModel<HomeModel> {
+    override fun createViewModel(): BaseListViewModel<HomeModel> {
         return HomeVm()
     }
 

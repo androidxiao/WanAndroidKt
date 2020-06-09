@@ -4,14 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.black.multi.libnavannotation.FragmentDestination
 import com.black.multi.videosample.R
 import com.black.multi.videosample.api.net.Status
+import com.black.multi.videosample.base.baseadapter.IRecycleViewCallback
 import com.black.multi.videosample.base.ui.BaseFragment
 import com.black.multi.videosample.databinding.FragmentSearchKeyBinding
+import com.black.multi.videosample.model.database.SearchEntity
+import com.black.multi.videosample.ui.adapter.SearchAdapter
 import com.black.multi.videosample.utils.SEARCH_KEY_PAGE
 import com.black.multi.videosample.utils.SEARCH_PAGE
 import com.black.multi.videosample.utils.toast
+import com.black.multi.videosample.viewmodel.SearchDaoVM
 import com.black.multi.videosample.viewmodel.SearchKeyVm
 import kotyoxutils.Px2DpUtil.dp2px
 
@@ -24,6 +29,7 @@ import kotyoxutils.Px2DpUtil.dp2px
 @FragmentDestination(pageUrl = SEARCH_KEY_PAGE)
 class SearchKeyFragment : BaseFragment<FragmentSearchKeyBinding>() {
 
+    private var entity = SearchEntity()
 
     companion object {
         val instance = SearchKeyFragment()
@@ -56,6 +62,8 @@ class SearchKeyFragment : BaseFragment<FragmentSearchKeyBinding>() {
         if (notEmpty) {
             val bundle = Bundle()
             bundle.putString(k, searchText)
+            entity.searchText = searchText
+            SearchDaoVM.instance.insertSearchText(entity).observe(this, Observer {  })
             navigate(SEARCH_PAGE, bundle)
         } else {
             activity?.toast("关键字不能为空!")
@@ -71,7 +79,7 @@ class SearchKeyFragment : BaseFragment<FragmentSearchKeyBinding>() {
                         tv.text = element.name
                         tv.tag = element.id
                         binding.centerFlowLayout.addView(tv)
-                        tv.setOnClickListener{
+                        tv.setOnClickListener {
                             binding.includeToolbar.etSearch.setText(element.name)
                             canSearch(element.name)
                         }
@@ -81,6 +89,21 @@ class SearchKeyFragment : BaseFragment<FragmentSearchKeyBinding>() {
                 }
             }
 
+        })
+
+
+        SearchDaoVM.instance.getSearchList().observe(this, Observer {
+            if (it.isNotEmpty()) {
+                val adapter = SearchAdapter(this, IRecycleViewCallback<SearchEntity> { bean, itemView ->
+                    run{
+                        canSearch(bean.searchText!!)
+                    }
+                })
+                (binding.recycleView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+                adapter.setHasStableIds(true)
+                adapter.setData(it)
+                binding.recycleView.adapter = adapter
+            }
         })
     }
 

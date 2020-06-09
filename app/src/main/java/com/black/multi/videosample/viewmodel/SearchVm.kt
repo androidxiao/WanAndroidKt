@@ -13,7 +13,7 @@ import retrofit2.Response
  * Date: 2020/5/25 15:57
  * Desc:
  */
-class SearchVm : BaseViewModel<HomeModel>() {
+class SearchVm : BaseListViewModel<HomeModel>() {
 
     companion object {
         val INSTANCE: SearchVm by lazy { SearchVm() }

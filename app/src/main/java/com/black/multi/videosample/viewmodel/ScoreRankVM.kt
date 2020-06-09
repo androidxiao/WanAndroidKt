@@ -13,7 +13,7 @@ import retrofit2.Response
  * Date: 2020/6/2 14:09
  * Desc:
  */
-class ScoreRankVM : BaseViewModel<RankScoreModel>() {
+class ScoreRankVM : BaseListViewModel<RankScoreModel>() {
 
     companion object {
         val instance: ScoreRankVM by lazy { ScoreRankVM() }

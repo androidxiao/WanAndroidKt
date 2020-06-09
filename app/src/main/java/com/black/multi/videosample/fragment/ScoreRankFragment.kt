@@ -12,7 +12,7 @@ import com.black.multi.videosample.model.RankScoreDataX
 import com.black.multi.videosample.model.RankScoreModel
 import com.black.multi.videosample.ui.adapter.ScoreRankAdapter
 import com.black.multi.videosample.utils.SCORE_RANK_PAGE
-import com.black.multi.videosample.viewmodel.BaseViewModel
+import com.black.multi.videosample.viewmodel.BaseListViewModel
 import com.black.multi.videosample.viewmodel.ScoreRankVM
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
@@ -57,7 +57,7 @@ class ScoreRankFragment : BaseListFragmentBinding<FragmentScoreRankBinding, Rank
     }
 
 
-    override fun createViewModel(): BaseViewModel<RankScoreModel> {
+    override fun createViewModel(): BaseListViewModel<RankScoreModel> {
         return ScoreRankVM()
     }
 

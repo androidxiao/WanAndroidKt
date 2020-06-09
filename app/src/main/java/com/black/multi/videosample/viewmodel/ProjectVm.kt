@@ -14,7 +14,7 @@ import retrofit2.Response
  * Date: 2020/5/25 15:57
  * Desc:
  */
-class ProjectVm : BaseViewModel<ProjectListModel>(){
+class ProjectVm : BaseListViewModel<ProjectListModel>(){
 
     companion object{
         val instance : ProjectVm by lazy { ProjectVm() }
@@ -26,12 +26,7 @@ class ProjectVm : BaseViewModel<ProjectListModel>(){
         }
     }.fetchData()
 
-//    fun getProjectList(page:Int,cid:Int)
     var cid:Int = 0
-
-    open fun setcid(cid: Int){
-        this.cid = cid
-    }
 
     override fun getModels(): LiveData<Resource<ProjectListModel>> =object : NetResource<ProjectListModel>(){
         override suspend fun requestNetResource(api: IService): Response<ServiceResponse<ProjectListModel>>? {

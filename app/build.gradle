@@ -99,4 +99,8 @@ dependencies {
     implementation  dep.banner
     implementation  dep.flexbox
     debugImplementation   dep.leakcanary
+    implementation  dep.roomKt
+    implementation  dep.roomRuntime
+    kapt  dep.roomCompiler
+    implementation  dep.utilCode
 }

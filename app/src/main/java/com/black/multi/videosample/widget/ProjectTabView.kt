@@ -28,15 +28,18 @@ class ProjectTabView : ConstraintLayout {
 
     private lateinit var mBind: ProjectTabViewBinding
     private lateinit var mTabMediator: TabLayoutMediator
+    private lateinit var mTitles: List<ProjectTitleModel>
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
     constructor(context: Context, attributeSet: AttributeSet, defStyle: Int) : super(context, attributeSet, defStyle)
 
     open fun initView(titles: List<ProjectTitleModel>, activity: Fragment,lifecycle: Lifecycle) {
+        mTitles = titles
         mBind = DataBindingUtil.inflate<ProjectTabViewBinding>(LayoutInflater.from(context), R.layout.project_tab_view, this, true)
         //禁止预加载
-        mBind.viewPager.offscreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
+//        mBind.viewPager.offscreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
+        mBind.viewPager.offscreenPageLimit = 1
 
         //viewPager2默认只有一种类型的Adapter。FragmentStateAdapter
         //并且在页面切换的时候 不会调用子Fragment的setUserVisibleHint，取而代之的是onPause(),onResume()
@@ -76,6 +79,8 @@ class ProjectTabView : ConstraintLayout {
                     customView.textSize = 14.0f
                 }
             }
+            mBind.viewPager.setCurrentItem(position, false)
+//            ProjectListFragment.getInstance(mTitles[position].id)
         }
     }
 

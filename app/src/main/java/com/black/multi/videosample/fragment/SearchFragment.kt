@@ -1,7 +1,7 @@
 package com.black.multi.videosample.fragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.black.multi.libnavannotation.FragmentDestination
 import com.black.multi.videosample.R
@@ -11,9 +11,11 @@ import com.black.multi.videosample.base.ui.BaseListFragmentBinding
 import com.black.multi.videosample.databinding.FragmentSearchBinding
 import com.black.multi.videosample.model.DataX
 import com.black.multi.videosample.model.HomeModel
+import com.black.multi.videosample.model.database.SearchEntity
 import com.black.multi.videosample.ui.adapter.HomeAdapter
 import com.black.multi.videosample.utils.*
-import com.black.multi.videosample.viewmodel.BaseViewModel
+import com.black.multi.videosample.viewmodel.BaseListViewModel
+import com.black.multi.videosample.viewmodel.SearchDaoVM
 import com.black.multi.videosample.viewmodel.SearchVm
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
@@ -31,6 +33,7 @@ class SearchFragment : BaseListFragmentBinding<FragmentSearchBinding, HomeModel>
     private lateinit var mAdapter: HomeAdapter
     private lateinit var mBean: DataX
     private var key: String? = null
+    private var entity = SearchEntity()
 
     companion object {
         val instance = SearchFragment()
@@ -40,7 +43,7 @@ class SearchFragment : BaseListFragmentBinding<FragmentSearchBinding, HomeModel>
         key = arguments?.getString(k)
     }
 
-    override fun createViewModel(): BaseViewModel<HomeModel> {
+    override fun createViewModel(): BaseListViewModel<HomeModel> {
         val vm = SearchVm()
         vm.k = key!!
         return vm
@@ -61,24 +64,25 @@ class SearchFragment : BaseListFragmentBinding<FragmentSearchBinding, HomeModel>
         fillData()
     }
 
-    private fun initData(){
+    private fun initData() {
         binding.includeToolbar.etSearch.setText(key)
     }
 
-    private fun search(){
+    private fun search() {
         binding.includeToolbar.tvSearch.setOnClickListener {
             val searchText = binding.includeToolbar.etSearch.text.toString()
             val notEmpty = searchText.isNotEmpty()
-            if(notEmpty) {
+            if (notEmpty) {
                 (mViewModel as SearchVm).k = searchText
+                entity.searchText = searchText
+                SearchDaoVM.instance.insertSearchText(entity).observe(this, Observer {  })
                 onRefresh(binding.refreshLayout)
-            }else{
+            } else {
                 activity?.toast("关键字不能为空!")
             }
         }
     }
 
-    @SuppressLint("ResourceType")
     private fun fillData() {
         mAdapter = HomeAdapter(this, IRecycleViewCallback<DataX> { bean, itemView ->
             run {
@@ -114,10 +118,14 @@ class SearchFragment : BaseListFragmentBinding<FragmentSearchBinding, HomeModel>
             smartRefreshLayout: SmartRefreshLayout?,
             page: Int
     ) {
-        if (page == 0) {
-            mAdapter.setData(it.data?.datas)
+        if (it.data?.datas!!.isEmpty()) {
+            onRefreshEmpty()
         } else {
-            mAdapter.addData(it.data?.datas)
+            if (page == 0) {
+                mAdapter.setData(it.data?.datas)
+            } else {
+                mAdapter.addData(it.data?.datas)
+            }
         }
     }
 

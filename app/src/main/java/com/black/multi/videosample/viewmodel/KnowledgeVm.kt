@@ -12,7 +12,7 @@ import retrofit2.Response
  * Date: 2020/5/25 15:57
  * Desc:
  */
-class KnowledgeVm : BaseViewModel<KnowledgeListModel>(){
+class KnowledgeVm : BaseListViewModel<KnowledgeListModel>(){
 
     companion object{
         val instance : KnowledgeVm by lazy { KnowledgeVm() }
