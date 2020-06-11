@@ -27,9 +27,9 @@ class UserManager private constructor(){
     }
 
     //声明 isLoginListener 是一个函数（单方法接口）,入参类型自拟，无返回值
-    lateinit var isLoginListener:(loginType:Int)->Unit
+    var isLoginListener:((loginType:Int)->Unit)?=null
 
-    open fun setIsLoginListener(isLoginListener:(Int)->Unit){
+    open fun setIsLoginListener(isLoginListener: ((Int) -> Unit)?){
         this.isLoginListener = isLoginListener
     }
 }

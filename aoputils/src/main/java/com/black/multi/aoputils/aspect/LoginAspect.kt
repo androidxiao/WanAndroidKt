@@ -3,6 +3,7 @@ package com.black.multi.aoputils.aspect
 import com.black.multi.aoputils.annotation.IsLogin
 import com.black.multi.aoputils.annotation.Login_Out
 import com.black.multi.aoputils.utils.UserManager
+import com.black.xcommon.utils.EzLog
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
@@ -26,7 +27,10 @@ class LoginAspect {
     @Around("pointCutIsLogin()")
     open fun isLogin(joinPoint: ProceedingJoinPoint) {
         val loginListener = UserManager.instance.isLoginListener
-            ?: throw Exception("isLoginListener must be init")
+        if (loginListener == null) {
+            EzLog.d("isLoginListener must be init")
+            return
+        }
 
         val signature = joinPoint.signature
         val method = (signature as MethodSignature).method
@@ -35,14 +39,14 @@ class LoginAspect {
         val loginType = isLoginAnnotation.loginType
         if(loginType == Login_Out){
             UserManager.instance.clear()
-            loginListener(isLoginAnnotation.loginType)
+            loginListener?.let { it(isLoginAnnotation.loginType) }
             joinPoint.proceed()
             return
         }
         if (isLogin) {
             joinPoint.proceed()
         } else {
-            loginListener(isLoginAnnotation.loginType)
+            loginListener?.let { it(isLoginAnnotation.loginType) }
         }
     }
 }

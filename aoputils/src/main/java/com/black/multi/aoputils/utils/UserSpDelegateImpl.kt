@@ -9,7 +9,7 @@ import com.black.xcommon.utils.SharedPreferencesUtils
  */
 object User : SharedPreferencesUtils.Delegates() {
 
-    override fun getSharedPreferencesName(): String = javaClass.simpleName
+    override fun getSharedPreferencesName(): String = User.javaClass.simpleName
 
     var isLogin by boolean()
     var user by string()

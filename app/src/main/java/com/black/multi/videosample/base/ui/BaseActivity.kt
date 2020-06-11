@@ -28,7 +28,7 @@ abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
 
     abstract fun getLayoutId():Int
 
-    open fun initView(savedInstanceState: Bundle?){
+    open fun initView(bundle: Bundle?){
         performDataBinding()
     }
 

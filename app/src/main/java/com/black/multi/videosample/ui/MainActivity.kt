@@ -122,6 +122,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
                 return
             }
 
+            UserManager.instance.setIsLoginListener(null)
+
             //直接 finish
             finish()
         }
